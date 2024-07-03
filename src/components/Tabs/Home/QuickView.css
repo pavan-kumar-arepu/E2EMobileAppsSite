@@ -1,62 +1,59 @@
-/* src/components/Home/QuickView.css */
 .quick-view {
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-    border-radius: 10px;
-    color: #333;
+    justify-content: space-around; /* Adjust spacing between items */
+    align-items: center; /* Align items vertically */
+    padding: 20px; /* Adjust padding as needed */
   }
   
   .quick-view-left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 30%;
-  }
-  
-  .profile-photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .description {
-    margin-top: 10px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
+    flex: 1; /* Take up 1/3 of the available space */
+    text-align: center; /* Center align content */
   }
   
   .quick-view-right {
-    width: 65%;
-    display: flex;
-    flex-direction: column;
+    flex: 1; /* Take up 1/3 of the available space */
+    text-align: left; /* Left align content */
+    margin: 0 20px; /* Add margin for spacing */
+  }
+  
+  .quick-view-middle {
+    flex: 1; /* Take up 1/3 of the available space */
+    text-align: center; /* Center align content */
+  }
+  
+  .profile-photo {
+    width: 200px; /* Adjust image size as needed */
+    height: auto;
+    border-radius: 50%;
+  }
+  
+  .description {
+    margin-top: 20px; /* Adjust spacing */
+    font-size: 1.2rem; /* Adjust font size */
   }
   
   .skills-category {
-    margin-bottom: 5px;
-  }
-  
-  .skills-category h3 {
-    margin-bottom: 5px;
-    font-size: 18px;
-    text-align: left;
+    margin-bottom: 20px; /* Adjust spacing */
   }
   
   .skills-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-wrap: wrap; /* Wrap skills to next line if necessary */
+    gap: 10px; /* Adjust gap between buttons */
   }
   
-  .skill-item {
-    background-color: #007bff;
+  .skill-button {
+    background-color: #007bff; /* Example blue color */
     color: white;
-    padding: 5px 10px;
+    border: none;
+    padding: 8px 12px;
     border-radius: 5px;
-    margin: 2px 0;
+    cursor: pointer;
+  }
+  
+  .mobile-app-image {
+    max-width: 100%; /* Adjust image size */
+    height: auto;
+    margin-top: 20px; /* Adjust spacing */
   }
   

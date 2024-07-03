@@ -1,7 +1,7 @@
-// src/components/Home/QuickView.js
 import React from "react";
 import "./QuickView.css";
 import pavan from "../../../assets/Pavan_newPic.png"; // Adjust the path if necessary
+import mobileAppImage from "../../../assets/mobile-apps.png"; // Adjust the path if necessary
 
 const QuickView = () => {
   const skills = {
@@ -18,23 +18,35 @@ const QuickView = () => {
       <div className="quick-view-left">
         <img src={pavan} alt="Pavan" className="profile-photo" />
         <p className="description">
-          Response to end to end Mobile application irrespective of any Mobile
-          Technology
+          Experienced in delivering comprehensive solutions for mobile
+          applications across diverse platforms, including iOS, Android, React
+          Native, and Flutter. Proficient in overseeing the complete lifecycle
+          of mobile app development, from conceptualization to deployment,
+          ensuring seamless user experiences and robust functionality.
         </p>
       </div>
+
       <div className="quick-view-right">
         {Object.keys(skills).map((category) => (
           <div key={category} className="skills-category">
             <h3>{category}</h3>
             <div className="skills-list">
               {skills[category].map((skill) => (
-                <span key={skill} className="skill-item">
+                <button key={skill} className="skill-button">
                   {skill}
-                </span>
+                </button>
               ))}
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="quick-view-middle">
+        <img
+          src={mobileAppImage}
+          alt="Mobile App"
+          className="mobile-app-image"
+        />
       </div>
     </div>
   );
