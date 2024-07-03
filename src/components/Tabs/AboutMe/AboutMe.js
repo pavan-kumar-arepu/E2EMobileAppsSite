@@ -8,7 +8,7 @@ const AboutMe = ({ tabName }) => {
   return (
     <div className="about-me" style={{ backgroundImage }}>
       <div className="about-content">
-        <h2>{`This ${tabName} Page is being prepared`}</h2>
+        {/* <h2>{`This ${tabName} Page is being prepared`}</h2> */}
         <div className="professional-summary">
           <h3>Professional Summary</h3>
           <p>
