@@ -1,17 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.16bec442.css",
-    "main.js": "/static/js/main.fe298f6c.js",
+    "main.css": "/static/css/main.a4e91386.css",
+    "main.js": "/static/js/main.b143f59b.js",
     "static/js/453.45653d8f.chunk.js": "/static/js/453.45653d8f.chunk.js",
     "static/media/casserole-pot.png": "/static/media/casserole-pot.7262e6a0bbdea37774e1.png",
     "static/media/contact.png": "/static/media/contact.6b158feca9728f274ae1.png",
+    "static/media/mobile-apps.png": "/static/media/mobile-apps.7d22564bf1b141468c48.png",
+    "static/media/Pavan_newPic.png": "/static/media/Pavan_newPic.70d75234133ae443984d.png",
+    "static/media/jnj.png": "/static/media/jnj.2d3b8d7278c66762d2da.png",
+    "static/media/smartphone.png": "/static/media/smartphone.336096d7332c4adfb72f.png",
+    "static/media/bt.png": "/static/media/bt.9e5f2c157481afda7526.png",
     "index.html": "/index.html",
-    "main.16bec442.css.map": "/static/css/main.16bec442.css.map",
-    "main.fe298f6c.js.map": "/static/js/main.fe298f6c.js.map",
+    "main.a4e91386.css.map": "/static/css/main.a4e91386.css.map",
+    "main.b143f59b.js.map": "/static/js/main.b143f59b.js.map",
     "453.45653d8f.chunk.js.map": "/static/js/453.45653d8f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.16bec442.css",
-    "static/js/main.fe298f6c.js"
+    "static/css/main.a4e91386.css",
+    "static/js/main.b143f59b.js"
   ]
 }
