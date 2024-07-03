@@ -26,11 +26,11 @@ const QuickView = () => {
         {Object.keys(skills).map((category) => (
           <div key={category} className="skills-category">
             <h3>{category}</h3>
-            <div className="skills-buttons">
+            <div className="skills-list">
               {skills[category].map((skill) => (
-                <button key={skill} className="skill-button">
+                <span key={skill} className="skill-item">
                   {skill}
-                </button>
+                </span>
               ))}
             </div>
           </div>

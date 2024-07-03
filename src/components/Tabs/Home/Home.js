@@ -11,7 +11,7 @@ import Section from "../../Section";
 const Home = () => {
   return (
     <div>
-      <Section id="quick-view" title="Quick View">
+      <Section id="quick-view" title="Quick View" style={{ marginBottom: 0 }}>
         <QuickView />
       </Section>
       <Section id="profile-summary" title="Profile Summary">
