@@ -1,0 +1,46 @@
+/* src/components/Header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+}
+
+.header-left h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.header-right .nav {
+    list-style: none;
+    display: flex;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.header-right .nav .capsule {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #333;
+    transition: left 0.3s ease, width 0.3s ease;
+}
+
+.header-right .nav li {
+    margin-left: 20px;
+    position: relative;
+}
+
+.header-right .nav li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    padding: 10px 0;
+    display: block;
+}
+
+.header-right .nav li.selected a {
+    font-weight: bold;
+}

@@ -1,0 +1,33 @@
+/* src/components/DummyScreen/DummyScreen.css */
+.dummy-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .dummy-content {
+    max-width: 600px;
+  }
+  
+  .dummy-content h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .dummy-content p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .dummy-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  

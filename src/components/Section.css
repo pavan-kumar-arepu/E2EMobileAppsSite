@@ -1,0 +1,19 @@
+.section {
+    background: linear-gradient(to right, #ffecd2, #fcb69f);
+    padding: 40px;
+    margin: 20px 0;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.section:hover {
+    transform: scale(1.02);
+}
+
+.section h2 {
+    margin-top: 0;
+}
+
+.content {
+    margin-top: 20px;
+}
