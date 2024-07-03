@@ -4,9 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Home from "./components/Tabs/Home/Home";
 import Contact from "./components/Tabs/Contact/Contact";
-
-import DummyScreen from "./components/Tabs/Dummy/DummyScreen";
-
 import ContributionScreen from "./components/Tabs/Contributions/ContributionScreen";
 import StoreApps from "./components/Tabs/StoreApps/StoreApps";
 import MyQuoteScreen from "./components/Tabs/MyQuotes/MyQuoteScreen";

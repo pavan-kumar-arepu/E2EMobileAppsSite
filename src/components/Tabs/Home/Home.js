@@ -1,10 +1,10 @@
 // src/components/Home/Home.js
 import React from "react";
-import ProfileSummary from "./ProfileSummary";
-import Awards from "./Awards";
-import Education from "./Education";
-import Experience from "./Experience";
-import CoreCompetencies from "./CoreCompetencies";
+// import ProfileSummary from "./ProfileSummary";
+// import Awards from "./Awards";
+// import Education from "./Education";
+// import Experience from "./Experience";
+// import CoreCompetencies from "./CoreCompetencies";
 import QuickView from "./QuickView"; // Import QuickView component
 import Section from "../../Section";
 import TopClients from "./TopClients";
