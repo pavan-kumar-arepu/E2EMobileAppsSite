@@ -11,12 +11,12 @@ import Section from "../../Section";
 const Home = () => {
   return (
     <div>
-      {/* <Section id="quick-view" title="Quick View">
+      <Section id="quick-view" title="Quick View">
         <QuickView />
       </Section>
       <Section id="profile-summary" title="Profile Summary">
         <ProfileSummary />
-      </Section> */}
+      </Section>
       <Section id="awards" title="Awards">
         <Awards />
       </Section>
