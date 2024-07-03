@@ -13,28 +13,24 @@ const Contact = () => {
           Let's connect and collaborate on exciting projects! Reach out to me on
           LinkedIn or WhatsApp to discuss ideas and opportunities.
         </p>
-        <h3>LinkedIn</h3>
-        <p>
-          Connect with me on LinkedIn:{" "}
-          <a
-            href="https://www.linkedin.com/in/your-linkedin-profile"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Your LinkedIn Profile
-          </a>
-        </p>
-        <h3>Indian WhatsApp Number</h3>
-        <p>+91 8121 040308</p>
-        <h3>Sweden Number</h3>
-        <p>+46 76 431 6599</p>
-        <h3>Email</h3>
-        <p>
-          Email me at:{" "}
-          <a href="mailto:iOSDeveloper.ipa@gmail.com">
-            iOSDeveloper.ipa@gmail.com
-          </a>
-        </p>
+        <h3>Contact Details</h3>
+        <strong>LinkedIn:</strong>
+        <a href="https://www.linkedin.com/in/pavan-kumar-arepu-software-architect-engineer/">
+          Pavan Kumar Arepu
+        </a>
+        <br />
+        <br />
+        <strong>GitHub:</strong>{" "}
+        <a href="https://github.com/pavan-kumar-arepu">
+          github.com/pavan-kumar-arepu
+        </a>
+        <br />
+        <br />
+        <strong>Email:</strong> iOSDeveloper.ipa@gmail.com
+        <br />
+        <br />
+        <strong>Mobile:</strong> +46 76 431 65 99 / +91 8121 04 03 08
+        <br />
       </div>
     </div>
   );

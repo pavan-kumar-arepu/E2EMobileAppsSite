@@ -9,10 +9,10 @@ const Header = () => {
   const navRef = useRef(null);
 
   const tabs = [
-    { name: "HomeNew", link: "/" }, // Updated links for other tabs
+    { name: "Home", link: "/" }, // Updated links for other tabs
     { name: "AboutMe", link: "/about" },
     { name: "Contributions", link: "/contributions" },
-    { name: "LinkedIn", link: "/linkedin" },
+    { name: "Certifications", link: "/linkedin" },
     { name: "StoreApps", link: "/apps" },
     { name: "MyQuotes", link: "/quotes" },
     { name: "Contact", link: "/contact" }, // Link to the Contact component

@@ -13,6 +13,7 @@ import MyQuoteScreen from "./components/Tabs/MyQuotes/MyQuoteScreen";
 import LinkedinScreen from "./components/Tabs/Linkedin/LinkedinScreen";
 
 import "./App.css";
+import AboutMe from "./components/Tabs/AboutMe/AboutMe";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<DummyScreen tabName="AboutMe" />} />
+          <Route path="/about" element={<AboutMe tabName="AboutMe" />} />
           <Route
             path="/contributions"
             element={<ContributionScreen tabName="Contributions" />}

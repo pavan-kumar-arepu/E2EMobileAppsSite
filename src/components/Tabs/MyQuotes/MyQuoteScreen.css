@@ -1,32 +1,41 @@
-/* src/components/DummyScreen/DummyScreen.css */
+/* src/components/Tabs/MyQuotes/MyQuoteScreen.css */
 .myQuote-screen {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(to right, #8A2387, #E94057, #F27121);
   color: white;
   text-align: center;
   padding: 20px;
 }
 
 .myQuote-content {
-  max-width: 600px;
+  max-width: 800px;
 }
 
 .myQuote-content h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
 }
 
-.myQuote-content p {
+.quote {
+  margin-bottom: 2rem;
+}
+
+.original-quote, .refined-quote {
   font-size: 1.2rem;
-  margin-bottom: 1.5rem;
+  margin: 1rem 0;
 }
 
-.myQuote-content img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
+.refined-quote {
+  font-style: italic;
+  color: #ffe6e6;
+}
+
+.author {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffcccb;
 }
