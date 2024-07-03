@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.16bec442.css",
+    "main.js": "/static/js/main.fe298f6c.js",
+    "static/js/453.45653d8f.chunk.js": "/static/js/453.45653d8f.chunk.js",
+    "static/media/casserole-pot.png": "/static/media/casserole-pot.7262e6a0bbdea37774e1.png",
+    "static/media/contact.png": "/static/media/contact.6b158feca9728f274ae1.png",
+    "index.html": "/index.html",
+    "main.16bec442.css.map": "/static/css/main.16bec442.css.map",
+    "main.fe298f6c.js.map": "/static/js/main.fe298f6c.js.map",
+    "453.45653d8f.chunk.js.map": "/static/js/453.45653d8f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.16bec442.css",
+    "static/js/main.fe298f6c.js"
+  ]
+}

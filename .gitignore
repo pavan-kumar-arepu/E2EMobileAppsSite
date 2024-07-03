@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+!/build
 
 # Ignore everything under /Users/pavankumararepu/ except /Users/pavankumararepu/Technology/DataStructures
 /Users/pavankumararepu/Technology/*
