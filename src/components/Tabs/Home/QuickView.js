@@ -1,7 +1,7 @@
 // src/components/Home/QuickView.js
 import React from "react";
 import "./QuickView.css";
-import pavan from "../../assets/Pavan_newPic.png"; // Adjust the path if necessary
+import pavan from "../../../assets/Pavan_newPic.png"; // Adjust the path if necessary
 
 const QuickView = () => {
   const skills = {
