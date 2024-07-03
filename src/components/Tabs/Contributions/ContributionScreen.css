@@ -1,7 +1,11 @@
 /* src/components/Contributions/Contributions.css */
+
 .contributions {
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.9); /* Light transparent background */
+  margin: 20px; /* Add margin to create space around the component */
+  border-radius: 8px; /* Add border radius for rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
 }
 
 .section-title {
