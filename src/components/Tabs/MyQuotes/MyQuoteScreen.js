@@ -29,7 +29,7 @@ const MyQuoteScreen = ({ tabName }) => {
   return (
     <div className="myQuote-screen">
       <div className="myQuote-content">
-        <h2>{`This ${tabName} Page`}</h2>
+        {/* <h2>{`This ${tabName} Page`}</h2> */}
         {quotes.map((quote, index) => (
           <div key={index} className="quote">
             <p className="original-quote">"{quote.original}"</p>
