@@ -1,14 +1,14 @@
 /* src/components/Tabs/Contact/Contact.css */
 
 .contact-container {
-  background-image: linear-gradient(to right,  #f5f7fa, #c3cfe2);
-  /* const backgroundImage = `linear-gradient(to right, #f5f7fa, #c3cfe2)`; */
-
-  
+  background-image: linear-gradient(to right, #f5f7fa, #c3cfe2);
   color: rgb(9, 7, 7);
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center; /* Center align content */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Ensure content is centrally aligned */
 }
 
 .contact-image {
@@ -16,11 +16,12 @@
   height: 300px; /* Set height to 300px */
   border-radius: 50%; /* Ensure image is circular */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Add shadow for effect */
-  margin: 0 auto 20px; /* Center image and add space below */
+  margin-bottom: 20px; /* Add space below the image */
 }
 
 .contact-content {
   margin-top: 20px; /* Adjust margin to separate content from image */
+  max-width: 600px; /* Optional: constrain the width for better readability */
 }
 
 .contact-container h2 {

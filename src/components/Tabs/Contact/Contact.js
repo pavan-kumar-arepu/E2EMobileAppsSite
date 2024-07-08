@@ -14,7 +14,7 @@ const Contact = () => {
           LinkedIn or WhatsApp to discuss ideas and opportunities.
         </p>
         <h3>Contact Details</h3>
-        <strong>LinkedIn:</strong>
+        <strong>LinkedIn:</strong>{" "}
         <a href="https://www.linkedin.com/in/pavan-kumar-arepu-software-architect-engineer/">
           Pavan Kumar Arepu
         </a>

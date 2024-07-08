@@ -8,6 +8,10 @@
   .quick-view-left {
     flex: 1; /* Take up 1/3 of the available space */
     text-align: center; /* Center align content */
+    text-align: center; /* Center align content */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensure content is centrally aligned */
   }
   
   .quick-view-right {

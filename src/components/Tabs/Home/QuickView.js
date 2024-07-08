@@ -23,13 +23,11 @@ const QuickView = () => {
     <div className="quick-view">
       <div className="quick-view-left">
         <img src={pavan} alt="Pavan" className="contact-image" />
-        {/* <div className="quick-view-left">
-          <p className="description">
-            Proficient in overseeing the complete lifecycle of mobile app
-            development, from conceptualization to deployment, ensuring seamless
-            user experiences and robust functionality.
-          </p>
-        </div> */}
+        <p className="description">
+          Proficient in overseeing the complete lifecycle of mobile app
+          development, from conceptualization to deployment, ensuring seamless
+          user experiences and robust functionality.
+        </p>
       </div>
 
       <div className="quick-view-right">
