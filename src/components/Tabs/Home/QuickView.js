@@ -5,12 +5,18 @@ import mobileAppImage from "../../../assets/mobile-apps.png"; // Adjust the path
 
 const QuickView = () => {
   const skills = {
-    Frontend: ["iOS", "Android", "ReactNative", "Flutter"],
-    "Programming Languages": ["C++", "Swift", "Java", "Kotlin", "Dart"],
-    Scripting: ["Shell Scripting", "JavaScript"],
-    Backend: ["NodeJS", "API Gateway"],
-    Cloud: ["AWS", "Azure", "Firebase Cloud", "iCloud"],
-    Integrations: ["Salesforce", "RxSwift"],
+    Frontend: ["iOS ⭑⭑⭑⭑⭑", "Android ⭑⭑⭑⭑", "ReactNative ⭑⭑⭑⭑", "Flutter ⭑⭑⭑"],
+    "Programming Languages": [
+      "C++ ⭑⭑⭑⭑",
+      "Swift ⭑⭑⭑⭑⭑",
+      "Java ⭑⭑⭑",
+      "Kotlin ⭑⭑⭑⭑",
+      "Dart ⭑⭑⭑",
+    ],
+    Scripting: ["Shell ⭑⭑⭑⭑⭑", "JavaScript ⭑⭑⭑⭑", "Python ⭑⭑⭑⭑"],
+    Backend: ["NodeJS ⭑⭑⭑", "API Gateway ⭑⭑⭑"],
+    Cloud: ["AWS ⭑⭑⭑⭑", "Azure ⭑⭑⭑⭑", "Firebase Cloud ⭑⭑⭑⭑⭑", "iCloud ⭑⭑⭑⭑⭑"],
+    // Integrations: ["Salesforce ☆☆☆", "RxSwift ☆☆☆"],
   };
 
   return (

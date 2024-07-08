@@ -8,6 +8,7 @@ import React from "react";
 import QuickView from "./QuickView"; // Import QuickView component
 import Section from "../../Section";
 import TopClients from "./TopClients";
+import Separator from "../../Separator";
 
 const Home = () => {
   return (
@@ -15,11 +16,11 @@ const Home = () => {
       <Section id="quick-view" title="" style={{ marginBottom: 0 }}>
         <QuickView />
       </Section>
+      <Separator />
       <Section id="top-client" title="Top Clients">
         <TopClients />
       </Section>
     </div>
   );
 };
-
 export default Home;

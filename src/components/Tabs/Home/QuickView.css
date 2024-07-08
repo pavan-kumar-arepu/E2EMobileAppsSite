@@ -29,26 +29,25 @@
   
   .description {
     margin-top: 20px; /* Adjust spacing */
-    font-size: 1.2rem; /* Adjust font size */
+    font-size: 1.0rem; /* Adjust font size */
   }
   
   .skills-category {
-    margin-bottom: 20px; /* Adjust spacing */
+    margin-bottom: 1px; /* Adjust spacing */
   }
   
   .skills-list {
     display: flex;
-    flex-wrap: wrap; /* Wrap skills to next line if necessary */
-    gap: 10px; /* Adjust gap between buttons */
+    /* flex-wrap: wrap; Wrap skills to next line if necessary */
+    gap: 5px; /* Adjust gap between buttons */
   }
   
   .skill-button {
-    background-color: #007bff; /* Example blue color */
+    background-color: #40c70e; /* Example blue color */
     color: white;
     border: none;
-    padding: 8px 12px;
+    padding: 5px 7px;
     border-radius: 5px;
-    cursor: pointer;
   }
   
   .mobile-app-image {

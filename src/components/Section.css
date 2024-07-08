@@ -1,7 +1,9 @@
 .section {
-    background: linear-gradient(to right, #ffecd2, #fcb69f);
+    /* background: linear-gradient(to right, #ffecd2, #fcb69f); */
+    background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+
     padding: 40px;
-    margin: 20px 0;
+    /* margin: 20px 20px; */
     border-radius: 8px;
     transition: transform 0.3s ease-in-out;
 }

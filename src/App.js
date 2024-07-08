@@ -7,7 +7,7 @@ import Contact from "./components/Tabs/Contact/Contact";
 import ContributionScreen from "./components/Tabs/Contributions/ContributionScreen";
 import StoreApps from "./components/Tabs/StoreApps/StoreApps";
 import MyQuoteScreen from "./components/Tabs/MyQuotes/MyQuoteScreen";
-import LinkedinScreen from "./components/Tabs/Linkedin/LinkedinScreen";
+import CertificationScreen from "./components/Tabs/Certifications/CertificationScreen";
 
 import "./App.css";
 import AboutMe from "./components/Tabs/AboutMe/AboutMe";
@@ -27,7 +27,7 @@ function App() {
           />
           <Route
             path="/linkedin"
-            element={<LinkedinScreen tabName="Linkedin" />}
+            element={<CertificationScreen tabName="Certifications" />}
           />
           <Route path="/apps" element={<StoreApps tabName="StoreApps" />} />
           <Route
