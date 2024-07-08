@@ -21,19 +21,29 @@
     text-align: center; /* Center align content */
   }
   
+  .contact-image {
+    width: 400px; /*Set width to 300px */
+    height: 400px; /*Set height to 300px */ 
+    border-radius: 50%; /* Ensure image is circular */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Add shadow for effect */
+    /* margin: 10 auto 20px; Center image and add space below */
+  }
+
+  
   .profile-photo {
-    width: 200px; /* Adjust image size as needed */
+    /* width: 100px; Adjust image size as needed */
+    max-width: 100%;
     height: auto;
     border-radius: 50%;
   }
   
   .description {
-    margin-top: 20px; /* Adjust spacing */
+    margin-bottom: 20px; /* Adjust spacing */
     font-size: 1.0rem; /* Adjust font size */
   }
   
   .skills-category {
-    margin-bottom: 1px; /* Adjust spacing */
+    margin-bottom: 15px; /* Adjust spacing */
   }
   
   .skills-list {

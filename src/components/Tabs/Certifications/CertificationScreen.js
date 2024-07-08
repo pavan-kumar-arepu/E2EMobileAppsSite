@@ -3,10 +3,13 @@ import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-import awsIcon from "../../../assets/AWSSoluationIcon.png";
-import awsPdf from "../../../assets/AWSSoluationArchitectFull.pdf";
-import azureIcon from "../../../assets/AzureFundamentalsIcon.png";
-import azurePdf from "../../../assets/AzureFundamentalsFull.pdf";
+import awsIcon from "../../../assets/certifications/AWSSoluationIcon.png";
+import awsPdf from "../../../assets/certifications/AWSSoluationArchitectFull.pdf";
+import azureIcon from "../../../assets/certifications/AzureFundamentalsIcon.png";
+import azurePdf from "../../../assets/certifications/AzureFundamentalsFull.pdf";
+import psmPdf from "../../../assets/certifications/PSM1.pdf";
+import psmIcon from "../../../assets/certifications/psm1logo.png";
+
 import styled from "styled-components";
 import "./CertificationScreen.css";
 
@@ -25,24 +28,37 @@ const certifications = [
     pdf: azurePdf,
     credentials: "Microsoft Certified: Azure Fundamentals",
   },
+  {
+    id: 3,
+    name: "Professional Scrum Master",
+    icon: psmIcon,
+    pdf: psmPdf,
+    credentials: "Scrum Certified: Professional Scrum Master - 1",
+  },
   // Add more certifications as needed
 ];
 
+const CertificationsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+`;
+
 const CertificationItem = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
   cursor: pointer;
 `;
 
 const CertificationIcon = styled.img`
   width: 100px;
   height: 100px;
-  margin-right: 20px;
+  margin-bottom: 10px;
 `;
 
 const CertificationDetails = styled.div`
-  flex: 1;
+  text-align: center;
 `;
 
 const ModalContent = styled.div`
@@ -87,15 +103,17 @@ const Certifications = () => {
 
   return (
     <div className="certifications">
-      {certifications.map((cert) => (
-        <CertificationItem key={cert.id} onClick={() => openModal(cert.pdf)}>
-          <CertificationIcon src={cert.icon} alt={`${cert.name} Icon`} />
-          <CertificationDetails>
-            <h3>{cert.name}</h3>
-            <p>{cert.credentials}</p>
-          </CertificationDetails>
-        </CertificationItem>
-      ))}
+      <CertificationsGrid>
+        {certifications.map((cert) => (
+          <CertificationItem key={cert.id} onClick={() => openModal(cert.pdf)}>
+            <CertificationIcon src={cert.icon} alt={`${cert.name} Icon`} />
+            <CertificationDetails>
+              <h3>{cert.name}</h3>
+              <p>{cert.credentials}</p>
+            </CertificationDetails>
+          </CertificationItem>
+        ))}
+      </CertificationsGrid>
 
       {modalIsOpen && (
         <>

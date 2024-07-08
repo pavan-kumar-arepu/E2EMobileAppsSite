@@ -12,6 +12,12 @@
     font-size: 1.5rem;
 }
 
+.header-left p {
+    margin: 0;
+    font-size: 0.75rem;
+}
+
+
 .header-right .nav {
     list-style: none;
     display: flex;

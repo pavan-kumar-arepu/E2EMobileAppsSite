@@ -1,6 +1,6 @@
 import React from "react";
 import "./QuickView.css";
-import pavan from "../../../assets/Pavan_newPic.png"; // Adjust the path if necessary
+import pavan from "../../../assets/contact.png"; // Adjust the path if necessary
 import mobileAppImage from "../../../assets/mobile-apps.png"; // Adjust the path if necessary
 
 const QuickView = () => {
@@ -22,14 +22,14 @@ const QuickView = () => {
   return (
     <div className="quick-view">
       <div className="quick-view-left">
-        <img src={pavan} alt="Pavan" className="profile-photo" />
-        <p className="description">
-          Experienced in delivering comprehensive solutions for mobile
-          applications across diverse platforms, including iOS, Android, React
-          Native, and Flutter. Proficient in overseeing the complete lifecycle
-          of mobile app development, from conceptualization to deployment,
-          ensuring seamless user experiences and robust functionality.
-        </p>
+        <img src={pavan} alt="Pavan" className="contact-image" />
+        {/* <div className="quick-view-left">
+          <p className="description">
+            Proficient in overseeing the complete lifecycle of mobile app
+            development, from conceptualization to deployment, ensuring seamless
+            user experiences and robust functionality.
+          </p>
+        </div> */}
       </div>
 
       <div className="quick-view-right">

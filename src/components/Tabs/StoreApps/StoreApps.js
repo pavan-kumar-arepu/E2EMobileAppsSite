@@ -4,7 +4,8 @@ import "./StoreApps.css";
 import preparingImage from "../../../assets/casserole-pot.png";
 
 const StoreApps = ({ tabName }) => {
-  const backgroundImage = `linear-gradient(to right, #8A2387, #E94057, #F27121)`;
+  //  `linear-gradient(to right, #8A2387, #E94057, #F27121)`;
+  const backgroundImage = `linear-gradient(to right,#f5f7fa, #c3cfe2)`;
 
   return (
     <div className="storeapps-screen" style={{ backgroundImage }}>

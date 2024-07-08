@@ -11,7 +11,7 @@ const AboutMe = ({ tabName }) => {
       <div className="about-content">
         {/* <h2>{`This ${tabName} Page is being prepared`}</h2> */}
         <div className="professional-summary">
-          <h3>Professional Summary</h3>
+          {/* <h3>Professional Summary</h3> */}
           <p>
             I am an accomplished mobile application developer, architect, and
             project manager with extensive experience in both native (iOS,
@@ -102,7 +102,6 @@ const AboutMe = ({ tabName }) => {
               interviews, contributing to the talent acquisition process within
               the company.
             </li>
-            <br />
 
             <li>
               Training Experience: Trained more than 150+ students from various

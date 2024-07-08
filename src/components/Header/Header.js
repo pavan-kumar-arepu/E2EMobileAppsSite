@@ -39,6 +39,9 @@ const Header = () => {
     <header className="header">
       <div className="header-left">
         <h1>E2E Mobile App Solutions</h1>
+        <p className="header-left">
+          Transforming Ideas into Impactful Mobile App Solutions
+        </p>
       </div>
       <div className="header-right">
         <ul className="nav" ref={navRef}>

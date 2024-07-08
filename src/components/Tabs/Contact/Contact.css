@@ -1,8 +1,11 @@
 /* src/components/Tabs/Contact/Contact.css */
 
 .contact-container {
-  background-image: linear-gradient(to right, #8A2387, #E94057, #F27121);
-  color: white;
+  background-image: linear-gradient(to right,  #f5f7fa, #c3cfe2);
+  /* const backgroundImage = `linear-gradient(to right, #f5f7fa, #c3cfe2)`; */
+
+  
+  color: rgb(9, 7, 7);
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center; /* Center align content */
@@ -37,6 +40,6 @@
 }
 
 .contact-container a {
-  color: #fff;
+  color: #cd1d1d;
   text-decoration: underline;
 }
