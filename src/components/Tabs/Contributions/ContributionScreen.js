@@ -114,10 +114,10 @@ const SegmentButton = styled.button`
   }
 `;
 
-const SectionTitle = styled.h2`
-  font-size: 2rem;
-  margin-bottom: 15px;
-`;
+// const SectionTitle = styled.h2`
+//   font-size: 2rem;
+//   margin-bottom: 15px;
+// `;
 
 const AppCategory = styled.div`
   margin-bottom: 30px;
