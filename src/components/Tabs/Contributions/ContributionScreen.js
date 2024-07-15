@@ -5,28 +5,21 @@ import articleImage from "../../../assets/application.png";
 import CardItem from "../../../Reusable/CardItem";
 
 const featuredApps = {
-  ReactNative: [
-    {
-      name: "TripAdvisor",
-      description: "A trip calculator application built with React Native.",
-      link: "https://github.com/pavan-kumar-arepu/TripCalculator",
-      thumbnail: smartphoneImage,
-    },
-    {
-      name: "FirebaseAuth",
-      description:
-        "Real time Registrations, Login, Logout Feature using Firebase",
-      link: "https://github.com/pavan-kumar-arepu/FirebaseAuth",
-      thumbnail: smartphoneImage,
-    },
-    {
-      name: "Instagram ",
-      description: "Tried to clone the Instragram front page",
-      link: "https://github.com/pavan-kumar-arepu/Instagram_React",
-      thumbnail: smartphoneImage,
-    },
-  ],
   iOS: [
+    {
+      name: "APINetworkTracker - iOS Swift Package",
+      description:
+        "APKNetworkTracker is a Swift package that has been gaining attention in the iOS development community",
+      link: "https://github.com/pavan-kumar-arepu/APKNetworkTracker-Package",
+      thumbnail: smartphoneImage,
+    },
+    {
+      name: "Swift Image Loader",
+      description:
+        "An iOS app which is responsible to load load and display images in a scrollable grid, enffienctly.",
+      link: "https://github.com/pavan-kumar-arepu/SpritualMaster-A-Smart-ImageLoaderApp",
+      thumbnail: smartphoneImage,
+    },
     {
       name: "Weather Forcast",
       description:
@@ -45,6 +38,27 @@ const featuredApps = {
       description:
         "Built a high performance image loader dynamically, with SwiftUI, Cache and API's",
       link: "https://github.com/pavan-kumar-arepu/SmartImageLoader",
+      thumbnail: smartphoneImage,
+    },
+  ],
+  ReactNative: [
+    {
+      name: "TripAdvisor",
+      description: "A trip calculator application built with React Native.",
+      link: "https://github.com/pavan-kumar-arepu/TripCalculator",
+      thumbnail: smartphoneImage,
+    },
+    {
+      name: "FirebaseAuth",
+      description:
+        "Real time Registrations, Login, Logout Feature using Firebase",
+      link: "https://github.com/pavan-kumar-arepu/FirebaseAuth",
+      thumbnail: smartphoneImage,
+    },
+    {
+      name: "Instagram ",
+      description: "Tried to clone the Instragram front page",
+      link: "https://github.com/pavan-kumar-arepu/Instagram_React",
       thumbnail: smartphoneImage,
     },
   ],
@@ -74,9 +88,49 @@ const featuredApps = {
 
 const articles = [
   {
+    name: "APKNetwork Tracker",
+    description:
+      "An article on how to create a SwiftPackage Manager to Track API calls in iOS applications",
+    link: "https://www.linkedin.com/pulse/apknetworktracker-ios-applications-pavan-kumar-arepu-hyvbf/?trackingId=tjJjWp6YQY6x4B0gY%2BmLUQ%3D%3D",
+    thumbnail: articleImage,
+    isArticle: true,
+  },
+  {
+    name: "Pre-flight: InSide Mobile App Security",
+    description:
+      "An article on any mobile app security, this mainly focused on Preflight i.e. Inside the Mobile App Bundle",
+    link: "https://www.linkedin.com/pulse/pre-flight-inside-mobile-app-security-pavan-kumar-arepu-mpfff/?trackingId=dPY4NUKPQaeUG%2F2Nyc%2Bgsg%3D%3D",
+    thumbnail: articleImage,
+    isArticle: true,
+  },
+  {
+    name: "A Essential guide for Mobile App Security:",
+    description:
+      "An article on Mobile app security mainly focusing on Banking domain, Security and Authentication",
+    link: "https://www.linkedin.com/pulse/essential-mobile-app-security-banking-beyond-focus-pavan-kumar-arepu-hg6kc/?trackingId=dPY4NUKPQaeUG%2F2Nyc%2Bgsg%3D%3D",
+    thumbnail: articleImage,
+    isArticle: true,
+  },
+  {
     name: "Forecast Weather using AppleCloud",
     description: "Detailed article on using AppleCloud for weather forecasting",
     link: "https://www.linkedin.com/pulse/power-propritory-weatherapi-pavan-kumar-arepu-qrf8f/?trackingId=gfGMGEAoKi%2FOXH0JgT1v9Q%3D%3D",
+    thumbnail: articleImage,
+    isArticle: true,
+  },
+  {
+    name: "All In One ",
+    description:
+      "An artcile, I meticulously compared and contrasted these mobile platforms to help you navigate their differences and similarities.",
+    link: "https://www.linkedin.com/pulse/all-one-pavan-kumar-arepu-yppif/?trackingId=dPY4NUKPQaeUG%2F2Nyc%2Bgsg%3D%3D",
+    thumbnail: articleImage,
+    isArticle: true,
+  },
+  {
+    name: "The Subconscious Mind in Achieving Goals ",
+    description:
+      "An artcile on Embracing the Power of the Subconscious Mind in Achieving Goals",
+    link: "https://www.linkedin.com/pulse/embracing-power-subconscious-mind-achieving-goals-pavan-kumar-arepu-gc67f/?trackingId=dPY4NUKPQaeUG%2F2Nyc%2Bgsg%3D%3D",
     thumbnail: articleImage,
     isArticle: true,
   },
