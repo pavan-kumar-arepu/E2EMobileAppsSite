@@ -10,6 +10,15 @@ import azurePdf from "../../../assets/certifications/AzureFundamentalsFull.pdf";
 import psmPdf from "../../../assets/certifications/PSM1.pdf";
 import psmIcon from "../../../assets/certifications/psm1logo.png";
 
+import rxswift from "../../../assets/certifications/rxswift.png";
+import Rx_Swift from "../../../assets/certifications/Rx_Swift.pdf";
+
+import solid from "../../../assets/certifications/Solid.png";
+import solidpdf from "../../../assets/certifications/SolidP.pdf";
+
+import kotlin from "../../../assets/certifications/kotline.png";
+import Android_Kotlin from "../../../assets/certifications/Android_Kotline.pdf";
+
 import styled from "styled-components";
 import "./CertificationScreen.css";
 
@@ -34,6 +43,27 @@ const certifications = [
     icon: psmIcon,
     pdf: psmPdf,
     credentials: "Scrum Certified: Professional Scrum Master - 1",
+  },
+  {
+    id: 4,
+    name: "RxSwfit",
+    icon: rxswift,
+    pdf: Rx_Swift,
+    credentials: "A complete Rx-Swift Course completed",
+  },
+  {
+    id: 5,
+    name: "Solid Principles",
+    icon: solid,
+    pdf: solidpdf,
+    credentials: "A Solid understanding of SoliD Principles",
+  },
+  {
+    id: 6,
+    name: "Android using Kotlin",
+    icon: kotlin,
+    pdf: Android_Kotlin,
+    credentials: "A Complete Android 14 Course Completion with Kotlin",
   },
   // Add more certifications as needed
 ];
