@@ -98,9 +98,8 @@ const AboutMe = ({ tabName }) => {
             <br />
 
             <li>
-              Interview Panel Experience: Conducted over 100 candidate
-              interviews, contributing to the talent acquisition process within
-              the company.
+              Interview Panel Experience: Interviwed 100 candidates,
+              contributing to the talent acquisition process within the company.
             </li>
 
             <li>

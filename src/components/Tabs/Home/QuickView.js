@@ -15,8 +15,19 @@ const QuickView = () => {
     ],
     Scripting: ["Shell ⭑⭑⭑⭑⭑", "JavaScript ⭑⭑⭑⭑", "Python ⭑⭑⭑⭑"],
     Backend: ["NodeJS ⭑⭑⭑", "API Gateway ⭑⭑⭑"],
-    Cloud: ["AWS ⭑⭑⭑⭑", "Azure ⭑⭑⭑⭑", "Firebase Cloud ⭑⭑⭑⭑⭑", "iCloud ⭑⭑⭑⭑⭑"],
-    // Integrations: ["Salesforce ☆☆☆", "RxSwift ☆☆☆"],
+    Cloud: [
+      "Firebase Cloud ⭑⭑⭑⭑⭑",
+      "AWS ⭑⭑⭑",
+      "iCloud ⭑⭑⭑⭑",
+      "Azure ⭑⭑⭑",
+      "GCP ⭑⭑⭑",
+    ],
+    Management: [
+      "Scrum ⭑⭑⭑⭑⭑",
+      "Project ⭑⭑⭑⭑⭑",
+      "Team ⭑⭑⭑⭑⭑",
+      "Leadership ⭑⭑⭑⭑⭑",
+    ],
   };
 
   return (

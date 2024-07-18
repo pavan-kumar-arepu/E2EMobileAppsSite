@@ -10,11 +10,13 @@ import davitaLogo from "../../../assets/clients/davita.png";
 import jpmcLogo from "../../../assets/clients/jpmc.png";
 import iciciLogo from "../../../assets/clients/icici.png";
 import avivaLogo from "../../../assets/clients/aviva.png";
+import swedbank from "../../../assets/clients/swedbank.png";
 
 // Define your clients array with correct image paths
 const clients = [
   { name: "BT", image: btLogo },
   { name: "JNJ", image: jnjLogo },
+  { name: "Swedbank", image: swedbank },
   { name: "Scandic", image: scandicLogo },
   { name: "BP", image: bpLogo },
   { name: "Davita", image: davitaLogo },
