@@ -1,52 +1,98 @@
-/* src/components/Header.css */
 .header {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     background: linear-gradient(to right, #f5f7fa, #c3cfe2);
-}
-
-.header-left h1 {
+  }
+  
+  .header-left {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .header-left h1 {
     margin: 0;
     font-size: 1.5rem;
-}
-
-.header-left p {
+  }
+  
+  .header-left-description {
     margin: 0;
-    font-size: 0.75rem;
-}
-
-
-.header-right .nav {
+    font-size: 1rem;
+  }
+  
+  .header-right {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+  }
+  
+  .nav {
     list-style: none;
     display: flex;
+    flex-direction: row;
     position: relative;
     margin: 0;
     padding: 0;
-}
-
-.header-right .nav .capsule {
+    justify-content: center;
+  }
+  
+  .nav.open {
+    flex-direction: column;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+  
+  .nav .capsule {
     position: absolute;
     bottom: 0;
     height: 2px;
     background-color: #333;
     transition: left 0.3s ease, width 0.3s ease;
-}
-
-.header-right .nav li {
-    margin-left: 20px;
-    position: relative;
-}
-
-.header-right .nav li a {
+  }
+  
+  .nav-item {
+    margin: 10px;
+  }
+  
+  .nav-item a {
     text-decoration: none;
     color: #333;
     font-size: 1rem;
     padding: 10px 0;
     display: block;
-}
-
-.header-right .nav li.selected a {
+  }
+  
+  .nav-item.selected a {
     font-weight: bold;
-}
+  }
+  
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 768px) {
+    .nav {
+      display: none;
+    }
+  
+    .nav.open {
+      display: flex;
+    }
+  
+    .menu-toggle {
+      display: block;
+    }
+  }
+  

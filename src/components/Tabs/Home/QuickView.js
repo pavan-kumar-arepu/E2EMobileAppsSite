@@ -1,7 +1,7 @@
 import React from "react";
 import "./QuickView.css";
-import pavan from "../../../assets/contact.png"; // Adjust the path if necessary
-import mobileAppImage from "../../../assets/mobile-apps.png"; // Adjust the path if necessary
+import pavan from "../../../assets/contact.png";
+import mobileAppImage from "../../../assets/mobile-apps.png";
 
 const QuickView = () => {
   const skills = {

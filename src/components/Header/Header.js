@@ -1,25 +1,26 @@
-// src/components/Header.js
-import React, { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom"; // Import NavLink for navigation
+import React, { useState, useRef, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
   const [capsuleStyle, setCapsuleStyle] = useState({});
+  const [menuOpen, setMenuOpen] = useState(false); // State for menu toggle
   const navRef = useRef(null);
 
   const tabs = [
-    { name: "Home", link: "/" }, // Updated links for other tabs
+    { name: "Home", link: "/" },
     { name: "AboutMe", link: "/about" },
     { name: "Contributions", link: "/contributions" },
     { name: "Certifications", link: "/linkedin" },
     { name: "StoreApps", link: "/apps" },
     { name: "MyQuotes", link: "/quotes" },
-    { name: "Contact", link: "/contact" }, // Link to the Contact component
+    { name: "Contact", link: "/contact" },
   ];
 
   const handleTabClick = (tabName) => {
     setSelectedTab(tabName);
+    setMenuOpen(false); // Close menu on tab click
   };
 
   useEffect(() => {
@@ -39,12 +40,15 @@ const Header = () => {
     <header className="header">
       <div className="header-left">
         <h1>E2E Mobile App Solutions</h1>
-        <p className="header-left">
+        <p className="header-left-description">
           Transforming Ideas into Impactful Mobile App Solutions
         </p>
       </div>
       <div className="header-right">
-        <ul className="nav" ref={navRef}>
+        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+          ☰
+        </button>
+        <ul className={`nav ${menuOpen ? "open" : ""}`} ref={navRef}>
           <div className="capsule" style={capsuleStyle}></div>
           {tabs.map((tab) => (
             <li
