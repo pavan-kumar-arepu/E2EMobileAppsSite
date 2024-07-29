@@ -86,7 +86,7 @@ const Header = () => {
             </li>
           ))}
         </ul>
-        <div className="visitor-count">Visitors: {visitorCount}</div>
+        {/* <div className="visitor-count">Visitors: {visitorCount}</div> */}
       </div>
     </header>
   );
