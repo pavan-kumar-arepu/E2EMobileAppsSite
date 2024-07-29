@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
   const [capsuleStyle, setCapsuleStyle] = useState({});
-  const [menuOpen, setMenuOpen] = useState(false); // State for menu toggle
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [visitorCount, setVisitorCount] = useState(0);
   const navRef = useRef(null);
 
   const tabs = [
@@ -17,6 +18,26 @@ const Header = () => {
     { name: "MyQuotes", link: "/quotes" },
     { name: "Contact", link: "/contact" },
   ];
+
+  useEffect(() => {
+    const countKey = "visitorCount";
+    let count = parseInt(localStorage.getItem(countKey), 10);
+
+    if (isNaN(count)) {
+      count = 50; // Default value if not set
+    }
+
+    // Update the count only if it's not already incremented
+    const updateCount = () => {
+      localStorage.setItem(countKey, count + 1);
+      setVisitorCount(count + 1);
+    };
+
+    // Update count after a brief delay to avoid rapid increments
+    const timer = setTimeout(updateCount, 100); // 100ms delay
+
+    return () => clearTimeout(timer); // Clean up timeout on unmount
+  }, []);
 
   const handleTabClick = (tabName) => {
     setSelectedTab(tabName);
@@ -65,6 +86,7 @@ const Header = () => {
             </li>
           ))}
         </ul>
+        <div className="visitor-count">Visitors: {visitorCount}</div>
       </div>
     </header>
   );
