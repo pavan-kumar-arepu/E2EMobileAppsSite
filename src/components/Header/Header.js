@@ -6,7 +6,7 @@ const Header = () => {
   const [selectedTab, setSelectedTab] = useState("Home");
   const [capsuleStyle, setCapsuleStyle] = useState({});
   const [menuOpen, setMenuOpen] = useState(false);
-  const [visitorCount, setVisitorCount] = useState(0);
+  // const [visitorCount, setVisitorCount] = useState(0);
   const navRef = useRef(null);
 
   const tabs = [
@@ -19,25 +19,25 @@ const Header = () => {
     { name: "Contact", link: "/contact" },
   ];
 
-  useEffect(() => {
-    const countKey = "visitorCount";
-    let count = parseInt(localStorage.getItem(countKey), 10);
+  // useEffect(() => {
+  //   const countKey = "visitorCount";
+  //   let count = parseInt(localStorage.getItem(countKey), 10);
 
-    if (isNaN(count)) {
-      count = 50; // Default value if not set
-    }
+  //   if (isNaN(count)) {
+  //     count = 50; // Default value if not set
+  //   }
 
-    // Update the count only if it's not already incremented
-    const updateCount = () => {
-      localStorage.setItem(countKey, count + 1);
-      setVisitorCount(count + 1);
-    };
+  //   // Update the count only if it's not already incremented
+  //   const updateCount = () => {
+  //     localStorage.setItem(countKey, count + 1);
+  //     setVisitorCount(count + 1);
+  //   };
 
-    // Update count after a brief delay to avoid rapid increments
-    const timer = setTimeout(updateCount, 100); // 100ms delay
+  //   // Update count after a brief delay to avoid rapid increments
+  //   const timer = setTimeout(updateCount, 100); // 100ms delay
 
-    return () => clearTimeout(timer); // Clean up timeout on unmount
-  }, []);
+  //   return () => clearTimeout(timer); // Clean up timeout on unmount
+  // }, []);
 
   const handleTabClick = (tabName) => {
     setSelectedTab(tabName);
