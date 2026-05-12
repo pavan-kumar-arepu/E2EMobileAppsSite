@@ -905,3 +905,132 @@
   .vc-form { padding: 16px; }
   .vc-modal-card { padding: 20px 16px; }
 }
+
+/* ── Sign-in nudge banner ─────────────────────────────────────────────────── */
+.vc-signin-nudge {
+  background: rgba(106,17,203,.08);
+  border: 1px solid rgba(106,17,203,.25);
+  border-radius: var(--vc-radius-sm);
+  padding: 12px 20px;
+  font-size: .88rem;
+  color: var(--vc-text-2);
+  margin-bottom: 24px;
+  text-align: center;
+}
+.vc-inline-link {
+  background: none;
+  border: none;
+  color: var(--vc-purple);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  text-decoration: underline;
+}
+.vc-inline-link:hover { color: var(--vc-blue); }
+
+.vc-btn-disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Setup Guide ──────────────────────────────────────────────────────────── */
+.vc-setup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.vc-setup-card {
+  background: var(--vc-surface);
+  border: 1px solid var(--vc-border);
+  border-radius: var(--vc-radius);
+  padding: 24px;
+  box-shadow: var(--vc-shadow-sm);
+}
+.vc-setup-win    { border-top: 4px solid #0078d4; }
+.vc-setup-android { border-top: 4px solid #3ddc84; }
+.vc-setup-calib  { border-top: 4px solid var(--vc-purple); }
+
+.vc-setup-platform {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--vc-navy);
+  margin: 0 0 18px;
+}
+
+.vc-setup-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  counter-reset: step-counter;
+}
+
+.vc-setup-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.vc-setup-step-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.vc-setup-step strong {
+  font-size: .88rem;
+  color: var(--vc-navy);
+  display: block;
+  margin-bottom: 3px;
+}
+.vc-setup-step p {
+  font-size: .82rem;
+  color: var(--vc-text-2);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Requirements box */
+.vc-setup-requirements {
+  background: var(--vc-bg);
+  border: 1px solid var(--vc-border);
+  border-radius: var(--vc-radius);
+  padding: 20px 24px;
+}
+.vc-setup-requirements h4 {
+  margin: 0 0 16px;
+  font-size: .92rem;
+  color: var(--vc-navy);
+}
+.vc-setup-req-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.vc-setup-req-grid strong {
+  display: block;
+  font-size: .85rem;
+  color: var(--vc-navy);
+  margin-bottom: 8px;
+}
+.vc-setup-req-grid ul {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.vc-setup-req-grid li {
+  font-size: .8rem;
+  color: var(--vc-text-2);
+  line-height: 1.4;
+}
+
+@media (max-width: 600px) {
+  .vc-setup-grid { grid-template-columns: 1fr; }
+  .vc-setup-req-grid { grid-template-columns: 1fr; }
+}

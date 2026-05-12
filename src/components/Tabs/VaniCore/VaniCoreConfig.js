@@ -18,43 +18,46 @@ export const DEMO_CARE_CREDENTIALS = {
 };
 
 // ── Build Releases ─────────────────────────────────────────────────────────────
+// Sign-in required to access download links (enforced in DownloadCard UI).
 export const BUILDS = [
   {
     id: 'windows',
     platform: 'Windows',
     icon: '🪟',
-    description: 'Windows 10 / 11 (64-bit)',
-    ext: '.exe',
-    filename: 'VaniCore-Setup-1.0.0-pilot.exe',
-    url: '#', // TODO: Replace with CDN or Netlify large media URL
+    description: 'Windows 10 / 11 (64-bit) — Extract zip, run VaniCore.exe',
+    ext: '.zip',
+    filename: 'VaniCore-1.0.0-pilot.zip',
+    // Google Drive share link — opens preview with download button
+    url: 'https://drive.google.com/file/d/1tNkUJTd_tZHMbCkE5Ou4AIiwbdzoTTOM/view?usp=drive_link',
     version: '1.0.0-pilot',
-    releaseDate: '2026-05-01',
+    releaseDate: '2026-05-11',
     size: '~48 MB',
-    baseDownloads: 12, // seed count (real tracking via Firebase)
+    baseDownloads: 12,
   },
   {
     id: 'mac',
     platform: 'macOS',
     icon: '🍎',
-    description: 'macOS 12 Monterey or later (Apple Silicon + Intel)',
+    description: 'macOS 12 Monterey or later — Coming soon',
     ext: '.dmg',
     filename: 'VaniCore-1.0.0-pilot.dmg',
     url: '#',
     version: '1.0.0-pilot',
-    releaseDate: '2026-05-01',
+    releaseDate: '2026-05-11',
     size: '~52 MB',
-    baseDownloads: 8,
+    baseDownloads: 0,
   },
   {
     id: 'android',
     platform: 'Android',
     icon: '🤖',
-    description: 'Android 10+ (ARM / ARM64) — Enable unknown sources first',
+    description: 'Android 8.0+ — Enable unknown sources before installing',
     ext: '.apk',
     filename: 'VaniCore-1.0.0-pilot.apk',
-    url: '#',
+    // Google Drive share link — opens preview with download button
+    url: 'https://drive.google.com/file/d/15PTuLyCjGQvamhdcFHs5JdnKO2F9NCdo/view?usp=drive_link',
     version: '1.0.0-pilot',
-    releaseDate: '2026-05-01',
+    releaseDate: '2026-05-11',
     size: '~24 MB',
     baseDownloads: 23,
   },

@@ -115,9 +115,10 @@ const Hero = ({ pilotCount, totalDownloads }) => (
   </section>
 );
 
-const DownloadCard = ({ build, extraCount, onDownload }) => {
+const DownloadCard = ({ build, extraCount, onDownload, auth, onLogin }) => {
   const total = build.baseDownloads + (extraCount || 0);
   const isPlaceholder = build.url === '#';
+  const isLocked = !auth;
 
   return (
     <div className="vc-dl-card">
@@ -132,20 +133,32 @@ const DownloadCard = ({ build, extraCount, onDownload }) => {
         <span className="vc-dl-meta-item">{build.releaseDate}</span>
       </div>
       <div className="vc-dl-count">{total} downloads</div>
-      <a
-        href={build.url}
-        className={"vc-btn-primary vc-dl-btn" + (isPlaceholder ? " vc-btn-disabled" : "")}
-        onClick={(e) => {
-          if (isPlaceholder) { e.preventDefault(); return; }
-          onDownload(build.id);
-        }}
-        download={!isPlaceholder ? build.filename : undefined}
-        title={isPlaceholder ? 'Build URL not configured yet — update VaniCoreConfig.js' : "Download " + build.filename}
-      >
-        {isPlaceholder ? 'Coming Soon' : "Download " + build.ext}
-      </a>
-      {isPlaceholder && (
-        <p className="vc-dl-placeholder-note">URL pending — update in VaniCoreConfig.js</p>
+
+      {isLocked ? (
+        <>
+          <button className="vc-btn-primary vc-dl-btn" onClick={onLogin}>
+            🔐 Sign In to Download
+          </button>
+          <p className="vc-dl-placeholder-note">Admin or Patient / Caregiver login required</p>
+        </>
+      ) : isPlaceholder ? (
+        <>
+          <button className="vc-btn-primary vc-dl-btn vc-btn-disabled" disabled>
+            Coming Soon
+          </button>
+          <p className="vc-dl-placeholder-note">Build not yet available for this platform</p>
+        </>
+      ) : (
+        <a
+          href={build.url}
+          className="vc-btn-primary vc-dl-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => onDownload(build.id)}
+          title={"Download " + build.filename}
+        >
+          ⬇️ Download {build.ext}
+        </a>
       )}
     </div>
   );
@@ -178,6 +191,94 @@ const CheckboxGroup = ({ options, selected, onChange }) => {
     </div>
   );
 };
+
+// ── Setup Guide ─────────────────────────────────────────────────────────────────
+const SETUP_STEPS = [
+  {
+    platform: '🪟 Windows Setup',
+    color: 'vc-setup-win',
+    steps: [
+      { icon: '📦', title: 'Extract the ZIP', body: 'Right-click VaniCore.zip → Extract All → choose Desktop → click Extract.' },
+      { icon: '▶️', title: 'Launch VaniCore.exe', body: 'Double-click VaniCore.exe inside the extracted folder. If Windows shows a security warning, click "More info" → "Run anyway".' },
+      { icon: '🙋', title: 'Enter Your Name', body: 'Type your name in the landing page text field and press Enter. A patient profile is created automatically.' },
+      { icon: '📷', title: 'QR Code Appears', body: 'A QR code will display on screen — keep this visible. Your Android phone will scan it to connect.' },
+    ],
+  },
+  {
+    platform: '🤖 Android Setup',
+    color: 'vc-setup-android',
+    steps: [
+      { icon: '⚙️', title: 'Enable Unknown Sources', body: 'Settings → About Phone → tap Build Number 7 times (enables Developer Mode) → Developer Options → toggle "Install from Unknown Sources" ON.' },
+      { icon: '📲', title: 'Install the APK', body: 'Open Files / Downloads → tap VaniCore.apk → tap Install → wait 1–2 minutes → tap Open.' },
+      { icon: '✅', title: 'Grant Permissions', body: 'Allow Camera (QR scanning), Microphone (audio), and Location when prompted. All are required.' },
+      { icon: '📡', title: 'Scan & Connect', body: 'Open VaniCore on your phone → point camera at the QR code on your Windows screen → hold steady 2–3 seconds → connection takes 10–30 seconds.' },
+    ],
+  },
+  {
+    platform: '🧠 Calibration',
+    color: 'vc-setup-calib',
+    steps: [
+      { icon: '💡', title: 'Good Lighting First', body: 'Ensure your face is well-lit — use a desk lamp if needed. Avoid backlighting or shadows.' },
+      { icon: '📹', title: 'Face in Frame', body: 'Sit 12–18 inches from the webcam. Keep your face centred and visible throughout calibration.' },
+      { icon: '👁️', title: 'Perform Gestures', body: 'Follow on-screen prompts: blink, wink (each eye), look left / right / up / down, raise eyebrows. Perform naturally — no need to exaggerate.' },
+      { icon: '🎉', title: 'Ready to Use!', body: 'Screen shows "Calibration Complete!" and the Android app launches automatically — your system is ready.' },
+    ],
+  },
+];
+
+const SetupGuide = () => (
+  <section className="vc-section" id="setup-guide">
+    <h2 className="vc-section-title">
+      <span className="vc-title-icon">📖</span> Setup Guide
+    </h2>
+    <p className="vc-section-sub">
+      Both devices must be on the <strong>same WiFi network</strong>. Start Windows first,
+      then scan the QR code from your Android phone. Expected total setup time: ~10 minutes.
+    </p>
+    <div className="vc-setup-grid">
+      {SETUP_STEPS.map((platform) => (
+        <div key={platform.platform} className={`vc-setup-card ${platform.color}`}>
+          <h3 className="vc-setup-platform">{platform.platform}</h3>
+          <ol className="vc-setup-steps">
+            {platform.steps.map((s, i) => (
+              <li key={i} className="vc-setup-step">
+                <span className="vc-setup-step-icon">{s.icon}</span>
+                <div>
+                  <strong>{s.title}</strong>
+                  <p>{s.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </div>
+    <div className="vc-setup-requirements">
+      <h4>⚙️ Minimum Requirements</h4>
+      <div className="vc-setup-req-grid">
+        <div>
+          <strong>🪟 Windows</strong>
+          <ul>
+            <li>Windows 10 or 11</li>
+            <li>Webcam (built-in or USB)</li>
+            <li>2 GB free disk space</li>
+            <li>Intel i5 / AMD Ryzen 5 or better</li>
+            <li>WiFi or Ethernet</li>
+          </ul>
+        </div>
+        <div>
+          <strong>🤖 Android</strong>
+          <ul>
+            <li>Android 8.0 or higher</li>
+            <li>100 MB free storage</li>
+            <li>Camera (for QR scanning)</li>
+            <li>Same WiFi as Windows device</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const PilotForm = ({ onSubmit, submitted }) => {
   const [form, setForm] = useState(EMPTY_FORM);
@@ -584,8 +685,15 @@ const VaniCore = () => {
           <span className="vc-title-icon">⬇️</span> Download VaniCore
         </h2>
         <p className="vc-section-sub">
-          Available on Windows, macOS, and Android. Pilot builds — please report any issues to the VANI team.
+          Available on Windows and Android. <strong>Sign in</strong> (Admin or Patient / Caregiver) to access download links.
         </p>
+        {!auth && (
+          <div className="vc-signin-nudge">
+            🔐 Downloads are restricted to registered participants. Please{' '}
+            <button className="vc-inline-link" onClick={() => setShowLogin(true)}>Sign In</button>
+            {' '}to download.
+          </div>
+        )}
         <div className="vc-dl-grid">
           {BUILDS.map((b) => (
             <DownloadCard
@@ -593,10 +701,14 @@ const VaniCore = () => {
               build={b}
               extraCount={downloads[b.id] || 0}
               onDownload={handleDownload}
+              auth={auth}
+              onLogin={() => setShowLogin(true)}
             />
           ))}
         </div>
       </section>
+
+      <SetupGuide />
 
       {auth && auth.role === 'admin' && (
         <AdminDashboard
