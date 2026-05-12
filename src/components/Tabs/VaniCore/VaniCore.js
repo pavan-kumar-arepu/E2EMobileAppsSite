@@ -232,8 +232,8 @@ const SetupGuide = () => (
       <span className="vc-title-icon">📖</span> Setup Guide
     </h2>
     <p className="vc-section-sub">
-      Both devices must be on the <strong>same WiFi network</strong>. Start Windows first,
-      then scan the QR code from your Android phone. Expected total setup time: ~10 minutes.
+      Start Windows first, then scan the QR code from your Android phone.
+      Expected total setup time: ~10 minutes.
     </p>
     <div className="vc-setup-grid">
       {SETUP_STEPS.map((platform) => (
@@ -263,7 +263,7 @@ const SetupGuide = () => (
             <li>Webcam (built-in or USB)</li>
             <li>2 GB free disk space</li>
             <li>Intel i5 / AMD Ryzen 5 or better</li>
-            <li>WiFi or Ethernet</li>
+            <li>Internet connection (WiFi or Ethernet)</li>
           </ul>
         </div>
         <div>
@@ -272,7 +272,7 @@ const SetupGuide = () => (
             <li>Android 8.0 or higher</li>
             <li>100 MB free storage</li>
             <li>Camera (for QR scanning)</li>
-            <li>Same WiFi as Windows device</li>
+            <li>Internet connection</li>
           </ul>
         </div>
       </div>
