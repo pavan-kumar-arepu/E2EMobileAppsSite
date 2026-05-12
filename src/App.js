@@ -8,6 +8,7 @@ import ContributionScreen from "./components/Tabs/Contributions/ContributionScre
 import StoreApps from "./components/Tabs/StoreApps/StoreApps";
 import MyQuoteScreen from "./components/Tabs/MyQuotes/MyQuoteScreen";
 import CertificationScreen from "./components/Tabs/Certifications/CertificationScreen";
+import VaniCore from "./components/Tabs/VaniCore/VaniCore";
 
 import "./App.css";
 import AboutMe from "./components/Tabs/AboutMe/AboutMe";
@@ -34,6 +35,7 @@ function App() {
             path="/quotes"
             element={<MyQuoteScreen tabName="MyQuotes" />}
           />
+          <Route path="/vanicore" element={<VaniCore />} />
           {/* Add more routes as needed */}
         </Routes>
       </div>

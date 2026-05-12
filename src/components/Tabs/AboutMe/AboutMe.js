@@ -1,114 +1,85 @@
-// src/components/AboutMe/AboutMe.js
 import React from "react";
 import "./AboutMe.css";
 
-const AboutMe = ({ tabName }) => {
-  const backgroundImage = `linear-gradient(to right, #f5f7fa, #c3cfe2)`;
-  // const backgroundImage = : `linear-gradient(to right, #f5f7fa, #c3cfe2)`;
+const STATS = [
+  { value: "16+",  label: "Years Experience" },
+  { value: "30+",  label: "Apps Delivered" },
+  { value: "150+", label: "GitHub Repos" },
+  { value: "4",    label: "Countries Worked" },
+];
 
+const ACHIEVEMENTS = [
+  { icon: "📱", text: "Developed 25–30 professional mobile applications across iOS, Android, React Native, and Flutter that meet enterprise standards." },
+  { icon: "🗂️", text: "Contributed to 150+ GitHub repositories covering mobile apps, data structures, Unix, and shell scripting." },
+  { icon: "🏪", text: "Published 200+ apps in enterprise stores (AirWatch / Apperian / MobileIron) ensuring enterprise deployment and maintenance." },
+  { icon: "🚀", text: "Launched 10+ apps to the App Store and Play Store, reaching a wide consumer audience." },
+  { icon: "🏆", text: "Led 15+ mobile application programmes managing cross-functional teams and project timelines." },
+  { icon: "🎯", text: "Architected 10+ mobile applications professionally, with additional personal projects showcasing broad capabilities." },
+  { icon: "📝", text: "Provided RFPs to 10+ projects, contributing to client engagement and project acquisition." },
+  { icon: "🎓", text: "Trained 150+ students and professionals across colleges and software companies." },
+  { icon: "🧑‍⚖️", text: "Interviwed 100+ candidates as an interview panelist, contributing to talent acquisition." },
+];
+
+const CONTRIBUTIONS = [
+  { icon: "✍️", text: "Authored 10+ LinkedIn articles on iOS, Android, React Native, Flutter, and mobile security." },
+  { icon: "📰", text: "Personal blogs: iOS Apps Blog · iOS Sprinter Blog." },
+  { icon: "🏅", text: "Recipient of multiple awards and recognitions for exceptional contributions to the company." },
+  { icon: "🌍", text: "Worked across India, UK, Sweden, and Ireland — collaborating with global clients and teams." },
+];
+
+const AboutMe = () => {
   return (
-    <div className="about-me" style={{ backgroundImage }}>
-      <div className="about-content">
-        {/* <h2>{`This ${tabName} Page is being prepared`}</h2> */}
-        <div className="professional-summary">
-          {/* <h3>Professional Summary</h3> */}
+    <div className="about-me">
+      {/* Hero banner */}
+      <div className="about-banner">
+        <div className="about-banner-text">
+          <span className="about-badge">About Me</span>
+          <h2>Mobile Architect &amp; Engineer</h2>
           <p>
-            I am an accomplished mobile application developer, architect, and
-            project manager with extensive experience in both native (iOS,
-            Android), semi-hybrid (Cordova), and hybrid (React Native) mobile
-            applications. I excel in application development, architecture,
-            providing RFCs, and leading large teams of 20-40 members. My
-            expertise spans across cross-platform development (web, app, API,
-            design, business, finance, marketing), and I have a proven track
-            record of collaborating effectively with product owners,
-            stakeholders, and teams in both onshore and offshore settings. I
-            bridge the gap between clients and TCS teams, ensuring seamless
-            project execution and delivery.
+            Accomplished mobile application developer, architect, and project
+            manager with extensive experience in native (iOS, Android),
+            semi-hybrid (Cordova), and hybrid (React Native / Flutter) mobile
+            applications. I excel in architecture, RFPs, and leading large teams
+            of 20–40 members across cross-platform development — bridging the
+            gap between clients and delivery teams for seamless execution.
           </p>
         </div>
+      </div>
 
-        <div className="key-achievements">
-          <h3>Key Achievements</h3>
-          <ul>
-            <li>
-              Developed 25-30 Professional Mobile Applications: Demonstrated
-              expertise in delivering high-quality mobile applications that meet
-              client requirements and market standards.
-            </li>
-            <br />
-            <li>
-              Contributed to 150+ Repositories: Active GitHub contributor with
-              repositories in mobile apps, data structures, Unix, and shell
-              scripting.
-            </li>
-            <br />
+      {/* Stats row */}
+      <div className="about-stats">
+        {STATS.map((s) => (
+          <div key={s.label} className="about-stat-card">
+            <span className="about-stat-value">{s.value}</span>
+            <span className="about-stat-label">{s.label}</span>
+          </div>
+        ))}
+      </div>
 
-            <li>
-              Published 200+ Apps in Enterprise Store: Managed and published
-              apps as an AirWatch/Apperian/MobileIron Admin, ensuring
-              enterprise-level deployment and maintenance.
+      {/* Key Achievements */}
+      <div className="about-card">
+        <h3><span className="about-card-icon">🏆</span> Key Achievements</h3>
+        <ul>
+          {ACHIEVEMENTS.map((a, i) => (
+            <li key={i} className="about-li-icon">
+              <span>{a.icon}</span>
+              <span>{a.text}</span>
             </li>
-            <br />
+          ))}
+        </ul>
+      </div>
 
-            <li>
-              Published 10+ Apps to App Store and Play Store: Successfully
-              launched several mobile applications to public app stores,
-              reaching a wide audience.
+      {/* Contributions */}
+      <div className="about-card">
+        <h3><span className="about-card-icon">🌐</span> Contributions &amp; Publications</h3>
+        <ul>
+          {CONTRIBUTIONS.map((c, i) => (
+            <li key={i} className="about-li-icon">
+              <span>{c.icon}</span>
+              <span>{c.text}</span>
             </li>
-            <br />
-
-            <li>
-              Led 15+ Mobile Applications: Successfully led the development and
-              delivery of multiple mobile applications, managing teams and
-              project timelines.
-            </li>
-            <br />
-
-            <li>
-              Architected 10+ Mobile Applications: Architected numerous mobile
-              applications professionally, with additional personal projects
-              showcasing a wide range of capabilities.
-            </li>
-            <br />
-
-            <li>
-              Provided RFPs to 10+ Projects: Contributed to project acquisition
-              and client engagement by providing comprehensive Request for
-              Proposals (RFPs).
-            </li>
-          </ul>
-        </div>
-
-        <div className="contributions-publications">
-          <h3>Contributions and Publications</h3>
-          <ul>
-            <li>
-              LinkedIn Articles: Authored 10+ articles on topics including iOS,
-              Android, React Native, Flutter, and mobile app security.
-            </li>
-            <br />
-
-            <li>
-              Personal Blogs:
-              <ul>
-                <li>iOS Apps Blog</li>
-                <li>iOS Sprinter Blog</li>
-              </ul>
-            </li>
-            <br />
-
-            <li>
-              Interview Panel Experience: Interviwed 100 candidates,
-              contributing to the talent acquisition process within the company.
-            </li>
-
-            <li>
-              Training Experience: Trained more than 150+ students from various
-              college students and professionals from various software
-              companies.
-            </li>
-          </ul>
-        </div>
+          ))}
+        </ul>
       </div>
     </div>
   );

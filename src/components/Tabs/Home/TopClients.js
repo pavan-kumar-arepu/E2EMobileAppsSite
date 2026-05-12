@@ -29,14 +29,21 @@ const clients = [
 const TopClients = () => {
   return (
     <div className="top-clients">
-      <div className="top-clients-summary">
-        Over 30+ Real time Mobile Application Experience from India, UK, Sweden,
-        Ireland
+      <div className="top-clients-header">
+        <span className="top-clients-label">Top Clients</span>
+        <h2 className="top-clients-summary">
+          Trusted by world-class organisations across 4 countries
+        </h2>
+        <p className="top-clients-sub">
+          30+ real-time mobile applications delivered for industry leaders in
+          Telecom, Healthcare, Finance, Hospitality &amp; Energy.
+        </p>
       </div>
       <div className="top-clients-logos">
         {clients.map((client, index) => (
           <div key={index} className="client-logo">
             <img src={client.image} alt={client.name} />
+            <span className="client-logo-name">{client.name}</span>
           </div>
         ))}
       </div>

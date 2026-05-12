@@ -1,39 +1,86 @@
-// src/components/Tabs/Contact/Contact.js
 import React from "react";
 import "./Contact.css";
 import contactImage from "../../../assets/contact.png";
 
-const Contact = () => {
-  return (
-    <div className="contact-container">
-      <img src={contactImage} alt="Contact" className="contact-image" />
-      <div className="contact-content">
-        <h2>Contact Information</h2>
+const CONTACT_ROWS = [
+  {
+    icon: "💼",
+    label: "LinkedIn",
+    value: (
+      <a
+        href="https://www.linkedin.com/in/pavan-kumar-arepu-software-architect-engineer/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        pavan-kumar-arepu
+      </a>
+    ),
+  },
+  {
+    icon: "🐙",
+    label: "GitHub",
+    value: (
+      <a
+        href="https://github.com/pavan-kumar-arepu"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        github.com/pavan-kumar-arepu
+      </a>
+    ),
+  },
+  {
+    icon: "✉️",
+    label: "Email",
+    value: (
+      <a href="mailto:iOSDeveloper.ipa@gmail.com">iOSDeveloper.ipa@gmail.com</a>
+    ),
+  },
+  {
+    icon: "📱",
+    label: "Mobile",
+    value: "+46 76 431 65 99  ·  +91 8121 04 03 08",
+  },
+  {
+    icon: "📍",
+    label: "Based In",
+    value: "Sweden · India · UK · Ireland",
+  },
+];
+
+const Contact = () => (
+  <div className="contact-page">
+    <div className="contact-inner">
+      {/* Left — avatar */}
+      <div className="contact-left">
+        <div className="contact-avatar-ring">
+          <img src={contactImage} alt="Pavan Kumar Arepu" className="contact-image" />
+        </div>
+        <p className="contact-name">Pavan Kumar Arepu</p>
+        <p className="contact-role">Mobile Architect &amp; Engineer</p>
+      </div>
+
+      {/* Right — contact card */}
+      <div className="contact-card">
+        <h2>Let's Connect</h2>
         <p>
-          Let's connect and collaborate on exciting projects! Reach out to me on
-          LinkedIn or WhatsApp to discuss ideas and opportunities.
+          Reach out to discuss exciting mobile projects, architecture challenges,
+          or collaboration opportunities — I'm always up for a conversation.
         </p>
-        <h3>Contact Details</h3>
-        <strong>LinkedIn:</strong>{" "}
-        <a href="https://www.linkedin.com/in/pavan-kumar-arepu-software-architect-engineer/">
-          Pavan Kumar Arepu
-        </a>
-        <br />
-        <br />
-        <strong>GitHub:</strong>{" "}
-        <a href="https://github.com/pavan-kumar-arepu">
-          github.com/pavan-kumar-arepu
-        </a>
-        <br />
-        <br />
-        <strong>Email:</strong> iOSDeveloper.ipa@gmail.com
-        <br />
-        <br />
-        <strong>Mobile:</strong> +46 76 431 65 99 / +91 8121 04 03 08
-        <br />
+        <div className="contact-rows">
+          {CONTACT_ROWS.map((row) => (
+            <div key={row.label} className="contact-row">
+              <span className="contact-row-icon">{row.icon}</span>
+              <div>
+                <div className="contact-row-label">{row.label}</div>
+                <div className="contact-row-value">{row.value}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default Contact;

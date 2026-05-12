@@ -1,43 +1,101 @@
-/* src/components/Tabs/MyQuotes/MyQuoteScreen.css */
-.myQuote-screen {
+.quote-page {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  /* const backgroundImage = `linear-gradient(to right, #f5f7fa, #c3cfe2)`; */
+  padding: clamp(48px, 8vw, 80px) clamp(20px, 5vw, 60px);
+}
 
-  background: linear-gradient(to right,#f5f7fa, #c3cfe2);
-  color: rgb(0, 0, 0);
+.quote-header {
   text-align: center;
-  padding: 20px;
+  margin-bottom: 48px;
+  max-width: 700px;
+}
+.quote-header-badge {
+  display: inline-block;
+  background: rgba(0,201,167,.15);
+  border: 1px solid #00c9a7;
+  color: #00c9a7;
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.quote-header h2 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 12px;
+}
+.quote-header p {
+  color: rgba(255,255,255,.55);
+  font-size: .92rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
-.myQuote-content {
-  max-width: 800px;
+.quote-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  max-width: 1100px;
+  width: 100%;
 }
 
-.myQuote-content h2 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  font-weight: bold;
+.quote-card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px;
+  padding: 28px;
+  position: relative;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.quote-card:hover {
+  background: rgba(255,255,255,.09);
+  border-color: rgba(106,17,203,.5);
+  transform: translateY(-3px);
 }
 
-.quote {
-  margin-bottom: 2rem;
+.quote-mark {
+  font-size: 4rem;
+  line-height: .8;
+  color: rgba(106,17,203,.5);
+  font-family: Georgia, serif;
+  position: absolute;
+  top: 16px;
+  left: 22px;
 }
 
-.original-quote, .refined-quote {
-  font-size: 1.2rem;
-  margin: 1rem 0;
-}
-
-.refined-quote {
+.quote-text {
+  font-size: clamp(.9rem, 1.8vw, 1.05rem);
+  color: rgba(255,255,255,.85);
+  line-height: 1.75;
   font-style: italic;
-  color: #ffe6e6;
+  margin: 28px 0 20px;
+  position: relative;
+  z-index: 1;
 }
 
-.author {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #ea2424;
+.quote-divider {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #6a11cb, #00c9a7);
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+
+.quote-author {
+  font-size: .82rem;
+  font-weight: 700;
+  color: #00c9a7;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+  .quote-grid { grid-template-columns: 1fr; }
 }

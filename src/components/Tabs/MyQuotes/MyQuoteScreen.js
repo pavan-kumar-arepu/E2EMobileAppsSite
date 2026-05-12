@@ -1,45 +1,39 @@
-// src/components/Tabs/MyQuotes/MyQuoteScreen.js
 import React from "react";
 import "./MyQuoteScreen.css";
 
-const MyQuoteScreen = ({ tabName }) => {
-  const quotes = [
-    {
-      original:
-        "Hock your GOAL/desire/aspiration to the TIME then THE TIME take up you to the GOAL on TIME!",
-      refined: "",
-      author: "Arepu Pavan Kumar",
-    },
-    {
-      original:
-        "While we experience pain when we gain nothing from spending money, we often overlook the potential agony of investing our limited time without any returns in life, despite its brevity and finite nature.",
-      refined: "",
-      author: "Arepu Pavan Kumar",
-    },
-    {
-      original:
-        "True integrity in work lies not only in receiving a paycheck but in earning it through an unwavering commitment to excellence and a deep sense of personal accountability.",
-      refined: "",
-      author: "Arepu Pavan Kumar",
-    },
-  ];
+const quotes = [
+  {
+    text: "Hock your GOAL / desire / aspiration to TIME — then TIME takes you to the GOAL, on TIME!",
+    author: "Arepu Pavan Kumar",
+  },
+  {
+    text: "While we experience pain when we gain nothing from spending money, we often overlook the potential agony of investing our limited time without any returns — despite life's brevity and finite nature.",
+    author: "Arepu Pavan Kumar",
+  },
+  {
+    text: "True integrity in work lies not only in receiving a paycheck but in earning it through an unwavering commitment to excellence and a deep sense of personal accountability.",
+    author: "Arepu Pavan Kumar",
+  },
+];
 
-  return (
-    <div className="myQuote-screen">
-      <div className="myQuote-content">
-        {/* <h2>{`This ${tabName} Page`}</h2> */}
-        {quotes.map((quote, index) => (
-          <div key={index} className="quote">
-            <p className="original-quote">"{quote.original}"</p>
-            {quote.refined && (
-              <p className="refined-quote">"{quote.refined}"</p>
-            )}
-            <p className="author">- {quote.author}</p>
-          </div>
-        ))}
-      </div>
+const MyQuoteScreen = () => (
+  <div className="quote-page">
+    <div className="quote-header">
+      <span className="quote-header-badge">My Quotes</span>
+      <h2>Words I Live By</h2>
+      <p>Original thoughts on time, integrity, and purpose — authored by Pavan Kumar Arepu.</p>
     </div>
-  );
-};
+    <div className="quote-grid">
+      {quotes.map((q, i) => (
+        <div key={i} className="quote-card">
+          <span className="quote-mark">"</span>
+          <p className="quote-text">{q.text}</p>
+          <div className="quote-divider" />
+          <span className="quote-author">— {q.author}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
 export default MyQuoteScreen;

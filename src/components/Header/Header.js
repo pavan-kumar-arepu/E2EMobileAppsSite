@@ -16,6 +16,7 @@ const Header = () => {
     { name: "Certifications", link: "/linkedin" },
     { name: "StoreApps", link: "/apps" },
     { name: "MyQuotes", link: "/quotes" },
+    { name: "VaniCore", link: "/vanicore" },
     { name: "Contact", link: "/contact" },
   ];
 
