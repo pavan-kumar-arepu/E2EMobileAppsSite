@@ -32,7 +32,7 @@ export const BUILDS = [
     version: '1.0.0-pilot',
     releaseDate: '2026-05-11',
     size: '~48 MB',
-    baseDownloads: 12,
+    baseDownloads: 0,
   },
   {
     id: 'mac',
@@ -59,7 +59,7 @@ export const BUILDS = [
     version: '1.0.0-pilot',
     releaseDate: '2026-05-11',
     size: '~24 MB',
-    baseDownloads: 23,
+    baseDownloads: 0,
   },
 ];
 
@@ -183,5 +183,5 @@ export const SEED_FEEDBACK = [
 // ── localStorage keys ──────────────────────────────────────────────────────────
 export const LS_PILOTS = 'vanicore_pilots_v1';
 export const LS_FEEDBACK = 'vanicore_feedback_v1';
-export const LS_DOWNLOADS = 'vanicore_downloads_v1';
+export const LS_DOWNLOADS = 'vanicore_downloads_v2';
 export const LS_AUTH = 'vanicore_auth_v1'; // sessionStorage
