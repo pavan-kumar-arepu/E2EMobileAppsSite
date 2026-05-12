@@ -39,12 +39,23 @@ const CONTACT_ROWS = [
   {
     icon: "📱",
     label: "Mobile",
-    value: "+46 76 431 65 99  ·  +91 8121 04 03 08",
+    value: "+46 76 431 65 99  ·  +91 8121 040 308",
+  },
+  {
+    icon: "✍️",
+    label: "Blog",
+    value: (
+      <>
+        <a href="https://iossprinter.blogspot.com" target="_blank" rel="noopener noreferrer">iOS Sprinter Blog</a>
+        {" · "}
+        <a href="https://iosapps.blogspot.com" target="_blank" rel="noopener noreferrer">iOS Apps Blog</a>
+      </>
+    ),
   },
   {
     icon: "📍",
     label: "Based In",
-    value: "Sweden · India · UK · Ireland",
+    value: "Hyderabad, India · Open to global opportunities",
   },
 ];
 
@@ -57,7 +68,7 @@ const Contact = () => (
           <img src={contactImage} alt="Pavan Kumar Arepu" className="contact-image" />
         </div>
         <p className="contact-name">Pavan Kumar Arepu</p>
-        <p className="contact-role">Mobile Architect &amp; Engineer</p>
+        <p className="contact-role">Sr. SDM · Mobile Platform, Verizon</p>
       </div>
 
       {/* Right — contact card */}

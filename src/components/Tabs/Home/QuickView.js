@@ -4,10 +4,21 @@ import pavan from "../../../assets/contact.png";
 
 const SKILLS = [
   {
+    category: "Leadership & Management",
+    items: [
+      { name: "People Leadership", stars: 5 },
+      { name: "Scrum Master (PSM1) / Agile", stars: 5 },
+      { name: "Architecture & RFPs", stars: 5 },
+      { name: "Multi-region Delivery", stars: 5 },
+      { name: "Project Management", stars: 5 },
+    ],
+  },
+  {
     category: "Mobile — Native",
     items: [
       { name: "iOS / Swift / SwiftUI", stars: 5 },
-      { name: "Android / Kotlin / Jetpack", stars: 4 },
+      { name: "Android / Kotlin / Jetpack Compose", stars: 4 },
+      { name: "Objective-C", stars: 5 },
     ],
   },
   {
@@ -15,37 +26,26 @@ const SKILLS = [
     items: [
       { name: "React Native", stars: 4 },
       { name: "Flutter", stars: 3 },
-      { name: "Cordova / Ionic", stars: 4 },
+      { name: "Cordova / Xamarin", stars: 4 },
     ],
   },
   {
-    category: "Languages",
+    category: "AI / ML & Cloud",
     items: [
-      { name: "Swift", stars: 5 },
-      { name: "Kotlin", stars: 4 },
+      { name: "AI/ML (M.Tech BITS Pilani)", stars: 4 },
+      { name: "AWS (SAA-C03 Certified)", stars: 4 },
+      { name: "Azure / Google Cloud", stars: 3 },
+      { name: "CI/CD & DevOps", stars: 4 },
+    ],
+  },
+  {
+    category: "Languages & Tools",
+    items: [
+      { name: "Swift / Kotlin / Python", stars: 5 },
       { name: "JavaScript / TypeScript", stars: 4 },
-      { name: "C++", stars: 4 },
-      { name: "Python", stars: 4 },
-      { name: "Dart", stars: 3 },
-    ],
-  },
-  {
-    category: "Cloud & Backend",
-    items: [
-      { name: "Firebase / Firestore", stars: 5 },
-      { name: "AWS", stars: 3 },
-      { name: "iCloud", stars: 4 },
-      { name: "Node.js / API Gateway", stars: 3 },
-      { name: "Azure", stars: 3 },
-    ],
-  },
-  {
-    category: "Leadership & Process",
-    items: [
-      { name: "Scrum / Agile", stars: 5 },
-      { name: "Team & Project Management", stars: 5 },
-      { name: "Architecture & RFPs", stars: 5 },
-      { name: "Offshore / Onshore Delivery", stars: 5 },
+      { name: "C / C++ / Java", stars: 4 },
+      { name: "Shell Scripting / Unix", stars: 5 },
+      { name: "Firebase / Realm / Cosmos DB", stars: 4 },
     ],
   },
 ];
@@ -67,10 +67,12 @@ const QuickView = () => (
 
         <div>
           <h1 className="qv-name">Pavan Kumar Arepu</h1>
-          <p className="qv-title">Mobile Architect &amp; Engineer</p>
+          <p className="qv-title">Senior Software Development Manager</p>
+          <p className="qv-company">📍 Verizon · Mobile Platform &amp; Architecture</p>
           <p className="qv-tagline">
-            Building end-to-end mobile solutions across iOS, Android &amp;
-            cross-platform — from concept to App Store.
+            Leading Mobile Platform Engineering &amp; MobileCoE at Verizon.
+            16+ years delivering scalable mobile solutions across the UK,
+            Sweden, Ireland &amp; India.
           </p>
         </div>
 
@@ -81,11 +83,11 @@ const QuickView = () => (
           </div>
           <div className="qv-stat">
             <span className="qv-stat-num">30+</span>
-            <span className="qv-stat-label">Apps Built</span>
+            <span className="qv-stat-label">Apps Shipped</span>
           </div>
           <div className="qv-stat">
-            <span className="qv-stat-num">150+</span>
-            <span className="qv-stat-label">Repos</span>
+            <span className="qv-stat-num">200+</span>
+            <span className="qv-stat-label">POCs / Repos</span>
           </div>
           <div className="qv-stat">
             <span className="qv-stat-num">4</span>
@@ -117,7 +119,7 @@ const QuickView = () => (
       <div className="qv-skills">
         <div>
           <h2 className="qv-skills-heading">Skills &amp; Expertise</h2>
-          <p className="qv-skills-sub">Hover a chip to highlight — ★ = proficiency level</p>
+          <p className="qv-skills-sub">★ = proficiency level</p>
         </div>
         {SKILLS.map((cat) => (
           <div key={cat.category} className="qv-category">

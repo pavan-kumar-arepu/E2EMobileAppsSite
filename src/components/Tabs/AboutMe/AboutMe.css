@@ -104,3 +104,33 @@
   .about-banner { flex-direction: column; }
   .about-stats { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Work experience blocks inside .about-card */
+.about-job {
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border, #dde3f5);
+}
+.about-job:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.about-job-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.about-job-role {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--navy, #1a2150);
+}
+.about-job-company {
+  font-size: .9rem;
+  color: var(--primary, #6a11cb);
+  font-weight: 600;
+}
+.about-job-meta {
+  font-size: .75rem;
+  color: var(--text-3, #8a90b8);
+  letter-spacing: .3px;
+}
