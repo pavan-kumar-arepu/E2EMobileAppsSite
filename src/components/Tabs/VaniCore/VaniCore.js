@@ -842,7 +842,7 @@ const VaniCore = () => {
           <span className="vc-title-icon">⬇️</span> Download VaniCore
         </h2>
         <p className="vc-section-sub">
-          Available on Windows and Android. <strong>Sign in</strong> (Admin or Patient / Caregiver) to access download links.
+          Available on Windows, macOS, and Android. <strong>Sign in</strong> (Admin or Patient / Caregiver) to access download links.
         </p>
         {!auth && (
           <div className="vc-signin-nudge">
