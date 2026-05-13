@@ -12,7 +12,7 @@ const EXPERIENCE = [
   {
     period: "Oct 2024 – Present",
     company: "Verizon",
-    role: "Senior Software Development Manager",
+    role: "Sr Manager UI/UX (Technical Manager)",
     location: "India",
     points: [
       "Built and scaled MobileCoE, influencing architecture across multiple Verizon applications.",
@@ -61,7 +61,7 @@ const UTILITIES = [
 const EDUCATION = [
   { icon: "🎓", text: "Pursuing M.Tech in AI / ML — BITS Pilani (WILP Program)" },
   { icon: "🏫", text: "B.Tech in Computer Science — Nagarjuna University, India (2008)" },
-  { icon: "📚", text: "2022–2024: Pure Software Developer Program — Data Structures, System Design, LLD & HLD" },
+  { icon: "📚", text: "2022–2024: Pure Software Developer Program — Scaler Academy (Data Structures, System Design, LLD & HLD)" },
 ];
 
 const AboutMe = () => {
@@ -72,9 +72,9 @@ const AboutMe = () => {
       <div className="about-banner">
         <div className="about-banner-text">
           <span className="about-badge">About Me</span>
-          <h2>Senior Software Development Manager</h2>
+          <h2>Sr Manager UI/UX (Technical Manager)</h2>
           <p>
-            Senior Software Development Manager with a proven track record of leading
+            Sr Manager UI/UX (Technical Manager) with a proven track record of leading
             high-performance engineering teams and owning the delivery of scalable mobile
             and platform solutions. Currently driving <strong>Mobile Platform Engineering
             &amp; MobileCoE</strong> at Verizon — experienced in architectural strategy,

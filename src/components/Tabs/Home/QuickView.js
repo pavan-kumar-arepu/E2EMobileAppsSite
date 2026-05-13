@@ -67,7 +67,7 @@ const QuickView = () => (
 
         <div>
           <h1 className="qv-name">Pavan Kumar Arepu</h1>
-          <p className="qv-title">Senior Software Development Manager</p>
+          <p className="qv-title">Sr Manager UI/UX (Technical Manager)</p>
           <p className="qv-company">📍 Verizon · Mobile Platform &amp; Architecture</p>
           <p className="qv-tagline">
             Leading Mobile Platform Engineering &amp; MobileCoE at Verizon.
@@ -82,11 +82,11 @@ const QuickView = () => (
             <span className="qv-stat-label">Years Exp.</span>
           </div>
           <div className="qv-stat">
-            <span className="qv-stat-num">30+</span>
+            <span className="qv-stat-num">175+</span>
             <span className="qv-stat-label">Apps Shipped</span>
           </div>
           <div className="qv-stat">
-            <span className="qv-stat-num">200+</span>
+            <span className="qv-stat-num">175+</span>
             <span className="qv-stat-label">POCs / Repos</span>
           </div>
           <div className="qv-stat">
