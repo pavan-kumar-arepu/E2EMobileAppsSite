@@ -68,7 +68,7 @@ const Contact = () => (
           <img src={contactImage} alt="Pavan Kumar Arepu" className="contact-image" />
         </div>
         <p className="contact-name">Pavan Kumar Arepu</p>
-        <p className="contact-role">Sr. SDM · Mobile Platform, Verizon</p>
+        <p className="contact-role">Sr Manager UI/UX (Technical Manager) · Verizon</p>
       </div>
 
       {/* Right — contact card */}

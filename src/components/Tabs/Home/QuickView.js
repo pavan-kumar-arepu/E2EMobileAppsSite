@@ -86,7 +86,7 @@ const QuickView = () => (
             <span className="qv-stat-label">Apps Shipped</span>
           </div>
           <div className="qv-stat">
-            <span className="qv-stat-num">175+</span>
+            <span className="qv-stat-num">170+</span>
             <span className="qv-stat-label">POCs / Repos</span>
           </div>
           <div className="qv-stat">
