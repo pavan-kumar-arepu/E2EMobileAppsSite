@@ -27,7 +27,7 @@ export const BUILDS = [
     description: 'VaniCore for Windows 10 / 11 (64-bit) — Run VaniCore.exe',
     ext: '.exe',
     filename: 'VaniCore-1.0.0-pilot.exe',
-    url: 'https://drive.google.com/file/d/1MRxUAgwyiYrgZYJ77Or7BwiMQbkvBlAI/view?usp=drive_link',
+    url: 'https://drive.google.com/file/d/1tNkUJTd_tZHMbCkE5Ou4AIiwbdzoTTOM/view?usp=sharing',
     version: '1.0.0-pilot',
     releaseDate: '2026-05-11',
     size: '~48 MB',
@@ -151,35 +151,11 @@ export const MOCK_GESTURE_DATA = [
 ];
 
 // ── Seed Feedback ──────────────────────────────────────────────────────────────
-export const SEED_FEEDBACK = [
-  {
-    id: 'seed-1',
-    alias: 'Pilot-002 family',
-    message: 'Using VANI has given my father a way to communicate again after his ALS diagnosis. The blink detection works even in our dim living room.',
-    rating: 5,
-    date: '2026-05-11',
-    approved: true,
-  },
-  {
-    id: 'seed-2',
-    alias: 'Caregiver at a rehab centre',
-    message: 'Calibration took under 2 minutes. The patient was smiling by the end of the session — the first time they responded to something in months.',
-    rating: 5,
-    date: '2026-05-10',
-    approved: true,
-  },
-  {
-    id: 'seed-3',
-    alias: 'Pilot-001',
-    message: 'Looking forward to the IoT integration. Being able to turn off the fan without calling my caregiver would be life-changing.',
-    rating: 4,
-    date: '2026-05-09',
-    approved: true,
-  },
-];
+// Empty by default — real feedback comes from user submissions, approved by admin.
+export const SEED_FEEDBACK = [];
 
 // ── localStorage keys ──────────────────────────────────────────────────────────
 export const LS_PILOTS = 'vanicore_pilots_v1';
-export const LS_FEEDBACK = 'vanicore_feedback_v1';
+export const LS_FEEDBACK = 'vanicore_feedback_v2';
 export const LS_DOWNLOADS = 'vanicore_downloads_v2';
 export const LS_AUTH = 'vanicore_auth_v1'; // sessionStorage

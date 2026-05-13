@@ -193,38 +193,104 @@ const CheckboxGroup = ({ options, selected, onChange }) => {
 };
 
 // ── Setup Guide ─────────────────────────────────────────────────────────────────
-const SETUP_STEPS = [
+const FLOW_STEPS = [
   {
-    platform: '🪟 Windows Setup',
-    color: 'vc-setup-win',
-    steps: [
-      { icon: '📦', title: 'Extract the ZIP', body: 'Right-click VaniCore.zip → Extract All → choose Desktop → click Extract.' },
-      { icon: '▶️', title: 'Launch VaniCore.exe', body: 'Double-click VaniCore.exe inside the extracted folder. If Windows shows a security warning, click "More info" → "Run anyway".' },
-      { icon: '🙋', title: 'Enter Your Name', body: 'Type your name in the landing page text field and press Enter. A patient profile is created automatically.' },
-      { icon: '📷', title: 'QR Code Appears', body: 'A QR code will display on screen — keep this visible. Your Android phone will scan it to connect.' },
-    ],
+    id: 'dl-android',
+    icon: '📲',
+    app: 'android',
+    label: 'Download VaniCare',
+    sub: 'Android APK from Google Drive',
+    color: '#3ddc84',
+    bg: '#f0fff6',
   },
   {
-    platform: '🤖 Android Setup',
-    color: 'vc-setup-android',
-    steps: [
-      { icon: '⚙️', title: 'Enable Unknown Sources', body: 'Settings → About Phone → tap Build Number 7 times (enables Developer Mode) → Developer Options → toggle "Install from Unknown Sources" ON.' },
-      { icon: '📲', title: 'Install the APK', body: 'Open Files / Downloads → tap VaniCore.apk → tap Install → wait 1–2 minutes → tap Open.' },
-      { icon: '✅', title: 'Grant Permissions', body: 'Allow Camera (QR scanning), Microphone (audio), and Location when prompted. All are required.' },
-      { icon: '📡', title: 'Scan & Connect', body: 'Open VaniCore on your phone → point camera at the QR code on your Windows screen → hold steady 2–3 seconds → connection takes 10–30 seconds.' },
-    ],
+    id: 'install-android',
+    icon: '⚙️',
+    app: 'android',
+    label: 'Install & Open VaniCare',
+    sub: 'Enable "Install from Unknown Sources" first',
+    color: '#3ddc84',
+    bg: '#f0fff6',
   },
   {
-    platform: '🧠 Calibration',
-    color: 'vc-setup-calib',
-    steps: [
-      { icon: '💡', title: 'Good Lighting First', body: 'Ensure your face is well-lit — use a desk lamp if needed. Avoid backlighting or shadows.' },
-      { icon: '📹', title: 'Face in Frame', body: 'Sit 12–18 inches from the webcam. Keep your face centred and visible throughout calibration.' },
-      { icon: '👁️', title: 'Perform Gestures', body: 'Follow on-screen prompts: blink, wink (each eye), look left / right / up / down, raise eyebrows. Perform naturally — no need to exaggerate.' },
-      { icon: '🎉', title: 'Ready to Use!', body: 'Screen shows "Calibration Complete!" and the Android app launches automatically — your system is ready.' },
-    ],
+    id: 'perms',
+    icon: '🔐',
+    app: 'android',
+    label: 'Accept Permissions',
+    sub: 'Camera · Microphone · Notifications',
+    color: '#3ddc84',
+    bg: '#f0fff6',
+  },
+  {
+    id: 'wait-qr',
+    icon: '⏳',
+    app: 'android',
+    label: 'Wait for QR Screen',
+    sub: 'VaniCare is ready to scan — keep screen on',
+    color: '#3ddc84',
+    bg: '#f0fff6',
+  },
+  {
+    id: 'dl-win',
+    icon: '📦',
+    app: 'windows',
+    label: 'Install VaniCore',
+    sub: 'Download ZIP · Extract · Run VaniCore.exe',
+    color: '#0078d4',
+    bg: '#f0f6ff',
+  },
+  {
+    id: 'enter-name',
+    icon: '🙋',
+    app: 'windows',
+    label: 'Enter Your Name',
+    sub: 'Type your name on the landing screen → Enter',
+    color: '#0078d4',
+    bg: '#f0f6ff',
+  },
+  {
+    id: 'qr-win',
+    icon: '📷',
+    app: 'windows',
+    label: 'QR Code Appears',
+    sub: 'Keep the QR code visible on your Windows screen',
+    color: '#0078d4',
+    bg: '#f0f6ff',
+  },
+  {
+    id: 'scan',
+    icon: '🔗',
+    app: 'sync',
+    label: 'Scan QR from Android',
+    sub: 'Point VaniCare camera at the Windows QR code',
+    color: '#6a11cb',
+    bg: '#f5f0ff',
+  },
+  {
+    id: 'calib',
+    icon: '👁️',
+    app: 'windows',
+    label: 'Start Calibration',
+    sub: 'Follow on-screen gesture prompts on Windows',
+    color: '#0078d4',
+    bg: '#f0f6ff',
+  },
+  {
+    id: 'live',
+    icon: '🎉',
+    app: 'sync',
+    label: 'Go Live!',
+    sub: 'Android receives notifications when gestures detected',
+    color: '#10b981',
+    bg: '#f0fff8',
   },
 ];
+
+const APP_BADGE = {
+  android: { label: '🤖 VaniCare (Android)', cls: 'vc-flow-badge-android' },
+  windows: { label: '🪟 VaniCore (Windows)', cls: 'vc-flow-badge-win' },
+  sync:    { label: '🔗 Both in Sync', cls: 'vc-flow-badge-sync' },
+};
 
 const SetupGuide = () => (
   <section className="vc-section" id="setup-guide">
@@ -232,27 +298,138 @@ const SetupGuide = () => (
       <span className="vc-title-icon">📖</span> Setup Guide
     </h2>
     <p className="vc-section-sub">
-      Start Windows first, then scan the QR code from your Android phone.
-      Expected total setup time: ~10 minutes.
+      Follow this sequence exactly — start with Android first, then Windows.
+      Total setup time: ~10 minutes.
     </p>
-    <div className="vc-setup-grid">
-      {SETUP_STEPS.map((platform) => (
-        <div key={platform.platform} className={`vc-setup-card ${platform.color}`}>
-          <h3 className="vc-setup-platform">{platform.platform}</h3>
-          <ol className="vc-setup-steps">
-            {platform.steps.map((s, i) => (
-              <li key={i} className="vc-setup-step">
-                <span className="vc-setup-step-icon">{s.icon}</span>
-                <div>
-                  <strong>{s.title}</strong>
-                  <p>{s.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
+
+    {/* Legend */}
+    <div className="vc-flow-legend">
+      <span className="vc-flow-badge vc-flow-badge-android">🤖 VaniCare (Android)</span>
+      <span className="vc-flow-badge vc-flow-badge-win">🪟 VaniCore (Windows)</span>
+      <span className="vc-flow-badge vc-flow-badge-sync">🔗 Both Devices in Sync</span>
+    </div>
+
+    {/* Flowchart */}
+    <div className="vc-flow-chart">
+      {FLOW_STEPS.map((step, i) => (
+        <React.Fragment key={step.id}>
+          <div className="vc-flow-item">
+            <div className="vc-flow-node" style={{ borderColor: step.color, background: step.bg }}>
+              <div className="vc-flow-step-num" style={{ background: step.color }}>{i + 1}</div>
+              <div className="vc-flow-icon">{step.icon}</div>
+              <div className="vc-flow-label">{step.label}</div>
+              <div className="vc-flow-sub">{step.sub}</div>
+              <span className={`vc-flow-badge ${APP_BADGE[step.app].cls}`}>
+                {APP_BADGE[step.app].label}
+              </span>
+            </div>
+          </div>
+          {i < FLOW_STEPS.length - 1 && (
+            <div className="vc-flow-arrow">
+              <svg viewBox="0 0 24 40" xmlns="http://www.w3.org/2000/svg">
+                <line x1="12" y1="0" x2="12" y2="28" stroke="#c4b9f0" strokeWidth="2" strokeDasharray="4 3"/>
+                <polygon points="6,28 18,28 12,38" fill="#6a11cb" opacity="0.7"/>
+              </svg>
+            </div>
+          )}
+        </React.Fragment>
       ))}
     </div>
+
+    {/* Two-column detailed cards */}
+    <h3 className="vc-setup-detail-heading">📋 Detailed Instructions</h3>
+    <div className="vc-setup-grid">
+      <div className="vc-setup-card vc-setup-android">
+        <h3 className="vc-setup-platform">🤖 Android — VaniCare</h3>
+        <ol className="vc-setup-steps">
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">⚙️</span>
+            <div><strong>Enable Unknown Sources</strong>
+              <p>Settings → About Phone → tap Build Number 7 times (enables Developer Mode) → Developer Options → toggle "Install from Unknown Sources" ON.</p>
+            </div>
+          </li>
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">📲</span>
+            <div><strong>Install VaniCare APK</strong>
+              <p>Open Files / Downloads → tap VaniCare.apk → tap Install → wait 1–2 min → tap Open.</p>
+            </div>
+          </li>
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">✅</span>
+            <div><strong>Grant Permissions</strong>
+              <p>Allow Camera (QR scanning), Microphone, and Notifications when prompted. All required.</p>
+            </div>
+          </li>
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">⏳</span>
+            <div><strong>Wait at QR Scanner Screen</strong>
+              <p>Leave VaniCare open on the QR scan screen — keep screen brightness up. You'll scan after Windows is ready.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div className="vc-setup-card vc-setup-win">
+        <h3 className="vc-setup-platform">🪟 Windows — VaniCore</h3>
+        <ol className="vc-setup-steps">
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">📦</span>
+            <div><strong>Extract the ZIP</strong>
+              <p>Right-click VaniCore.zip → Extract All → choose Desktop → click Extract.</p>
+            </div>
+          </li>
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">▶️</span>
+            <div><strong>Launch VaniCore.exe</strong>
+              <p>Double-click VaniCore.exe. If Windows shows a security warning, click "More info" → "Run anyway".</p>
+            </div>
+          </li>
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">🙋</span>
+            <div><strong>Enter Your Name</strong>
+              <p>Type your name in the landing page text field and press Enter. A patient profile is created automatically.</p>
+            </div>
+          </li>
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">📷</span>
+            <div><strong>QR Code Appears</strong>
+              <p>A QR code will display on screen — keep it visible. Your Android phone will scan it to connect.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div className="vc-setup-card vc-setup-calib">
+        <h3 className="vc-setup-platform">🔗 Sync &amp; Calibration</h3>
+        <ol className="vc-setup-steps">
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">📡</span>
+            <div><strong>Scan QR Code from Android</strong>
+              <p>Open VaniCare on your phone → point camera at the QR code on Windows → hold steady 2–3 seconds → connection takes 10–30 seconds.</p>
+            </div>
+          </li>
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">💡</span>
+            <div><strong>Prepare for Calibration</strong>
+              <p>Ensure your face is well-lit. Sit 12–18 inches from the webcam. Avoid backlighting or shadows.</p>
+            </div>
+          </li>
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">👁️</span>
+            <div><strong>Perform Gestures</strong>
+              <p>Follow on-screen prompts: blink, wink, look left / right / up / down, raise eyebrows. Perform naturally.</p>
+            </div>
+          </li>
+          <li className="vc-setup-step">
+            <span className="vc-setup-step-icon">🎉</span>
+            <div><strong>Go Live!</strong>
+              <p>"Calibration Complete!" appears on Windows. VaniCare on your Android now receives real-time gesture notifications!</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
     <div className="vc-setup-requirements">
       <h4>⚙️ Minimum Requirements</h4>
       <div className="vc-setup-req-grid">
@@ -523,7 +700,7 @@ const FeedbackSection = ({ feedback, onSubmit }) => {
         Hear from caregivers and patients already using VANI. Your feedback shapes every release.
       </p>
 
-      {approved.length > 0 && (
+      {approved.length > 0 ? (
         <div className="vc-feedback-list">
           {approved.map((f) => (
             <div key={f.id} className="vc-feedback-card">
@@ -535,6 +712,11 @@ const FeedbackSection = ({ feedback, onSubmit }) => {
               </div>
             </div>
           ))}
+        </div>
+      ) : (
+        <div className="vc-feedback-empty">
+          <span className="vc-feedback-empty-icon">🌱</span>
+          <p>No feedback yet — be the first to share your experience with VANI!</p>
         </div>
       )}
 
@@ -696,19 +878,17 @@ const VaniCore = () => {
       )}
 
       {auth && auth.role === 'patient' && (
-        <>
-          <PatientDashboard auth={auth} myRegistration={myRegistration} />
-          <FeedbackSection feedback={feedback} onSubmit={handleFeedbackSubmit} />
-        </>
+        <PatientDashboard auth={auth} myRegistration={myRegistration} />
       )}
 
       {!auth && (
         <>
           <PilotForm onSubmit={handlePilotSubmit} submitted={formSubmitted} />
           <PilotCount pilots={pilots} />
-          <FeedbackSection feedback={feedback} onSubmit={handleFeedbackSubmit} />
         </>
       )}
+
+      <FeedbackSection feedback={feedback} onSubmit={handleFeedbackSubmit} />
 
       {showLogin && (
         <LoginModal onClose={() => setShowLogin(false)} onLoginSuccess={handleLogin} />
