@@ -299,7 +299,7 @@ const SetupGuide = ({ auth }) => (
     </h2>
     <p className="vc-section-sub">
       Follow this sequence exactly — start with Android first, then Windows.
-      Total setup time: ~10 minutes.
+      Total setup time: less than 10 minutes.
     </p>
 
     {/* Video walkthrough — login required */}
@@ -521,8 +521,7 @@ const PilotForm = ({ onSubmit, submitted }) => {
         <span className="vc-title-icon">📋</span> Join the Pilot Programme
       </h2>
       <p className="vc-section-sub">
-        No personal identifying information is required. Your alias, condition profile, and motor
-        function details help us calibrate VANI specifically for you.
+        No personal identifying information is required. Your alias, condition profile, and motor function details help us calibrate VANI specifically for you.
       </p>
 
       {/* Hidden Netlify form for pre-registration */}

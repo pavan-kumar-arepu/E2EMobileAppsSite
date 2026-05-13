@@ -107,9 +107,9 @@ export const GESTURE_CAPABILITIES = [
 
 // ── Pilot Willingness ──────────────────────────────────────────────────────────
 export const WILLINGNESS_OPTIONS = [
-  { value: 'eager', label: '🚀  Eager — Ready to start immediately' },
-  { value: 'willing', label: '🤝  Willing — Happy to try with caregiver support' },
-  { value: 'curious', label: '🔍  Curious — Want to learn more before deciding' },
+  { value: 'eager', label: 'Eager — Ready to start immediately' },
+  { value: 'willing', label: 'Willing — Happy to try with caregiver support' },
+  { value: 'curious', label: 'Curious — Want to learn more before deciding' },
 ];
 
 // ── Mock Gesture Data (Firebase Firestore — future read) ───────────────────────
