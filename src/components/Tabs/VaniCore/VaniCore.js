@@ -455,31 +455,6 @@ const PilotForm = ({ onSubmit, submitted }) => {
         </div>
 
         <div className="vc-field">
-          <label>Preferred Platform(s) <span className="vc-required">*</span></label>
-          <div className="vc-platform-group">
-            {BUILDS.map((b) => (
-              <label
-                key={b.id}
-                className={"vc-platform-item" + (form.platforms.includes(b.id) ? ' checked' : '')}
-              >
-                <input
-                  type="checkbox"
-                  checked={form.platforms.includes(b.id)}
-                  onChange={() => {
-                    const updated = form.platforms.includes(b.id)
-                      ? form.platforms.filter((p) => p !== b.id)
-                      : [...form.platforms, b.id];
-                    set('platforms', updated);
-                  }}
-                />
-                <span>{b.icon} {b.platform}</span>
-              </label>
-            ))}
-          </div>
-          {errors.platforms && <span className="vc-field-error">{errors.platforms}</span>}
-        </div>
-
-        <div className="vc-field">
           <label htmlFor="f-note">
             Note to the VANI Team <span className="vc-label-hint">(optional)</span>
           </label>

@@ -53,7 +53,7 @@ export const BUILDS = [
     description: 'VaniCare for Android 8.0+ — Enable unknown sources before installing',
     ext: '.apk',
     filename: 'VaniCare-1.0.0-pilot.apk',
-    url: 'https://drive.google.com/file/d/1rMIG2aXksin1LdRlkrJtRQBeFoC5s8oz/view?usp=sharing',
+    url: 'https://drive.google.com/file/d/1zDYIiA7bFMuKFlZw8BYUaX-o4low9MsI/view?usp=sharing',
     version: '1.0.0-pilot',
     releaseDate: '2026-05-11',
     size: '~24 MB',
