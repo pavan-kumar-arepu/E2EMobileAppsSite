@@ -302,6 +302,17 @@ const SetupGuide = () => (
       Total setup time: ~10 minutes.
     </p>
 
+    {/* Video walkthrough placeholder */}
+    <div className="vc-video-placeholder">
+      <div className="vc-video-inner">
+        <div className="vc-video-play-icon">▶</div>
+        <div className="vc-video-text">
+          <strong>📹 Video Walkthrough — Coming Soon</strong>
+          <p>A full step-by-step setup video (generated with NotebookLM) will appear here once uploaded.</p>
+        </div>
+      </div>
+    </div>
+
     {/* Legend */}
     <div className="vc-flow-legend">
       <span className="vc-flow-badge vc-flow-badge-android">🤖 VaniCare (Android)</span>

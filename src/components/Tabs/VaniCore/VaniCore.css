@@ -935,6 +935,54 @@
   pointer-events: none;
 }
 
+/* ── Video placeholder ────────────────────────────────────────────────────── */
+.vc-video-placeholder {
+  background: linear-gradient(135deg, #1a2150 0%, #302b63 100%);
+  border-radius: var(--vc-radius);
+  padding: 36px 28px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  border: 2px dashed rgba(167,139,250,.4);
+  box-shadow: var(--vc-shadow-md);
+}
+.vc-video-inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+.vc-video-play-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(167,139,250,.25);
+  border: 2px solid var(--vc-purple-lt);
+  color: var(--vc-purple-lt);
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.vc-video-text strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.vc-video-text p {
+  font-size: .82rem;
+  color: rgba(255,255,255,.6);
+  margin: 0;
+  line-height: 1.5;
+}
+
 /* ── Setup Guide ──────────────────────────────────────────────────────────── */
 .vc-setup-grid {
   display: flex;
