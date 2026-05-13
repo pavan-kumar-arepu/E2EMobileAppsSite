@@ -292,7 +292,7 @@ const APP_BADGE = {
   sync:    { label: '🔗 Both in Sync', cls: 'vc-flow-badge-sync' },
 };
 
-const SetupGuide = () => (
+const SetupGuide = ({ auth }) => (
   <section className="vc-section" id="setup-guide">
     <h2 className="vc-section-title">
       <span className="vc-title-icon">📖</span> Setup Guide
@@ -302,16 +302,30 @@ const SetupGuide = () => (
       Total setup time: ~10 minutes.
     </p>
 
-    {/* Video walkthrough placeholder */}
-    <div className="vc-video-placeholder">
-      <div className="vc-video-inner">
-        <div className="vc-video-play-icon">▶</div>
-        <div className="vc-video-text">
-          <strong>📹 Video Walkthrough — Coming Soon</strong>
-          <p>A full step-by-step setup video (generated with NotebookLM) will appear here once uploaded.</p>
+    {/* Video walkthrough — login required */}
+    {auth ? (
+      <div className="vc-video-embed-wrap">
+        <div className="vc-video-embed-label">📹 Setup Walkthrough Video</div>
+        <div className="vc-video-embed-frame">
+          <iframe
+            src="https://drive.google.com/file/d/1f_AcOHNckHwcC9j9uidSceTLcC13zAoL/preview"
+            title="VANI Setup Walkthrough"
+            allow="autoplay"
+            allowFullScreen
+          />
         </div>
       </div>
-    </div>
+    ) : (
+      <div className="vc-video-placeholder">
+        <div className="vc-video-inner">
+          <div className="vc-video-play-icon">▶</div>
+          <div className="vc-video-text">
+            <strong>📹 Setup Walkthrough Video</strong>
+            <p>🔐 Sign in (Admin or Patient / Caregiver) to watch the full video walkthrough.</p>
+          </div>
+        </div>
+      </div>
+    )}
 
     {/* Legend */}
     <div className="vc-flow-legend">
@@ -852,7 +866,7 @@ const VaniCore = () => {
         </div>
       </section>
 
-      <SetupGuide />
+      <SetupGuide auth={auth} />
 
       {auth && auth.role === 'admin' && (
         <AdminDashboard

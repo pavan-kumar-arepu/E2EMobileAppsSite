@@ -237,7 +237,7 @@ const AdminDashboard = ({ pilots, feedback, downloads, onApproveFeedback, onDism
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           )}
           <h3 className="vc-sub-heading">Approved Feedback ({approvedFeedback.length})</h3>
           {approvedFeedback.length === 0 ? (
@@ -276,7 +276,8 @@ const AdminDashboard = ({ pilots, feedback, downloads, onApproveFeedback, onDism
                   </div>
                 </div>
               ))}
-            </div>
+              </div>
+            </>
           )}
         </div>
       )}
