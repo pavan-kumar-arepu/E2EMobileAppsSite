@@ -2,6 +2,18 @@
 import React, { useState } from 'react';
 import { BUILDS, MOCK_GESTURE_DATA } from './VaniCoreConfig';
 
+const exportCSV = (filename, rows) => {
+  if (!rows.length) return;
+  const headers = Object.keys(rows[0]);
+  const escape = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+  const csv = [headers.join(','), ...rows.map((r) => headers.map((h) => escape(r[h])).join(','))].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+};
+
 const SECTIONS = ['Overview', 'Pilots', 'Gestures', 'Feedback'];
 
 const TREND_BADGE = {
@@ -80,6 +92,26 @@ const AdminDashboard = ({ pilots, feedback, downloads, onApproveFeedback, onDism
       {/* All Pilots */}
       {section === 'Pilots' && (
         <div>
+          {pilots.length > 0 && (
+            <div style={{ marginBottom: 12, textAlign: 'right' }}>
+              <button
+                className="vc-btn-outline vc-btn-sm"
+                onClick={() => exportCSV('vani-pilots.csv', pilots.map((p) => ({
+                  Alias: p.alias,
+                  'Age Group': p.ageGroup,
+                  Condition: p.condition,
+                  Symptoms: p.symptoms,
+                  'Affected Parts': (p.impactedParts || []).join('; '),
+                  'Gesture Capabilities': (p.gestureCapabilities || []).join('; '),
+                  Willingness: p.willingness,
+                  'Caregiver Note': p.caregiverNote,
+                  Date: p.date,
+                })))}
+              >
+                ⬇️ Export Registrations CSV
+              </button>
+            </div>
+          )}
           {pilots.length === 0 ? (
             <div className="vc-empty">No pilot registrations yet. Form submissions appear here.</div>
           ) : (
@@ -205,13 +237,27 @@ const AdminDashboard = ({ pilots, feedback, downloads, onApproveFeedback, onDism
                   </div>
                 ))}
               </div>
-            </div>
+            </>
           )}
           <h3 className="vc-sub-heading">Approved Feedback ({approvedFeedback.length})</h3>
           {approvedFeedback.length === 0 ? (
             <div className="vc-empty">No approved feedback yet.</div>
           ) : (
-            <div className="vc-feedback-list">
+            <>
+              <div style={{ marginBottom: 12, textAlign: 'right' }}>
+                <button
+                  className="vc-btn-outline vc-btn-sm"
+                  onClick={() => exportCSV('vani-feedback.csv', approvedFeedback.map((f) => ({
+                    Alias: f.alias || 'Anonymous',
+                    Rating: f.rating,
+                    Message: f.message,
+                    Date: f.date,
+                  })))}
+                >
+                  ⬇️ Export Feedback CSV
+                </button>
+              </div>
+              <div className="vc-feedback-list">
               {approvedFeedback.map((f) => (
                 <div key={f.id} className="vc-feedback-card">
                   <div className="vc-feedback-meta">

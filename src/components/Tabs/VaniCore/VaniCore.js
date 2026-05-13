@@ -441,30 +441,6 @@ const SetupGuide = () => (
       </div>
     </div>
 
-    <div className="vc-setup-requirements">
-      <h4>⚙️ Minimum Requirements</h4>
-      <div className="vc-setup-req-grid">
-        <div>
-          <strong>🪟 Windows</strong>
-          <ul>
-            <li>Windows 10 or 11</li>
-            <li>Webcam (built-in or USB)</li>
-            <li>2 GB free disk space</li>
-            <li>Intel i5 / AMD Ryzen 5 or better</li>
-            <li>Internet connection (WiFi or Ethernet)</li>
-          </ul>
-        </div>
-        <div>
-          <strong>🤖 Android</strong>
-          <ul>
-            <li>Android 8.0 or higher</li>
-            <li>100 MB free storage</li>
-            <li>Camera (for QR scanning)</li>
-            <li>Internet connection</li>
-          </ul>
-        </div>
-      </div>
-    </div>
   </section>
 );
 
