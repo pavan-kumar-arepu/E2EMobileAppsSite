@@ -106,7 +106,7 @@ const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
             role="tab"
             aria-selected={active === t.id}
             className={`vc-tab-btn ${active === t.id ? 'active' : ''} ${isLocked ? 'locked' : ''}`}
-            onClick={() => isLocked ? onLoginRequest() : onChange(t.id)}
+            onClick={() => isLocked ? onLoginRequest(t.id) : onChange(t.id)}
             title={isLocked ? 'Sign in to access' : t.label}
           >
             <span className="vc-tab-icon">{t.icon}</span>
@@ -897,7 +897,7 @@ const VaniCore = () => {
   return (
     <div className="vc-page">
       <TopBar auth={auth} onLogin={() => setShowLogin(true)} onLogout={handleLogout} />
-      <TabNav active={activeTab} onChange={setActiveTab} auth={auth} onLoginRequest={() => setShowLogin(true)} />
+      <TabNav active={activeTab} onChange={setActiveTab} auth={auth} onLoginRequest={(tabId) => { setLoginContext(tabId || 'default'); setShowLogin(true); }} />
 
       <div className="vc-tab-content">
 

@@ -1,6 +1,6 @@
 // src/App.js
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Home from "./components/Tabs/Home/Home";
 import Contact from "./components/Tabs/Contact/Contact";
@@ -13,11 +13,12 @@ import VaniCore from "./components/Tabs/VaniCore/VaniCore";
 import "./App.css";
 import AboutMe from "./components/Tabs/AboutMe/AboutMe";
 
-function App() {
+function AppInner() {
+  const location = useLocation();
+  const hideHeader = location.pathname === '/vanicore';
   return (
-    <Router>
-      <div className="App">
-        <Header />
+    <div className="App">
+      {!hideHeader && <Header />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
@@ -38,7 +39,14 @@ function App() {
           <Route path="/vanicore" element={<VaniCore />} />
           {/* Add more routes as needed */}
         </Routes>
-      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppInner />
     </Router>
   );
 }
