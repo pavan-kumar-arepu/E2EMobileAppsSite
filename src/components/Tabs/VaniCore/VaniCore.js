@@ -86,30 +86,35 @@ const TopBar = ({ auth, onLogin, onLogout }) => (
 
 // ── Tab Nav ────────────────────────────────────────────────────────────────────
 const TABS = [
-  { id: 'home',      icon: '🏠', label: 'Home'       },
-  { id: 'download',  icon: '⬇️', label: 'Download'   },
-  { id: 'setup',     icon: '📖', label: 'Setup'      },
-  { id: 'pilot',     icon: '📋', label: 'Join Pilot' },
-  { id: 'feedback',  icon: '💬', label: 'Feedback'   },
-  { id: 'dashboard', icon: '📊', label: 'Dashboard'  },
+  { id: 'home',      icon: '🏠', label: 'Home',       locked: false },
+  { id: 'download',  icon: '⬇️', label: 'Download',   locked: true  },
+  { id: 'setup',     icon: '📖', label: 'Setup',      locked: true  },
+  { id: 'pilot',     icon: '📋', label: 'Join Pilot', locked: true  },
+  { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false },
+  { id: 'dashboard', icon: '📊', label: 'Dashboard',  locked: false },
 ];
 
-const TabNav = ({ active, onChange, auth }) => {
+const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
   const visible = TABS.filter((t) => t.id !== 'dashboard' || auth);
   return (
     <nav className="vc-tab-nav" role="tablist">
-      {visible.map((t) => (
-        <button
-          key={t.id}
-          role="tab"
-          aria-selected={active === t.id}
-          className={`vc-tab-btn ${active === t.id ? 'active' : ''}`}
-          onClick={() => onChange(t.id)}
-        >
-          <span className="vc-tab-icon">{t.icon}</span>
-          <span className="vc-tab-label">{t.label}</span>
-        </button>
-      ))}
+      {visible.map((t) => {
+        const isLocked = t.locked && !auth;
+        return (
+          <button
+            key={t.id}
+            role="tab"
+            aria-selected={active === t.id}
+            className={`vc-tab-btn ${active === t.id ? 'active' : ''} ${isLocked ? 'locked' : ''}`}
+            onClick={() => isLocked ? onLoginRequest() : onChange(t.id)}
+            title={isLocked ? 'Sign in to access' : t.label}
+          >
+            <span className="vc-tab-icon">{t.icon}</span>
+            <span className="vc-tab-label">{t.label}</span>
+            {isLocked && <span className="vc-tab-lock">🔒</span>}
+          </button>
+        );
+      })}
     </nav>
   );
 };
@@ -128,7 +133,7 @@ const Footer = () => (
         <a href="mailto:vaaninnovations@gmail.com" className="vc-footer-link">✉️ vaaninnovations@gmail.com</a>
       </div>
       <p className="vc-footer-copy">
-        © {new Date().getFullYear()} Pavan Kumar Arepu · VANI Innovations · All rights reserved.
+        © {new Date().getFullYear()} Pavan Kumar Arepu · VANI Innovations
       </p>
     </div>
   </footer>
@@ -182,8 +187,7 @@ const Hero = ({ pilotCount, totalDownloads }) => (
           synced to an Android companion app (VaniCare) over <strong>WiFi via Firebase</strong>.
           Core stack: <strong>Python · Deep Learning · LSTM · Temporal Differencing ·
           Noise Reduction · Speech Processing · DNN · LLM-assisted interaction</strong>.
-          Future cloud expansion planned on AWS. Real-time gesture recognition using
-          custom vision pipelines with temporal smoothing and adaptive calibration.
+          Future cloud expansion planned on AWS.
         </p>
       </div>
     </div>
@@ -872,7 +876,7 @@ const VaniCore = () => {
   return (
     <div className="vc-page">
       <TopBar auth={auth} onLogin={() => setShowLogin(true)} onLogout={handleLogout} />
-      <TabNav active={activeTab} onChange={setActiveTab} auth={auth} />
+      <TabNav active={activeTab} onChange={setActiveTab} auth={auth} onLoginRequest={() => setShowLogin(true)} />
 
       <div className="vc-tab-content">
 
@@ -881,17 +885,24 @@ const VaniCore = () => {
           <>
             <Hero pilotCount={pilots.length} totalDownloads={totalDownloads} />
             <div className="vc-home-cta-row">
-              <button className="vc-cta-card" onClick={() => setActiveTab('download')}>
-                <span>⬇️</span><strong>Download VANI</strong><p>Windows · macOS · Android</p>
+              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('download') : setShowLogin(true)}>
+                <span>⬇️</span><strong>Download VANI</strong>
+                <p>Windows · macOS · Android</p>
+                {!auth && <span className="vc-cta-lock">🔒 Sign in required</span>}
               </button>
-              <button className="vc-cta-card" onClick={() => setActiveTab('setup')}>
-                <span>📖</span><strong>Setup Guide</strong><p>Step-by-step in under 10 min</p>
+              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('setup') : setShowLogin(true)}>
+                <span>📖</span><strong>Setup Guide</strong>
+                <p>Step-by-step in under 10 min</p>
+                {!auth && <span className="vc-cta-lock">🔒 Sign in required</span>}
               </button>
-              <button className="vc-cta-card" onClick={() => setActiveTab('pilot')}>
-                <span>📋</span><strong>Join the Pilot</strong><p>Register your profile</p>
+              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('pilot') : setShowLogin(true)}>
+                <span>📋</span><strong>Join the Pilot</strong>
+                <p>Register your profile</p>
+                {!auth && <span className="vc-cta-lock">🔒 Sign in required</span>}
               </button>
               <button className="vc-cta-card" onClick={() => setActiveTab('feedback')}>
-                <span>💬</span><strong>Community</strong><p>Read &amp; share feedback</p>
+                <span>💬</span><strong>Community</strong>
+                <p>Read &amp; share feedback</p>
               </button>
             </div>
           </>
