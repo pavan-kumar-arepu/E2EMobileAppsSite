@@ -15,6 +15,12 @@
 /Users/pavankumararepu/Technology/*
 !/Users/pavankumararepu/Technology/Websites/my-profile 
 
+# Firebase service account keys — NEVER commit these
+**/*credentials*.json
+**/*service_account*.json
+**/*serviceAccount*.json
+.vscode/config/
+
 # misc
 .DS_Store
 .env.local

@@ -11,9 +11,12 @@ import {
   LS_PILOTS,
   LS_FEEDBACK,
   LS_DOWNLOADS,
-  LS_AUTH,
 } from './VaniCoreConfig';
+import { auth as fbAuth, db } from '../../../firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 import LoginModal from './LoginModal';
+import SignupModal from './SignupModal';
 import AdminDashboard from './AdminDashboard';
 import PatientDashboard from './PatientDashboard';
 
@@ -819,13 +822,10 @@ const FeedbackSection = ({ feedback, onSubmit }) => {
 
 // ── Main Component ─────────────────────────────────────────────────────────────
 const VaniCore = () => {
-  const [auth, setAuth] = useState(() => {
-    try {
-      const stored = sessionStorage.getItem(LS_AUTH);
-      return stored ? JSON.parse(stored) : null;
-    } catch { return null; }
-  });
-  const [showLogin, setShowLogin] = useState(false);
+  const [auth, setAuth]               = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [showLogin, setShowLogin]     = useState(false);
+  const [showSignup, setShowSignup]   = useState(false);
   const [pilots, setPilots] = useState(() => readLS(LS_PILOTS, []));
   const [feedback, setFeedback] = useState(() => {
     const stored = readLS(LS_FEEDBACK, null);
@@ -838,15 +838,35 @@ const VaniCore = () => {
   useEffect(() => { writeLS(LS_FEEDBACK, feedback); }, [feedback]);
   useEffect(() => { writeLS(LS_DOWNLOADS, downloads); }, [downloads]);
 
-  const handleLogin = useCallback((authData) => {
-    setAuth(authData);
-    try { sessionStorage.setItem(LS_AUTH, JSON.stringify(authData)); } catch { /* noop */ }
-    setShowLogin(false);
+  // Firebase auth state — persists across page refreshes
+  useEffect(() => {
+    const unsub = onAuthStateChanged(fbAuth, async (user) => {
+      if (user) {
+        try {
+          const snap = await getDoc(doc(db, 'users', user.uid));
+          if (snap.exists()) {
+            const d = snap.data();
+            setAuth({ uid: user.uid, email: user.email, role: d.role, username: d.name || d.email });
+          } else {
+            await signOut(fbAuth);
+            setAuth(null);
+          }
+        } catch {
+          setAuth(null);
+        }
+      } else {
+        setAuth(null);
+      }
+      setAuthLoading(false);
+      setShowLogin(false);
+      setShowSignup(false);
+    });
+    return () => unsub();
   }, []);
 
-  const handleLogout = useCallback(() => {
-    setAuth(null);
-    sessionStorage.removeItem(LS_AUTH);
+  const handleLogout = useCallback(async () => {
+    await signOut(fbAuth);
+    // setAuth(null) called automatically by onAuthStateChanged
   }, []);
 
   const handleDownload = useCallback((buildId) => {
@@ -874,8 +894,8 @@ const VaniCore = () => {
     BUILDS.reduce((sum, b) => sum + b.baseDownloads, 0) +
     BUILDS.reduce((sum, b) => sum + (downloads[b.id] || 0), 0);
 
-  const myRegistration = auth && auth.role === 'patient'
-    ? pilots.find((p) => p.alias === auth.alias)
+  const myRegistration = auth && (auth.role === 'caregiver' || auth.role === 'patient')
+    ? pilots.find((p) => p.alias === (auth.alias || auth.username))
     : null;
 
   return (
@@ -923,7 +943,7 @@ const VaniCore = () => {
         />
       )}
 
-      {auth && auth.role === 'patient' && (
+      {auth && (auth.role === 'caregiver' || auth.role === 'patient') && (
         <PatientDashboard auth={auth} myRegistration={myRegistration} />
       )}
 
@@ -937,7 +957,19 @@ const VaniCore = () => {
       <FeedbackSection feedback={feedback} onSubmit={handleFeedbackSubmit} />
 
       {showLogin && (
-        <LoginModal onClose={() => setShowLogin(false)} onLoginSuccess={handleLogin} />
+        <LoginModal
+          onClose={() => setShowLogin(false)}
+          onSignup={() => setShowSignup(true)}
+        />
+      )}
+      {showSignup && (
+        <SignupModal
+          onClose={() => setShowSignup(false)}
+          onSwitchToLogin={() => { setShowSignup(false); setShowLogin(true); }}
+        />
+      )}
+      {authLoading && (
+        <div className="vc-auth-loading">Loading…</div>
       )}
     </div>
   );

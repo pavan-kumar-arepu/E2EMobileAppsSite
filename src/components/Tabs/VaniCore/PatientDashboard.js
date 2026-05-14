@@ -23,7 +23,7 @@ const MOCK_SESSIONS = [
 ];
 
 const PatientDashboard = ({ auth, myRegistration }) => {
-  const { alias = 'Pilot-001' } = auth;
+  const alias = auth.alias || auth.username || 'User';
   const gestureData = getPatientData(alias);
 
   return (

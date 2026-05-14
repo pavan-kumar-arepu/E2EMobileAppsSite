@@ -1,22 +1,6 @@
 // VaniCoreConfig.js — Central config for VANI pilot portal
 // Update build URLs here after each release upload.
 
-// NOTE: Admin credentials are client-side only — suitable for internal pilot demo.
-// TODO: Migrate to Firebase Authentication before any production/scale release.
-// WARNING: Compiled React JS bundles are inspectable. Do not store sensitive patient
-//          health records behind this auth layer — use Firebase Rules for that.
-export const ADMIN_CREDENTIALS = {
-  username: 'iOSDeveloper.ipa',
-  password: 'Netlify@123456',
-};
-
-// Each caregiver / patient will receive their own Firebase credentials.
-// These demo credentials are for caregiver onboarding / testing only.
-export const DEMO_CARE_CREDENTIALS = {
-  username: 'vani.care',
-  password: 'VaniCare@2026',
-};
-
 // ── Build Releases ─────────────────────────────────────────────────────────────
 // Sign-in required to access download links (enforced in DownloadCard UI).
 export const BUILDS = [
@@ -155,7 +139,6 @@ export const MOCK_GESTURE_DATA = [
 export const SEED_FEEDBACK = [];
 
 // ── localStorage keys ──────────────────────────────────────────────────────────
-export const LS_PILOTS = 'vanicore_pilots_v1';
-export const LS_FEEDBACK = 'vanicore_feedback_v2';
+export const LS_PILOTS    = 'vanicore_pilots_v1';
+export const LS_FEEDBACK  = 'vanicore_feedback_v2';
 export const LS_DOWNLOADS = 'vanicore_downloads_v2';
-export const LS_AUTH = 'vanicore_auth_v1'; // sessionStorage

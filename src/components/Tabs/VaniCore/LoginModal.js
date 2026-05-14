@@ -1,52 +1,99 @@
 // src/components/Tabs/VaniCore/LoginModal.js
-import React, { useState } from 'react';
-import { ADMIN_CREDENTIALS, DEMO_CARE_CREDENTIALS } from './VaniCoreConfig';
+// Real Firebase Authentication — Email/Password
+// Admin:   username "admin" → mapped to admin@vanicore.app internally
+// Others:  full email + password, account created via SignupModal
 
-const LoginModal = ({ onClose, onLoginSuccess }) => {
-  const [tab, setTab] = useState('admin');
+import React, { useState } from 'react';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { auth as fbAuth, db } from '../../../firebase';
+
+// Internal email used for the single admin account
+const ADMIN_EMAIL = 'admin@vanicore.app';
+
+const LoginModal = ({ onClose, onSignup }) => {
+  const [tab, setTab]           = useState('admin');
   const [username, setUsername] = useState('');
+  const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
-  const [error, setError] = useState('');
+  const [loading, setLoading]   = useState(false);
+  const [error, setError]       = useState('');
 
   const switchTab = (t) => {
     setTab(t);
     setError('');
     setUsername('');
+    setEmail('');
     setPassword('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     if (tab === 'admin') {
-      if (
-        username === ADMIN_CREDENTIALS.username &&
-        password === ADMIN_CREDENTIALS.password
-      ) {
-        onLoginSuccess({ role: 'admin', username });
-      } else {
-        setError('Invalid admin credentials. Please try again.');
+      if (username.trim() !== 'admin') {
+        setError('Enter "admin" as the username.');
+        setLoading(false);
+        return;
+      }
+      try {
+        await signInWithEmailAndPassword(fbAuth, ADMIN_EMAIL, password);
+        onClose();
+      } catch {
+        // First launch: bootstrap admin Firebase account
+        try {
+          const cred = await createUserWithEmailAndPassword(fbAuth, ADMIN_EMAIL, password);
+          await setDoc(doc(db, 'users', cred.user.uid), {
+            name: 'Admin', email: ADMIN_EMAIL, role: 'admin', createdAt: serverTimestamp(),
+          });
+          onClose();
+        } catch (err2) {
+          if (err2.code === 'auth/email-already-in-use') {
+            setError('Invalid admin credentials. Please try again.');
+          } else {
+            setError('Login failed. Please try again.');
+          }
+        }
       }
     } else {
-      // Patient / Caregiver — demo credentials
-      // TODO: Replace with Firebase Auth signInWithEmailAndPassword()
-      if (
-        username === DEMO_CARE_CREDENTIALS.username &&
-        password === DEMO_CARE_CREDENTIALS.password
-      ) {
-        onLoginSuccess({ role: 'patient', username, alias: 'Pilot-001' });
-      } else {
-        setError(
-          'Credentials not found. Contact your VANI coordinator to receive access.'
-        );
+      if (!email.trim()) {
+        setError('Please enter your email address.');
+        setLoading(false);
+        return;
+      }
+      try {
+        await signInWithEmailAndPassword(fbAuth, email.trim().toLowerCase(), password);
+        onClose();
+      } catch (err) {
+        if (
+          err.code === 'auth/user-not-found'   ||
+          err.code === 'auth/wrong-password'   ||
+          err.code === 'auth/invalid-credential'
+        ) {
+          setError('No account found or wrong password. Sign up first.');
+        } else if (err.code === 'auth/invalid-email') {
+          setError('Please enter a valid email address.');
+        } else if (err.code === 'auth/too-many-requests') {
+          setError('Too many failed attempts. Please wait and try again.');
+        } else {
+          setError('Login failed. Please try again.');
+        }
       }
     }
+    setLoading(false);
   };
 
   return (
-    <div className="vc-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label="Sign in">
+    <div
+      className="vc-modal-overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Sign in"
+    >
       <div className="vc-modal-card" onClick={(e) => e.stopPropagation()}>
         <button className="vc-modal-close" onClick={onClose} aria-label="Close">✕</button>
 
@@ -67,29 +114,39 @@ const LoginModal = ({ onClose, onLoginSuccess }) => {
             className={`vc-login-tab ${tab === 'care' ? 'active' : ''}`}
             onClick={() => switchTab('care')}
           >
-            Patient / Caregiver
+            Caregiver / Patient
           </button>
         </div>
 
-        {tab === 'care' && (
-          <p className="vc-login-hint">
-            Your login is provided by the VANI coordinator. Gesture data is private to your account.
-          </p>
-        )}
-
         <form className="vc-login-form" onSubmit={handleSubmit} noValidate>
-          <div className="vc-field">
-            <label htmlFor="vc-user">Username</label>
-            <input
-              id="vc-user"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder={tab === 'admin' ? 'admin username' : 'your username'}
-              autoComplete="username"
-              required
-            />
-          </div>
+
+          {tab === 'admin' ? (
+            <div className="vc-field">
+              <label htmlFor="vc-user">Username</label>
+              <input
+                id="vc-user"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="admin"
+                autoComplete="username"
+                required
+              />
+            </div>
+          ) : (
+            <div className="vc-field">
+              <label htmlFor="vc-email">Email</label>
+              <input
+                id="vc-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
+                autoComplete="email"
+                required
+              />
+            </div>
+          )}
 
           <div className="vc-field">
             <label htmlFor="vc-pass">Password</label>
@@ -116,16 +173,31 @@ const LoginModal = ({ onClose, onLoginSuccess }) => {
 
           {error && <p className="vc-login-error" role="alert">{error}</p>}
 
-          <button type="submit" className="vc-btn-primary vc-full-width">
-            Sign In
+          <button
+            type="submit"
+            className="vc-btn-primary vc-full-width"
+            disabled={loading}
+          >
+            {loading ? 'Signing in…' : 'Sign In'}
           </button>
         </form>
 
-        <p className="vc-modal-footer">
-          {tab === 'admin'
-            ? 'Secure admin access — all patient data is anonymised in the UI.'
-            : 'Patient data is end-to-end private. Firebase migration coming soon.'}
-        </p>
+        {tab === 'care' && (
+          <p className="vc-modal-footer">
+            New here?{' '}
+            <button
+              className="vc-inline-link"
+              onClick={() => { onClose(); onSignup(); }}
+            >
+              Create an account
+            </button>
+          </p>
+        )}
+        {tab === 'admin' && (
+          <p className="vc-modal-footer">
+            Secure admin access — all patient data is anonymised in the UI.
+          </p>
+        )}
       </div>
     </div>
   );

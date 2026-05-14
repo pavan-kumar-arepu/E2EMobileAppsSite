@@ -938,6 +938,21 @@
 .vc-login-btn:hover { opacity: .9; }
 .vc-modal-footer { font-size: .75rem; color: var(--vc-text-3); text-align: center; margin: 16px 0 0; line-height: 1.5; }
 
+/* Auth loading overlay */
+.vc-auth-loading {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.55);
+  color: #fff; font-size: 1rem; z-index: 9999; letter-spacing: .5px;
+}
+
+/* Signup success state */
+.vc-signup-success {
+  text-align: center; padding: 12px 0 8px;
+}
+.vc-signup-success .vc-success-icon { font-size: 2.2rem; margin-bottom: 8px; }
+.vc-signup-success p { color: var(--vc-text-2); margin-bottom: 16px; }
+
 /* ── Feedback admin ──────────────────────────────────────────────────────── */
 .vc-feedback-admin { display: flex; flex-direction: column; gap: 24px; }
 
