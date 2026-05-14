@@ -1,5 +1,5 @@
 // src/components/Tabs/VaniCore/VaniCore.js
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './VaniCore.css';
 import {
   BUILDS,
@@ -139,6 +139,111 @@ const Footer = () => (
   </footer>
 );
 
+// ── Hero Carousel ───────────────────────────────────────────────────────────
+const HERO_SLIDES = [
+  {
+    icon: '🧠',
+    title: 'What is ALS / MND?',
+    content: (
+      <p>
+        Amyotrophic Lateral Sclerosis (ALS) and Motor Neuron Disease (MND) progressively destroy
+        the nerve cells controlling voluntary movement. Over 2 million people worldwide are affected.
+        In late stages, eye movement is often the <strong>only remaining voluntary function</strong>.
+      </p>
+    ),
+  },
+  {
+    icon: '💔',
+    title: 'Why This Pilot Matters',
+    content: (
+      <p>
+        Existing assistive devices are expensive, reactive, and require user initiation.
+        VANI is different — it continuously watches, learns, and acts.
+        This pilot is a first step toward giving patients back their independence,
+        dignity, and identity — without surgery, implants, or specialist hardware.
+      </p>
+    ),
+  },
+  {
+    icon: '🔧',
+    title: 'What Problems Does VANI Solve?',
+    content: (
+      <p>
+        <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Gaze Left</strong> → "Yes"<br/>
+        <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Gaze Right</strong> → "No"<br/>
+        <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Double Blink</strong> → "Help"<br/>
+        <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Wink Left</strong> → "Pain"<br/>
+        <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Wink Right</strong> → "Water"<br/>
+        <span className="vc-tag vc-tag-progress">🔄 v2</span> IoT control — fan, light, TV<br/>
+        <span className="vc-tag vc-tag-progress">🔄 v2</span> Voice SMS &amp; emergency calling
+      </p>
+    ),
+  },
+  {
+    icon: '💻',
+    title: 'Technology Behind VANI',
+    content: (
+      <p>
+        Built on <strong>Computer Vision + Edge AI</strong> running locally on Windows / macOS,
+        synced to an Android companion app (VaniCare) over <strong>WiFi via Firebase</strong>.
+        Core stack: <strong>Python · Deep Learning · LSTM · Temporal Differencing ·
+        Noise Reduction · Speech Processing · DNN · LLM-assisted interaction</strong>.
+        Future cloud expansion planned on AWS.
+      </p>
+    ),
+  },
+];
+
+const HeroCarousel = () => {
+  const [idx, setIdx] = useState(0);
+  const [anim, setAnim] = useState('');
+  const timerRef = useRef(null);
+  const total = HERO_SLIDES.length;
+
+  const goTo = useCallback((next, dir) => {
+    setAnim(dir === 'left' ? 'vc-slide-out-left' : 'vc-slide-out-right');
+    setTimeout(() => {
+      setIdx(next);
+      setAnim(dir === 'left' ? 'vc-slide-in-right' : 'vc-slide-in-left');
+      setTimeout(() => setAnim(''), 320);
+    }, 280);
+  }, []);
+
+  const prev = () => { goTo((idx - 1 + total) % total, 'right'); };
+  const next = useCallback(() => { goTo((idx + 1) % total, 'left'); }, [idx, total, goTo]);
+
+  useEffect(() => {
+    timerRef.current = setInterval(next, 5000);
+    return () => clearInterval(timerRef.current);
+  }, [next]);
+
+  const pauseTimer = () => clearInterval(timerRef.current);
+  const resumeTimer = () => { timerRef.current = setInterval(next, 5000); };
+
+  const slide = HERO_SLIDES[idx];
+  return (
+    <div className="vc-carousel" onMouseEnter={pauseTimer} onMouseLeave={resumeTimer}>
+      <button className="vc-carousel-arrow vc-carousel-prev" onClick={prev} aria-label="Previous">‹</button>
+      <div className={`vc-hero-card vc-carousel-card ${anim}`}>
+        <div className="vc-hero-card-icon">{slide.icon}</div>
+        <h3>{slide.title}</h3>
+        {slide.content}
+      </div>
+      <button className="vc-carousel-arrow vc-carousel-next" onClick={next} aria-label="Next">›</button>
+      <div className="vc-carousel-dots">
+        {HERO_SLIDES.map((_, i) => (
+          <button
+            key={i}
+            className={`vc-carousel-dot ${i === idx ? 'active' : ''}`}
+            onClick={() => goTo(i, i > idx ? 'left' : 'right')}
+            aria-label={`Slide ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Hero = ({ pilotCount, totalDownloads }) => (
   <section className="vc-hero">
     <div className="vc-hero-badge">Pilot Program — Open Now</div>
@@ -148,51 +253,7 @@ const Hero = ({ pilotCount, totalDownloads }) => (
       even blinking can be the last remaining way to communicate. VANI exists to make sure that blink is heard.
     </p>
 
-    <div className="vc-hero-cards">
-        <div className="vc-hero-card">
-          <div className="vc-hero-card-icon">🧠</div>
-          <h3>What is ALS / MND?</h3>
-        <p>
-          Amyotrophic Lateral Sclerosis (ALS) and Motor Neuron Disease (MND) progressively destroy
-          the nerve cells controlling voluntary movement. Over 2 million people worldwide are affected.
-          In late stages, eye movement is often the <strong>only remaining voluntary function</strong>.
-        </p>
-      </div>
-      <div className="vc-hero-card">
-        <div className="vc-hero-card-icon">💔</div>
-        <h3>Why This Pilot Matters</h3>
-        <p>
-          Existing assistive devices are expensive, reactive, and require user initiation.
-          VANI is different — it continuously watches, learns, and acts.
-          This pilot is a first step toward giving patients back their independence,
-          dignity, and identity — without surgery, implants, or specialist hardware.
-        </p>
-      </div>
-        <div className="vc-hero-card">
-          <div className="vc-hero-card-icon">🔧</div>
-          <h3>What Problems Does VANI Solve?</h3>
-          <p>
-            <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Gaze Left</strong> → &quot;Yes&quot;<br/>
-            <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Gaze Right</strong> → &quot;No&quot;<br/>
-            <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Double Blink</strong> → &quot;Help&quot;<br/>
-            <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Wink Left</strong> → &quot;Pain&quot;<br/>
-            <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Wink Right</strong> → &quot;Water&quot;<br/>
-            <span className="vc-tag vc-tag-progress">🔄 v2</span> IoT control — fan, light, TV<br/>
-            <span className="vc-tag vc-tag-progress">🔄 v2</span> Voice SMS &amp; emergency calling
-          </p>
-        </div>
-        <div className="vc-hero-card">
-          <div className="vc-hero-card-icon">💻</div>
-          <h3>Technology Behind VANI</h3>
-        <p>
-          Built on <strong>Computer Vision + Edge AI</strong> running locally on Windows / macOS,
-          synced to an Android companion app (VaniCare) over <strong>WiFi via Firebase</strong>.
-          Core stack: <strong>Python · Deep Learning · LSTM · Temporal Differencing ·
-          Noise Reduction · Speech Processing · DNN · LLM-assisted interaction</strong>.
-          Future cloud expansion planned on AWS.
-          </p>
-        </div>
-      </div>
+    <HeroCarousel />
 
     <div className="vc-hero-principles">
       <span className="vc-principle">Reliability First</span>
