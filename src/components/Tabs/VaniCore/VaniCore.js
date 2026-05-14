@@ -84,17 +84,61 @@ const TopBar = ({ auth, onLogin, onLogout }) => (
 const Hero = ({ pilotCount, totalDownloads }) => (
   <section className="vc-hero">
     <div className="vc-hero-badge">Pilot Program — Open Now</div>
-    <h1 className="vc-hero-title">VANI — Voice &amp; Non-verbal Intelligence</h1>
+    <h1 className="vc-hero-title">VANI — Giving Back the Voice</h1>
     <p className="vc-hero-sub">
-      A communication bridge designed for individuals who cannot speak or move — restoring
-      independence, dignity, and identity for patients with ALS/MND, Locked-in Syndrome,
-      and similar conditions. VANI detects eye movements, blinks, and facial gestures with
-      near clinical-grade reliability.
+      For millions living with ALS, Locked-in Syndrome, or severe motor impairment,
+      even blinking can be the last remaining way to communicate. VANI exists to make sure that blink is heard.
     </p>
+
+    <div className="vc-hero-cards">
+      <div className="vc-hero-card">
+        <div className="vc-hero-card-icon">🧠</div>
+        <h3>What is ALS / MND?</h3>
+        <p>
+          Amyotrophic Lateral Sclerosis (ALS) and Motor Neuron Disease (MND) progressively destroy
+          the nerve cells controlling voluntary movement. Over 2 million people worldwide are affected.
+          In late stages, eye movement is often the <strong>only remaining voluntary function</strong>.
+        </p>
+      </div>
+      <div className="vc-hero-card">
+        <div className="vc-hero-card-icon">💔</div>
+        <h3>Why This Pilot Matters</h3>
+        <p>
+          Existing assistive devices are expensive, reactive, and require user initiation.
+          VANI is different — it continuously watches, learns, and acts.
+          This pilot is a first step toward giving patients back their independence,
+          dignity, and identity — without surgery, implants, or specialist hardware.
+        </p>
+      </div>
+      <div className="vc-hero-card">
+        <div className="vc-hero-card-icon">🔧</div>
+        <h3>What Problems Does VANI Solve?</h3>
+        <p>
+          • No way to call for help at night<br/>
+          • Dependent on caregiver for every need<br/>
+          • Cannot control fan, light, or TV<br/>
+          • Cannot say “I love you” in their own voice<br/>
+          VANI addresses all of these through eye &amp; facial gesture detection.
+        </p>
+      </div>
+      <div className="vc-hero-card">
+        <div className="vc-hero-card-icon">💻</div>
+        <h3>Technology Behind VANI</h3>
+        <p>
+          Built on <strong>Computer Vision + Edge AI</strong> running locally on Windows/macOS.
+          Uses MediaPipe facial landmarks (468 points), LSTM gesture classification,
+          Kalman filtering for noise reduction, and a real-time QR-based sync to an Android companion app (VaniCare).
+          <strong> No cloud dependency. Works offline.</strong>
+        </p>
+      </div>
+    </div>
+
     <div className="vc-hero-principles">
       <span className="vc-principle">Reliability First</span>
       <span className="vc-principle">Patient-Adaptive</span>
       <span className="vc-principle">Affordability by Design</span>
+      <span className="vc-principle">No Implants. No Surgery.</span>
+      <span className="vc-principle">Works Offline</span>
     </div>
     <div className="vc-hero-stats">
       <div className="vc-hero-stat">

@@ -82,7 +82,7 @@ const QuickView = () => (
             <span className="qv-stat-label">Years Exp.</span>
           </div>
           <div className="qv-stat">
-            <span className="qv-stat-num">175+</span>
+            <span className="qv-stat-num">30+</span>
             <span className="qv-stat-label">Apps Shipped</span>
           </div>
           <div className="qv-stat">

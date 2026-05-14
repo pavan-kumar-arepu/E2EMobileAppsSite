@@ -4,7 +4,7 @@ import "./AboutMe.css";
 const STATS = [
   { value: "16+",  label: "Years Experience" },
   { value: "30+",  label: "Apps Shipped" },
-  { value: "200+", label: "POCs / Repos" },
+  { value: "175+", label: "POCs / Repos" },
   { value: "4",    label: "Countries" },
 ];
 
@@ -43,8 +43,8 @@ const ACHIEVEMENTS = [
   { icon: "🏆", text: "Best Team Award — TCS Internal 2021 for a successful iOS project." },
   { icon: "🧠", text: "Context Master — TCS Internal 2020/2023 for process improvement." },
   { icon: "💡", text: "Ranked Top 3 in the 2017 Healthcare Ideathon for innovation." },
+  { icon: "🏢", text: "Worked as MDM & MAM Admin — deployed 200+ iOS and Android apps across enterprise using AirWatch / Apperian / MobileIron across 20+ countries." },
   { icon: "📱", text: "Shipped 25–30 professional mobile apps (iOS, Android, React Native, Flutter) for enterprise clients." },
-  { icon: "🏪", text: "Published 200+ apps in enterprise stores (AirWatch / Apperian / MobileIron) across 20+ countries." },
   { icon: "🚀", text: "Launched 10+ consumer apps to the App Store and Google Play Store." },
   { icon: "🔥", text: "Maintained a 365-day coding streak on Scalar." },
   { icon: "🎓", text: "Trained 150+ students and professionals; interviewed 100+ engineering candidates as a panelist." },
