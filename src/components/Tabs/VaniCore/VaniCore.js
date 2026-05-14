@@ -196,49 +196,62 @@ const HERO_SLIDES = [
 
 const HeroCarousel = () => {
   const [idx, setIdx] = useState(0);
-  const [anim, setAnim] = useState('');
   const timerRef = useRef(null);
   const total = HERO_SLIDES.length;
 
-  const goTo = useCallback((next, dir) => {
-    setAnim(dir === 'left' ? 'vc-slide-out-left' : 'vc-slide-out-right');
-    setTimeout(() => {
-      setIdx(next);
-      setAnim(dir === 'left' ? 'vc-slide-in-right' : 'vc-slide-in-left');
-      setTimeout(() => setAnim(''), 320);
-    }, 280);
-  }, []);
-
-  const prev = () => { goTo((idx - 1 + total) % total, 'right'); };
-  const next = useCallback(() => { goTo((idx + 1) % total, 'left'); }, [idx, total, goTo]);
+  const startTimer = useCallback(() => {
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => setIdx(i => (i + 1) % total), 10000);
+  }, [total]);
 
   useEffect(() => {
-    timerRef.current = setInterval(next, 5000);
+    startTimer();
     return () => clearInterval(timerRef.current);
-  }, [next]);
+  }, [startTimer]);
 
-  const pauseTimer = () => clearInterval(timerRef.current);
-  const resumeTimer = () => { timerRef.current = setInterval(next, 5000); };
+  const goTo = useCallback((next) => {
+    setIdx(((next % total) + total) % total);
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => setIdx(i => (i + 1) % total), 10000);
+  }, [total]);
 
-  const slide = HERO_SLIDES[idx];
   return (
-    <div className="vc-carousel" onMouseEnter={pauseTimer} onMouseLeave={resumeTimer}>
-      <button className="vc-carousel-arrow vc-carousel-prev" onClick={prev} aria-label="Previous">‹</button>
-      <div className={`vc-hero-card vc-carousel-card ${anim}`}>
-        <div className="vc-hero-card-icon">{slide.icon}</div>
-        <h3>{slide.title}</h3>
-        {slide.content}
+    <div
+      className="vc-carousel"
+      onMouseEnter={() => clearInterval(timerRef.current)}
+      onMouseLeave={startTimer}
+    >
+      <div className="vc-carousel-track-wrap">
+        <div
+          className="vc-carousel-track"
+          style={{ transform: `translateX(calc(14% - ${idx} * (72% + 16px)))` }}
+        >
+          {HERO_SLIDES.map((slide, i) => (
+            <div
+              key={i}
+              className={`vc-hero-card vc-carousel-item${i === idx ? ' active' : ''}`}
+              onClick={() => i !== idx && goTo(i)}
+            >
+              <div className="vc-hero-card-icon">{slide.icon}</div>
+              <h3>{slide.title}</h3>
+              {slide.content}
+            </div>
+          ))}
+        </div>
       </div>
-      <button className="vc-carousel-arrow vc-carousel-next" onClick={next} aria-label="Next">›</button>
-      <div className="vc-carousel-dots">
-        {HERO_SLIDES.map((_, i) => (
-          <button
-            key={i}
-            className={`vc-carousel-dot ${i === idx ? 'active' : ''}`}
-            onClick={() => goTo(i, i > idx ? 'left' : 'right')}
-            aria-label={`Slide ${i + 1}`}
-          />
-        ))}
+      <div className="vc-carousel-controls">
+        <button className="vc-carousel-arrow" onClick={() => goTo(idx - 1)} aria-label="Previous">‹</button>
+        <div className="vc-carousel-dots">
+          {HERO_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              className={`vc-carousel-dot${i === idx ? ' active' : ''}`}
+              onClick={() => goTo(i)}
+              aria-label={`Slide ${i + 1}`}
+            />
+          ))}
+        </div>
+        <button className="vc-carousel-arrow" onClick={() => goTo(idx + 1)} aria-label="Next">›</button>
       </div>
     </div>
   );
