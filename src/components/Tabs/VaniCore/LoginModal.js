@@ -11,7 +11,13 @@ import { auth as fbAuth, db } from '../../../firebase';
 // Internal email used for the single admin account
 const ADMIN_EMAIL = 'admin@vanicore.app';
 
-const LoginModal = ({ onClose, onSignup }) => {
+const CONTEXT_MESSAGES = {
+  download: 'Sign in to access VANI downloads — restricted to registered pilot participants.',
+  setup:    'Sign in to view the setup guide — your session data stays private.',
+  pilot:    'Sign in to register for the pilot — your data helps calibrate VANI for your needs.',
+};
+
+const LoginModal = ({ onClose, onSignup, context }) => {
   const [tab, setTab]           = useState('admin');
   const [username, setUsername] = useState('');
   const [email, setEmail]       = useState('');
@@ -102,6 +108,10 @@ const LoginModal = ({ onClose, onSignup }) => {
           <span className="vc-logo-text">VANI</span>
         </div>
         <h2 className="vc-modal-title">Sign In</h2>
+
+        {CONTEXT_MESSAGES[context] && (
+          <p className="vc-modal-context-msg">{CONTEXT_MESSAGES[context]}</p>
+        )}
 
         <div className="vc-login-tabs">
           <button

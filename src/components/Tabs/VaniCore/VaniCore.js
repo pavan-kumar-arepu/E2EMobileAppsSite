@@ -149,9 +149,9 @@ const Hero = ({ pilotCount, totalDownloads }) => (
     </p>
 
     <div className="vc-hero-cards">
-      <div className="vc-hero-card">
-        <div className="vc-hero-card-icon">🧠</div>
-        <h3>What is ALS / MND?</h3>
+        <div className="vc-hero-card">
+          <div className="vc-hero-card-icon">🧠</div>
+          <h3>What is ALS / MND?</h3>
         <p>
           Amyotrophic Lateral Sclerosis (ALS) and Motor Neuron Disease (MND) progressively destroy
           the nerve cells controlling voluntary movement. Over 2 million people worldwide are affected.
@@ -168,29 +168,31 @@ const Hero = ({ pilotCount, totalDownloads }) => (
           dignity, and identity — without surgery, implants, or specialist hardware.
         </p>
       </div>
-      <div className="vc-hero-card">
-        <div className="vc-hero-card-icon">🔧</div>
-        <h3>What Problems Does VANI Solve?</h3>
-        <p>
-          <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> No way to call for help at night<br/>
-          <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> Cannot express hunger, thirst, hygiene needs, or pain<br/>
-          <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> Dependent on caregiver for urgent communication<br/>
-          <span className="vc-tag vc-tag-progress">🔄 In Progress</span> Cannot control fan, light, or TV independently<br/>
-          <span className="vc-tag vc-tag-progress">🔄 In Progress</span> Cannot say &quot;I love you&quot; in their own voice
-        </p>
-      </div>
-      <div className="vc-hero-card">
-        <div className="vc-hero-card-icon">💻</div>
-        <h3>Technology Behind VANI</h3>
+        <div className="vc-hero-card">
+          <div className="vc-hero-card-icon">🔧</div>
+          <h3>What Problems Does VANI Solve?</h3>
+          <p>
+            <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Gaze Left</strong> → &quot;Yes&quot;<br/>
+            <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Gaze Right</strong> → &quot;No&quot;<br/>
+            <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Double Blink</strong> → &quot;Help&quot;<br/>
+            <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Wink Left</strong> → &quot;Pain&quot;<br/>
+            <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Wink Right</strong> → &quot;Water&quot;<br/>
+            <span className="vc-tag vc-tag-progress">🔄 v2</span> IoT control — fan, light, TV<br/>
+            <span className="vc-tag vc-tag-progress">🔄 v2</span> Voice SMS &amp; emergency calling
+          </p>
+        </div>
+        <div className="vc-hero-card">
+          <div className="vc-hero-card-icon">💻</div>
+          <h3>Technology Behind VANI</h3>
         <p>
           Built on <strong>Computer Vision + Edge AI</strong> running locally on Windows / macOS,
           synced to an Android companion app (VaniCare) over <strong>WiFi via Firebase</strong>.
           Core stack: <strong>Python · Deep Learning · LSTM · Temporal Differencing ·
           Noise Reduction · Speech Processing · DNN · LLM-assisted interaction</strong>.
           Future cloud expansion planned on AWS.
-        </p>
+          </p>
+        </div>
       </div>
-    </div>
 
     <div className="vc-hero-principles">
       <span className="vc-principle">Reliability First</span>
@@ -208,6 +210,11 @@ const Hero = ({ pilotCount, totalDownloads }) => (
       <div className="vc-hero-stat">
         <span className="vc-hero-stat-num">{totalDownloads}</span>
         <span className="vc-hero-stat-label">App Downloads</span>
+      </div>
+      <div className="vc-hero-stat-divider" />
+      <div className="vc-hero-stat">
+        <span className="vc-hero-stat-num">10+</span>
+        <span className="vc-hero-stat-label">Gestures Captured</span>
       </div>
       <div className="vc-hero-stat-divider" />
       <div className="vc-hero-stat">
@@ -531,8 +538,21 @@ const PilotForm = ({ onSubmit, submitted }) => {
       <h2 className="vc-section-title">
         <span className="vc-title-icon">📋</span> Join the Pilot Programme
       </h2>
+      <div className="vc-pilot-proud">
+        <div className="vc-pilot-proud-icon">🌟</div>
+        <div>
+          <strong>You are making history.</strong>
+          <p>
+            Every person who joins this pilot helps refine VANI for the millions of ALS, MND, and
+            Locked-in patients who cannot yet speak for themselves. Your participation — however small
+            it feels — directly shapes a technology that could give someone their voice back.
+            We are honoured to have you here.
+          </p>
+        </div>
+      </div>
       <p className="vc-section-sub">
-        No personal identifying information is required. Your alias, condition profile, and motor function details help us calibrate VANI specifically for you.
+        No personal identifying information is required. Your alias, condition profile,
+        and motor function details help us calibrate VANI specifically for you.
       </p>
 
       {/* Hidden Netlify form for pre-registration */}
@@ -788,6 +808,7 @@ const VaniCore = () => {
   const [authLoading, setAuthLoading] = useState(true);
   const [showLogin, setShowLogin]     = useState(false);
   const [showSignup, setShowSignup]   = useState(false);
+  const [loginContext, setLoginContext] = useState('default');
   const [activeTab, setActiveTab]     = useState('home');
   const [pilots, setPilots] = useState(() => readLS(LS_PILOTS, []));
   const [feedback, setFeedback] = useState(() => {
@@ -841,7 +862,7 @@ const VaniCore = () => {
 
   const handleLogout = useCallback(async () => {
     await signOut(fbAuth);
-    // setAuth(null) called automatically by onAuthStateChanged
+    setActiveTab('home'); // always return to Home on sign-out
   }, []);
 
   const handleDownload = useCallback((buildId) => {
@@ -888,17 +909,17 @@ const VaniCore = () => {
               <button className="vc-cta-card" onClick={() => auth ? setActiveTab('download') : setShowLogin(true)}>
                 <span>⬇️</span><strong>Download VANI</strong>
                 <p>Windows · macOS · Android</p>
-                {!auth && <span className="vc-cta-lock">🔒 Sign in required</span>}
+                {!auth && <span className="vc-cta-lock">🔒</span>}
               </button>
               <button className="vc-cta-card" onClick={() => auth ? setActiveTab('setup') : setShowLogin(true)}>
                 <span>📖</span><strong>Setup Guide</strong>
                 <p>Step-by-step in under 10 min</p>
-                {!auth && <span className="vc-cta-lock">🔒 Sign in required</span>}
+                {!auth && <span className="vc-cta-lock">🔒</span>}
               </button>
               <button className="vc-cta-card" onClick={() => auth ? setActiveTab('pilot') : setShowLogin(true)}>
                 <span>📋</span><strong>Join the Pilot</strong>
                 <p>Register your profile</p>
-                {!auth && <span className="vc-cta-lock">🔒 Sign in required</span>}
+                {!auth && <span className="vc-cta-lock">🔒</span>}
               </button>
               <button className="vc-cta-card" onClick={() => setActiveTab('feedback')}>
                 <span>💬</span><strong>Community</strong>
@@ -978,6 +999,7 @@ const VaniCore = () => {
         <LoginModal
           onClose={() => setShowLogin(false)}
           onSignup={() => setShowSignup(true)}
+          context={loginContext}
         />
       )}
       {showSignup && (

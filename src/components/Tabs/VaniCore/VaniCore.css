@@ -1468,6 +1468,33 @@
   margin: 0;
 }
 
+/* ── Pilot proud moment banner ───────────────────────────────────────────── */
+.vc-pilot-proud {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(106,17,203,.07), rgba(37,117,252,.07));
+  border-left: 4px solid var(--vc-purple);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+}
+.vc-pilot-proud-icon { font-size: 1.5rem; flex-shrink: 0; }
+.vc-pilot-proud-text { margin: 0; font-size: .93rem; color: var(--vc-text-2); line-height: 1.55; }
+.vc-pilot-proud-text strong { color: var(--vc-purple); }
+
+/* ── Login modal context message ─────────────────────────────────────────── */
+.vc-modal-context-msg {
+  background: rgba(106,17,203,.07);
+  border-left: 3px solid var(--vc-purple);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: .85rem;
+  color: var(--vc-text-2);
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+
 /* ── Responsive tweaks ───────────────────────────────────────────────────── */
 @media (max-width: 480px) {
   .vc-tab-btn { padding: 7px 12px; }
