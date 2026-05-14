@@ -16,7 +16,7 @@ const firebaseConfig = {
   apiKey:            process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain:        'vanicorev0.firebaseapp.com',
   projectId:         'vanicorev0',
-  storageBucket:     'vanicorev0.appspot.com',
+  storageBucket:     'vanicorev0.firebasestorage.app',
   messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
   appId:             process.env.REACT_APP_FIREBASE_APP_ID,
 };
