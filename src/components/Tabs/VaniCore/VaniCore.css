@@ -192,6 +192,27 @@
   padding: 5px 14px;
   border-radius: 20px;
 }
+/* ── Pilot / In-Progress inline tags ────────────────────────────────────── */
+.vc-tag {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.vc-tag-pilot {
+  background: rgba(52, 211, 153, .18);
+  border: 1px solid rgba(52, 211, 153, .45);
+  color: #6ee7b7;
+}
+.vc-tag-progress {
+  background: rgba(251, 191, 36, .15);
+  border: 1px solid rgba(251, 191, 36, .4);
+  color: #fde68a;
+}
 /* ── Hero info cards ─────────────────────────────────────────────────────── */
 .vc-hero-cards {
   display: grid;

@@ -114,21 +114,23 @@ const Hero = ({ pilotCount, totalDownloads }) => (
         <div className="vc-hero-card-icon">🔧</div>
         <h3>What Problems Does VANI Solve?</h3>
         <p>
-          • No way to call for help at night<br/>
-          • Dependent on caregiver for every need<br/>
-          • Cannot control fan, light, or TV<br/>
-          • Cannot say “I love you” in their own voice<br/>
-          VANI addresses all of these through eye &amp; facial gesture detection.
+          <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> No way to call for help at night<br/>
+          <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> Cannot express hunger, thirst, hygiene needs, or pain<br/>
+          <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> Dependent on caregiver for urgent communication<br/>
+          <span className="vc-tag vc-tag-progress">🔄 In Progress</span> Cannot control fan, light, or TV independently<br/>
+          <span className="vc-tag vc-tag-progress">🔄 In Progress</span> Cannot say &quot;I love you&quot; in their own voice
         </p>
       </div>
       <div className="vc-hero-card">
         <div className="vc-hero-card-icon">💻</div>
         <h3>Technology Behind VANI</h3>
         <p>
-          Built on <strong>Computer Vision + Edge AI</strong> running locally on Windows/macOS.
-          Uses MediaPipe facial landmarks (468 points), LSTM gesture classification,
-          Kalman filtering for noise reduction, and a real-time QR-based sync to an Android companion app (VaniCare).
-          <strong> No cloud dependency. Works offline.</strong>
+          Built on <strong>Computer Vision + Edge AI</strong> running locally on Windows / macOS,
+          synced to an Android companion app (VaniCare) over <strong>WiFi via Firebase</strong>.
+          Core stack: <strong>Python · Deep Learning · LSTM · Temporal Differencing ·
+          Noise Reduction · Speech Processing · DNN · LLM-assisted interaction</strong>.
+          Future cloud expansion planned on AWS. Real-time gesture recognition using
+          custom vision pipelines with temporal smoothing and adaptive calibration.
         </p>
       </div>
     </div>
@@ -138,7 +140,7 @@ const Hero = ({ pilotCount, totalDownloads }) => (
       <span className="vc-principle">Patient-Adaptive</span>
       <span className="vc-principle">Affordability by Design</span>
       <span className="vc-principle">No Implants. No Surgery.</span>
-      <span className="vc-principle">Works Offline</span>
+      <span className="vc-principle">WiFi Sync via Firebase</span>
     </div>
     <div className="vc-hero-stats">
       <div className="vc-hero-stat">
