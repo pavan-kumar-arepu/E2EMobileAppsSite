@@ -67,7 +67,7 @@ const TopBar = ({ auth, onLogin, onLogout }) => (
   <div className="vc-topbar">
     <div className="vc-topbar-brand">
       <span className="vc-topbar-icon">🧠</span>
-      <span className="vc-topbar-name">VaniCore Pilot Portal</span>
+      <span className="vc-topbar-name">VANI Pilot Portal</span>
     </div>
     <div className="vc-topbar-right">
       {auth ? (
@@ -82,6 +82,56 @@ const TopBar = ({ auth, onLogin, onLogout }) => (
       )}
     </div>
   </div>
+);
+
+// ── Tab Nav ────────────────────────────────────────────────────────────────────
+const TABS = [
+  { id: 'home',      icon: '🏠', label: 'Home'       },
+  { id: 'download',  icon: '⬇️', label: 'Download'   },
+  { id: 'setup',     icon: '📖', label: 'Setup'      },
+  { id: 'pilot',     icon: '📋', label: 'Join Pilot' },
+  { id: 'feedback',  icon: '💬', label: 'Feedback'   },
+  { id: 'dashboard', icon: '📊', label: 'Dashboard'  },
+];
+
+const TabNav = ({ active, onChange, auth }) => {
+  const visible = TABS.filter((t) => t.id !== 'dashboard' || auth);
+  return (
+    <nav className="vc-tab-nav" role="tablist">
+      {visible.map((t) => (
+        <button
+          key={t.id}
+          role="tab"
+          aria-selected={active === t.id}
+          className={`vc-tab-btn ${active === t.id ? 'active' : ''}`}
+          onClick={() => onChange(t.id)}
+        >
+          <span className="vc-tab-icon">{t.icon}</span>
+          <span className="vc-tab-label">{t.label}</span>
+        </button>
+      ))}
+    </nav>
+  );
+};
+
+// ── Footer ─────────────────────────────────────────────────────────────────────
+const Footer = () => (
+  <footer className="vc-footer">
+    <div className="vc-footer-inner">
+      <div className="vc-footer-brand">
+        <span className="vc-footer-logo">🧠</span>
+        <span className="vc-footer-name">VANI — Giving Back the Voice</span>
+      </div>
+      <div className="vc-footer-contact">
+        <a href="tel:+918121040308" className="vc-footer-link">📞 +91 81210 40308</a>
+        <span className="vc-footer-sep">·</span>
+        <a href="mailto:vaaninnovations@gmail.com" className="vc-footer-link">✉️ vaaninnovations@gmail.com</a>
+      </div>
+      <p className="vc-footer-copy">
+        © {new Date().getFullYear()} Pavan Kumar Arepu · VANI Innovations · All rights reserved.
+      </p>
+    </div>
+  </footer>
 );
 
 const Hero = ({ pilotCount, totalDownloads }) => (
@@ -734,6 +784,7 @@ const VaniCore = () => {
   const [authLoading, setAuthLoading] = useState(true);
   const [showLogin, setShowLogin]     = useState(false);
   const [showSignup, setShowSignup]   = useState(false);
+  const [activeTab, setActiveTab]     = useState('home');
   const [pilots, setPilots] = useState(() => readLS(LS_PILOTS, []));
   const [feedback, setFeedback] = useState(() => {
     const stored = readLS(LS_FEEDBACK, null);
@@ -779,6 +830,7 @@ const VaniCore = () => {
       setAuthLoading(false);
       setShowLogin(false);
       setShowSignup(false);
+      if (user) setActiveTab('dashboard');
     });
     return () => unsub();
   }, []);
@@ -820,60 +872,96 @@ const VaniCore = () => {
   return (
     <div className="vc-page">
       <TopBar auth={auth} onLogin={() => setShowLogin(true)} onLogout={handleLogout} />
-      <Hero pilotCount={pilots.length} totalDownloads={totalDownloads} />
+      <TabNav active={activeTab} onChange={setActiveTab} auth={auth} />
 
-      <section className="vc-section" id="downloads">
-        <h2 className="vc-section-title">
-          <span className="vc-title-icon">⬇️</span> Download VaniCore
-        </h2>
-        <p className="vc-section-sub">
-          Available on Windows, macOS, and Android. <strong>Sign in</strong> (Admin or Patient / Caregiver) to access download links.
-        </p>
-        {!auth && (
-          <div className="vc-signin-nudge">
-            🔐 Downloads are restricted to registered participants. Please{' '}
-            <button className="vc-inline-link" onClick={() => setShowLogin(true)}>Sign In</button>
-            {' '}to download.
-          </div>
+      <div className="vc-tab-content">
+
+        {/* ── Home ── */}
+        {activeTab === 'home' && (
+          <>
+            <Hero pilotCount={pilots.length} totalDownloads={totalDownloads} />
+            <div className="vc-home-cta-row">
+              <button className="vc-cta-card" onClick={() => setActiveTab('download')}>
+                <span>⬇️</span><strong>Download VANI</strong><p>Windows · macOS · Android</p>
+              </button>
+              <button className="vc-cta-card" onClick={() => setActiveTab('setup')}>
+                <span>📖</span><strong>Setup Guide</strong><p>Step-by-step in under 10 min</p>
+              </button>
+              <button className="vc-cta-card" onClick={() => setActiveTab('pilot')}>
+                <span>📋</span><strong>Join the Pilot</strong><p>Register your profile</p>
+              </button>
+              <button className="vc-cta-card" onClick={() => setActiveTab('feedback')}>
+                <span>💬</span><strong>Community</strong><p>Read &amp; share feedback</p>
+              </button>
+            </div>
+          </>
         )}
-        <div className="vc-dl-grid">
-          {BUILDS.map((b) => (
-            <DownloadCard
-              key={b.id}
-              build={b}
-              extraCount={downloads[b.id] || 0}
-              onDownload={handleDownload}
-              auth={auth}
-              onLogin={() => setShowLogin(true)}
-            />
-          ))}
-        </div>
-      </section>
 
-      <SetupGuide auth={auth} />
+        {/* ── Download ── */}
+        {activeTab === 'download' && (
+          <section className="vc-section" id="downloads">
+            <h2 className="vc-section-title">
+              <span className="vc-title-icon">⬇️</span> Download VaniCore
+            </h2>
+            <p className="vc-section-sub">
+              Available on Windows, macOS, and Android.{' '}
+              <strong>Sign in</strong> to access download links.
+            </p>
+            {!auth && (
+              <div className="vc-signin-nudge">
+                🔐 Downloads are restricted to registered participants. Please{' '}
+                <button className="vc-inline-link" onClick={() => setShowLogin(true)}>Sign In</button>
+                {' '}to download.
+              </div>
+            )}
+            <div className="vc-dl-grid">
+              {BUILDS.map((b) => (
+                <DownloadCard
+                  key={b.id}
+                  build={b}
+                  extraCount={downloads[b.id] || 0}
+                  onDownload={handleDownload}
+                  auth={auth}
+                  onLogin={() => setShowLogin(true)}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
-      {auth && auth.role === 'admin' && (
-        <AdminDashboard
-          pilots={pilots}
-          feedback={feedback}
-          downloads={downloads}
-          onApproveFeedback={handleApproveFeedback}
-          onDismissFeedback={handleDismissFeedback}
-        />
-      )}
+        {/* ── Setup ── */}
+        {activeTab === 'setup' && <SetupGuide auth={auth} />}
 
-      {auth && (auth.role === 'caregiver' || auth.role === 'patient') && (
-        <PatientDashboard auth={auth} myRegistration={myRegistration} />
-      )}
+        {/* ── Join Pilot ── */}
+        {activeTab === 'pilot' && (
+          <>
+            <PilotForm onSubmit={handlePilotSubmit} submitted={formSubmitted} />
+            <PilotCount pilots={pilots} />
+          </>
+        )}
 
-      {!auth && (
-        <>
-          <PilotForm onSubmit={handlePilotSubmit} submitted={formSubmitted} />
-          <PilotCount pilots={pilots} />
-        </>
-      )}
+        {/* ── Feedback ── */}
+        {activeTab === 'feedback' && (
+          <FeedbackSection feedback={feedback} onSubmit={handleFeedbackSubmit} />
+        )}
 
-      <FeedbackSection feedback={feedback} onSubmit={handleFeedbackSubmit} />
+        {/* ── Dashboard ── */}
+        {activeTab === 'dashboard' && auth && auth.role === 'admin' && (
+          <AdminDashboard
+            pilots={pilots}
+            feedback={feedback}
+            downloads={downloads}
+            onApproveFeedback={handleApproveFeedback}
+            onDismissFeedback={handleDismissFeedback}
+          />
+        )}
+        {activeTab === 'dashboard' && auth && (auth.role === 'caregiver' || auth.role === 'patient') && (
+          <PatientDashboard auth={auth} myRegistration={myRegistration} />
+        )}
+
+      </div>
+
+      <Footer />
 
       {showLogin && (
         <LoginModal
