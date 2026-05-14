@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "build"
+
+# Firebase Web SDK keys are intentionally public — security is enforced via
+# Firebase Security Rules, not by hiding these values.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "REACT_APP_FIREBASE_API_KEY,REACT_APP_FIREBASE_APP_ID,REACT_APP_FIREBASE_SENDER_ID"
+
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200
