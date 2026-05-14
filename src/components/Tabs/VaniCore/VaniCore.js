@@ -906,17 +906,17 @@ const VaniCore = () => {
           <>
             <Hero pilotCount={pilots.length} totalDownloads={totalDownloads} />
             <div className="vc-home-cta-row">
-              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('download') : setShowLogin(true)}>
+              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('download') : (setLoginContext('download'), setShowLogin(true))}>
                 <span>⬇️</span><strong>Download VANI</strong>
                 <p>Windows · macOS · Android</p>
                 {!auth && <span className="vc-cta-lock">🔒</span>}
               </button>
-              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('setup') : setShowLogin(true)}>
+              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('setup') : (setLoginContext('setup'), setShowLogin(true))}>
                 <span>📖</span><strong>Setup Guide</strong>
                 <p>Step-by-step in under 10 min</p>
                 {!auth && <span className="vc-cta-lock">🔒</span>}
               </button>
-              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('pilot') : setShowLogin(true)}>
+              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('pilot') : (setLoginContext('pilot'), setShowLogin(true))}>
                 <span>📋</span><strong>Join the Pilot</strong>
                 <p>Register your profile</p>
                 {!auth && <span className="vc-cta-lock">🔒</span>}
