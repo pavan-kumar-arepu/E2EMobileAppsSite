@@ -86,12 +86,12 @@ const TopBar = ({ auth, onLogin, onLogout }) => (
 
 // ── Tab Nav ────────────────────────────────────────────────────────────────────
 const TABS = [
-  { id: 'home',      icon: '🏠', label: 'Home',       locked: false },
-  { id: 'download',  icon: '⬇️', label: 'Download',   locked: true  },
-  { id: 'setup',     icon: '📖', label: 'Setup',      locked: true  },
-  { id: 'pilot',     icon: '📋', label: 'Join Pilot', locked: true  },
-  { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false },
-  { id: 'dashboard', icon: '📊', label: 'Dashboard',  locked: false },
+  { id: 'home',      icon: '🏠', label: 'Home',       locked: false, desc: '' },
+  { id: 'download',  icon: '⬇️', label: 'Download',   locked: true,  desc: 'Windows · macOS · Android builds' },
+  { id: 'setup',     icon: '📖', label: 'Setup',      locked: true,  desc: 'Step-by-step setup in under 10 min' },
+  { id: 'pilot',     icon: '📋', label: 'Join Pilot', locked: true,  desc: 'Register as a pilot participant' },
+  { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false, desc: 'Read & share community feedback' },
+  { id: 'dashboard', icon: '📊', label: 'Dashboard',  locked: false, desc: 'Your patient dashboard' },
 ];
 
 const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
@@ -107,11 +107,11 @@ const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
             aria-selected={active === t.id}
             className={`vc-tab-btn ${active === t.id ? 'active' : ''} ${isLocked ? 'locked' : ''}`}
             onClick={() => isLocked ? onLoginRequest(t.id) : onChange(t.id)}
-            title={isLocked ? 'Sign in to access' : t.label}
           >
             <span className="vc-tab-icon">{t.icon}</span>
             <span className="vc-tab-label">{t.label}</span>
             {isLocked && <span className="vc-tab-lock">🔒</span>}
+            {t.desc && <span className="vc-tab-tooltip">{isLocked ? '🔒 Sign in — ' : ''}{t.desc}</span>}
           </button>
         );
       })}
@@ -168,15 +168,21 @@ const HERO_SLIDES = [
     icon: '🔧',
     title: 'What Problems Does VANI Solve?',
     content: (
-      <p>
-        <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Gaze Left</strong> → "Yes"<br/>
-        <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Gaze Right</strong> → "No"<br/>
-        <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Double Blink</strong> → "Help"<br/>
-        <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Wink Left</strong> → "Pain"<br/>
-        <span className="vc-tag vc-tag-pilot">✅ In Pilot</span> <strong>Wink Right</strong> → "Water"<br/>
-        <span className="vc-tag vc-tag-progress">🔄 v2</span> IoT control — fan, light, TV<br/>
-        <span className="vc-tag vc-tag-progress">🔄 v2</span> Voice SMS &amp; emergency calling
-      </p>
+      <div className="vc-gesture-table">
+        <div className="vc-gesture-group-label">✅ Pilot</div>
+        <div className="vc-gesture-rows">
+          <div className="vc-gesture-row"><span className="vc-gesture-name">Gaze Left</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">&quot;Yes&quot;</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">Gaze Right</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">&quot;No&quot;</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">Double Blink</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">&quot;Help&quot;</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">Wink Left</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">&quot;Pain&quot;</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">Wink Right</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">&quot;Water&quot;</span></div>
+        </div>
+        <div className="vc-gesture-group-label vc-gesture-v2">🔄 Future (v2)</div>
+        <div className="vc-gesture-rows">
+          <div className="vc-gesture-row"><span className="vc-gesture-name">IoT control</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Fan · Light · TV</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">Voice SMS</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Emergency calling</span></div>
+        </div>
+      </div>
     ),
   },
   {
@@ -979,27 +985,6 @@ const VaniCore = () => {
         {activeTab === 'home' && (
           <>
             <Hero pilotCount={pilots.length} totalDownloads={totalDownloads} />
-            <div className="vc-home-cta-row">
-              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('download') : (setLoginContext('download'), setShowLogin(true))}>
-                <span>⬇️</span><strong>Download VANI</strong>
-                <p>Windows · macOS · Android</p>
-                {!auth && <span className="vc-cta-lock">🔒</span>}
-              </button>
-              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('setup') : (setLoginContext('setup'), setShowLogin(true))}>
-                <span>📖</span><strong>Setup Guide</strong>
-                <p>Step-by-step in under 10 min</p>
-                {!auth && <span className="vc-cta-lock">🔒</span>}
-              </button>
-              <button className="vc-cta-card" onClick={() => auth ? setActiveTab('pilot') : (setLoginContext('pilot'), setShowLogin(true))}>
-                <span>📋</span><strong>Join the Pilot</strong>
-                <p>Register your profile</p>
-                {!auth && <span className="vc-cta-lock">🔒</span>}
-              </button>
-              <button className="vc-cta-card" onClick={() => setActiveTab('feedback')}>
-                <span>💬</span><strong>Community</strong>
-                <p>Read &amp; share feedback</p>
-              </button>
-            </div>
           </>
         )}
 
