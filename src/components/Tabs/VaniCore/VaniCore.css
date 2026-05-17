@@ -1660,17 +1660,17 @@
 .vc-flow-item-with-video {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 16px;
   max-width: 860px;
 }
 .vc-flow-item-with-video .vc-flow-node {
-  flex: 0 0 240px;
-  width: 240px;
+  flex: 0 0 260px;
+  width: 260px;
 }
 .vc-step-video-tile {
-  flex: 1;
-  min-width: 0;
+  flex: 0 0 260px;
+  width: 260px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -1684,15 +1684,18 @@
 }
 .vc-step-video-iframe {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  flex: 1;
+  min-height: 0;
   border: none;
-  border-radius: 10px;
+  border-radius: 14px;
   box-shadow: var(--vc-shadow-md);
   display: block;
 }
 @media (max-width: 640px) {
-  .vc-flow-item-with-video { flex-direction: column; }
-  .vc-flow-item-with-video .vc-flow-node { flex: 0 0 auto; width: 100%; }
+  .vc-flow-item-with-video { flex-direction: column; align-items: center; }
+  .vc-flow-item-with-video .vc-flow-node,
+  .vc-step-video-tile { flex: 0 0 auto; width: 100%; }
+  .vc-step-video-iframe { aspect-ratio: 16 / 9; flex: none; }
 }
 
 /* ── In-step download buttons ────────────────────────────────────────────── */
