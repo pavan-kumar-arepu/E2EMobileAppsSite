@@ -308,55 +308,6 @@ const Hero = ({ pilotCount, totalDownloads }) => (
   </section>
 );
 
-const DownloadCard = ({ build, extraCount, onDownload, auth, onLogin }) => {
-  const total = build.baseDownloads + (extraCount || 0);
-  const isPlaceholder = build.url === '#';
-  const isLocked = !auth;
-
-  return (
-    <div className="vc-dl-card">
-      <div className="vc-dl-icon">{build.icon}</div>
-      <h3 className="vc-dl-platform">{build.platform}</h3>
-      <p className="vc-dl-desc">{build.description}</p>
-      <div className="vc-dl-meta">
-        <span className="vc-dl-meta-item">v{build.version}</span>
-        <span className="vc-dl-meta-dot">·</span>
-        <span className="vc-dl-meta-item">{build.size}</span>
-        <span className="vc-dl-meta-dot">·</span>
-        <span className="vc-dl-meta-item">{build.releaseDate}</span>
-      </div>
-      <div className="vc-dl-count">{total} downloads</div>
-
-      {isLocked ? (
-        <>
-          <button className="vc-btn-primary vc-dl-btn" onClick={onLogin}>
-            🔐 Sign In to Download
-          </button>
-          <p className="vc-dl-placeholder-note">Admin or Patient / Caregiver login required</p>
-        </>
-      ) : isPlaceholder ? (
-        <>
-          <button className="vc-btn-primary vc-dl-btn vc-btn-disabled" disabled>
-            Coming Soon
-          </button>
-          <p className="vc-dl-placeholder-note">Build not yet available for this platform</p>
-        </>
-      ) : (
-        <a
-          href={build.url}
-          className="vc-btn-primary vc-dl-btn"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => onDownload(build.id)}
-          title={"Download " + build.filename}
-        >
-          ⬇️ Download {build.ext}
-        </a>
-      )}
-    </div>
-  );
-};
-
 const CheckboxGroup = ({ options, selected, onChange }) => {
   const toggle = (id) => {
     if (selected.includes(id)) {
