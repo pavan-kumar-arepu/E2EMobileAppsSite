@@ -14,7 +14,7 @@ import {
 } from './VaniCoreConfig';
 import { auth as fbAuth, db } from '../../../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, serverTimestamp, collection, addDoc, getDocs, updateDoc, deleteDoc, query, orderBy } from 'firebase/firestore';
 import LoginModal from './LoginModal';
 import SignupModal from './SignupModal';
 import AdminDashboard from './AdminDashboard';
@@ -934,6 +934,28 @@ const VaniCore = () => {
   useEffect(() => { writeLS(LS_FEEDBACK, feedback); }, [feedback]);
   useEffect(() => { writeLS(LS_DOWNLOADS, downloads); }, [downloads]);
 
+  // Load pilots + feedback from Firestore on mount
+  useEffect(() => {
+    (async () => {
+      try {
+        const pilotsSnap = await getDocs(query(collection(db, 'pilots'), orderBy('date', 'desc')));
+        if (!pilotsSnap.empty) {
+          const fsData = pilotsSnap.docs.map(d => ({ ...d.data(), _fsId: d.id }));
+          setPilots(fsData);
+          writeLS(LS_PILOTS, fsData);
+        }
+      } catch { /* Firestore unavailable — use localStorage */ }
+      try {
+        const fbSnap = await getDocs(query(collection(db, 'feedback'), orderBy('date', 'desc')));
+        if (!fbSnap.empty) {
+          const fsData = fbSnap.docs.map(d => ({ ...d.data(), _fsId: d.id }));
+          setFeedback(fsData);
+          writeLS(LS_FEEDBACK, fsData);
+        }
+      } catch { /* Firestore unavailable — use localStorage */ }
+    })();
+  }, []);
+
   // Firebase auth state — persists across page refreshes
   useEffect(() => {
     const unsub = onAuthStateChanged(fbAuth, async (user) => {
@@ -981,22 +1003,48 @@ const VaniCore = () => {
     setDownloads((d) => ({ ...d, [buildId]: (d[buildId] || 0) + 1 }));
   }, []);
 
-  const handlePilotSubmit = useCallback((data) => {
-    setPilots((prev) => [...prev, data]);
+  const handlePilotSubmit = useCallback(async (data) => {
+    // Write to Firestore first, fall back to localStorage-only on error
+    try {
+      const ref = await addDoc(collection(db, 'pilots'), {
+        ...data,
+        submittedAt: serverTimestamp(),
+      });
+      const withId = { ...data, _fsId: ref.id };
+      setPilots((prev) => [withId, ...prev]);
+    } catch {
+      setPilots((prev) => [data, ...prev]);
+    }
     setFormSubmitted(true);
   }, []);
 
-  const handleFeedbackSubmit = useCallback((data) => {
-    setFeedback((prev) => [...prev, data]);
+  const handleFeedbackSubmit = useCallback(async (data) => {
+    try {
+      const ref = await addDoc(collection(db, 'feedback'), {
+        ...data,
+        submittedAt: serverTimestamp(),
+      });
+      setFeedback((prev) => [{ ...data, _fsId: ref.id }, ...prev]);
+    } catch {
+      setFeedback((prev) => [data, ...prev]);
+    }
   }, []);
 
-  const handleApproveFeedback = useCallback((id) => {
+  const handleApproveFeedback = useCallback(async (id) => {
     setFeedback((prev) => prev.map((f) => f.id === id ? { ...f, approved: true } : f));
-  }, []);
+    try {
+      const entry = feedback.find(f => f.id === id);
+      if (entry?._fsId) await updateDoc(doc(db, 'feedback', entry._fsId), { approved: true });
+    } catch { /* sync best-effort */ }
+  }, [feedback]);
 
-  const handleDismissFeedback = useCallback((id) => {
+  const handleDismissFeedback = useCallback(async (id) => {
+    const entry = feedback.find(f => f.id === id);
     setFeedback((prev) => prev.filter((f) => f.id !== id));
-  }, []);
+    try {
+      if (entry?._fsId) await deleteDoc(doc(db, 'feedback', entry._fsId));
+    } catch { /* sync best-effort */ }
+  }, [feedback]);
 
   const totalDownloads =
     BUILDS.reduce((sum, b) => sum + b.baseDownloads, 0) +
