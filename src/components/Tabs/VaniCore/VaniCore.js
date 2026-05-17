@@ -87,7 +87,6 @@ const TopBar = ({ auth, onLogin, onLogout }) => (
 // ── Tab Nav ────────────────────────────────────────────────────────────────────
 const TABS = [
   { id: 'home',      icon: '🏠', label: 'Home',       locked: false, desc: '' },
-  { id: 'download',  icon: '⬇️', label: 'Download',   locked: true,  desc: 'Windows · macOS · Android builds' },
   { id: 'setup',     icon: '📖', label: 'Setup',      locked: true,  desc: 'Step-by-step setup in under 10 min' },
   { id: 'pilot',     icon: '📋', label: 'Join Pilot', locked: true,  desc: 'Register as a pilot participant' },
   { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false, desc: 'Read & share community feedback' },
@@ -125,7 +124,6 @@ const Footer = () => (
     <div className="vc-footer-inner">
       <div className="vc-footer-brand">
         <span className="vc-footer-logo">🧠</span>
-        <span className="vc-footer-name">VANI — Giving Back the Voice</span>
       </div>
       <div className="vc-footer-contact">
         <a href="tel:+918121040308" className="vc-footer-link">📞 +91 81210 40308</a>
@@ -169,18 +167,23 @@ const HERO_SLIDES = [
     title: 'What Problems Does VANI Solve?',
     content: (
       <div className="vc-gesture-table">
-        <div className="vc-gesture-group-label">✅ Pilot</div>
-        <div className="vc-gesture-rows">
-          <div className="vc-gesture-row"><span className="vc-gesture-name">Gaze Left</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">&quot;Yes&quot;</span></div>
-          <div className="vc-gesture-row"><span className="vc-gesture-name">Gaze Right</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">&quot;No&quot;</span></div>
-          <div className="vc-gesture-row"><span className="vc-gesture-name">Double Blink</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">&quot;Help&quot;</span></div>
-          <div className="vc-gesture-row"><span className="vc-gesture-name">Wink Left</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">&quot;Pain&quot;</span></div>
-          <div className="vc-gesture-row"><span className="vc-gesture-name">Wink Right</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">&quot;Water&quot;</span></div>
+        <div className="vc-gesture-group-label">✅ Pilot — Signals VaniCore Captures Now</div>
+        <div className="vc-gesture-rows vc-gesture-rows-2col">
+          <div className="vc-gesture-row"><span className="vc-gesture-name">� Blink</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">YES / Confirm</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">😤 Double Blink</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">URGENT — call nurse now!</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">😉 Wink Left</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">NO / Decline</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">😉 Wink Right</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Feeling GOOD / Thank you</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">👁️ Gaze Left</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Attention needed — LEFT side</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">👁️ Gaze Right</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Attention needed — RIGHT side</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">👄 Mouth Open</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Needs WATER or FOOD</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">↩️ Head Left</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Head turned LEFT — check left</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">↪️ Head Right</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Head turned RIGHT — check right</span></div>
         </div>
-        <div className="vc-gesture-group-label vc-gesture-v2">🔄 Future (v2)</div>
-        <div className="vc-gesture-rows">
-          <div className="vc-gesture-row"><span className="vc-gesture-name">IoT control</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Fan · Light · TV</span></div>
-          <div className="vc-gesture-row"><span className="vc-gesture-name">Voice SMS</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Emergency calling</span></div>
+        <div className="vc-gesture-group-label vc-gesture-v2">🔄 Coming in v2</div>
+        <div className="vc-gesture-rows vc-gesture-rows-2col">
+          <div className="vc-gesture-row"><span className="vc-gesture-name">💡 IoT Control</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Fan · Light · TV</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">📲 Voice SMS</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Emergency Calling</span></div>
+          <div className="vc-gesture-row"><span className="vc-gesture-name">🗣️ LLM Chat</span><span className="vc-gesture-arrow">→</span><span className="vc-gesture-value">Full Sentences</span></div>
         </div>
       </div>
     ),
@@ -266,7 +269,7 @@ const HeroCarousel = () => {
 const Hero = ({ pilotCount, totalDownloads }) => (
   <section className="vc-hero">
     <div className="vc-hero-badge">Pilot Program — Open Now</div>
-    <h1 className="vc-hero-title">VANI — Giving Back the Voice</h1>
+    <h1 className="vc-hero-title">VANI — A Voice of Unheard</h1>
     <p className="vc-hero-sub">
       For millions living with ALS, Locked-in Syndrome, or severe motor impairment,
       even blinking can be the last remaining way to communicate. VANI exists to make sure that blink is heard.
@@ -482,15 +485,46 @@ const APP_BADGE = {
   sync:    { label: '🔗 Both in Sync', cls: 'vc-flow-badge-sync' },
 };
 
-const SetupGuide = ({ auth }) => (
+const SetupGuide = ({ auth, builds, downloads, onDownload, onLogin }) => (
   <section className="vc-section" id="setup-guide">
     <h2 className="vc-section-title">
       <span className="vc-title-icon">📖</span> Setup Guide
     </h2>
     <p className="vc-section-sub">
       Follow this sequence exactly — start with Android first, then Windows.
-      Total setup time: less than 10 minutes.
+      Total setup time: less than 10&nbsp;minutes.
     </p>
+
+    {/* Two-part system explanation */}
+    <div className="vc-system-intro">
+      <h3 className="vc-system-intro-title">🔗 VANI is a two-part system</h3>
+      <p className="vc-system-intro-desc">
+        To fully set up VANI, you need to install <strong>two apps</strong> — one on the patient's
+        computer and one on the caregiver's Android phone. They work together as one connected system.
+        Complete <em>both</em> setups to go live.
+      </p>
+      <div className="vc-system-parts">
+        <div className="vc-system-part vc-system-part-core">
+          <div className="vc-system-part-icon">🪟</div>
+          <div className="vc-system-part-name">VaniCore</div>
+          <div className="vc-system-part-platform">Windows · macOS — Desktop App</div>
+          <p className="vc-system-part-desc">
+            Installed on the <strong>patient's computer</strong>. Uses the webcam to continuously
+            detect eye and facial gestures — no keypress required.
+          </p>
+        </div>
+        <div className="vc-system-plus">＋</div>
+        <div className="vc-system-part vc-system-part-care">
+          <div className="vc-system-part-icon">🤖</div>
+          <div className="vc-system-part-name">VaniCare</div>
+          <div className="vc-system-part-platform">Android — Mobile App</div>
+          <p className="vc-system-part-desc">
+            Installed on the <strong>caregiver's Android phone</strong>. Receives instant alerts
+            when the patient performs a gesture — "Yes", "No", "Help", and more.
+          </p>
+        </div>
+      </div>
+    </div>
 
     {/* Video walkthrough — login required */}
     {auth ? (
@@ -530,13 +564,43 @@ const SetupGuide = ({ auth }) => (
         <React.Fragment key={step.id}>
           <div className="vc-flow-item">
             <div className="vc-flow-node" style={{ borderColor: step.color, background: step.bg }}>
-              <div className="vc-flow-step-num" style={{ background: step.color }}>{i + 1}</div>
+              <div className="vc-flow-step-num" style={{ background: step.color }}>
+                <span className="vc-step-word">Step</span>
+                <span className="vc-step-n">{i + 1}</span>
+              </div>
               <div className="vc-flow-icon">{step.icon}</div>
               <div className="vc-flow-label">{step.label}</div>
               <div className="vc-flow-sub">{step.sub}</div>
               <span className={`vc-flow-badge ${APP_BADGE[step.app].cls}`}>
                 {APP_BADGE[step.app].label}
               </span>
+              {/* Inline download — VaniCare (step dl-android) */}
+              {step.id === 'dl-android' && builds && (() => {
+                const b = builds.find(x => x.id === 'android');
+                if (!b) return null;
+                return auth ? (
+                  <a href={b.url} className="vc-step-dl-btn vc-step-dl-btn-care" target="_blank" rel="noopener noreferrer" onClick={() => onDownload && onDownload(b.id)}>
+                    ⬇️ Download VaniCare APK
+                  </a>
+                ) : (
+                  <button className="vc-step-dl-btn vc-step-dl-btn-locked" onClick={onLogin}>🔐 Sign in to Download</button>
+                );
+              })()}
+              {/* Inline download — VaniCore Win + Mac (step dl-win) */}
+              {step.id === 'dl-win' && builds && (
+                <div className="vc-step-dl-group">
+                  {builds.filter(x => x.id === 'windows' || x.id === 'mac').map(b =>
+                    auth ? (
+                      <a key={b.id} href={b.url} className="vc-step-dl-btn vc-step-dl-btn-core" target="_blank" rel="noopener noreferrer" onClick={() => onDownload && onDownload(b.id)}>
+                        {b.icon} {b.platform}
+                      </a>
+                    ) : (
+                      <button key={b.id} className="vc-step-dl-btn vc-step-dl-btn-locked" onClick={onLogin}>🔐 Sign in to Download</button>
+                    )
+                  )}
+                  {!auth && null}
+                </div>
+              )}
             </div>
           </div>
           {i < FLOW_STEPS.length - 1 && (
@@ -988,40 +1052,10 @@ const VaniCore = () => {
           </>
         )}
 
-        {/* ── Download ── */}
-        {activeTab === 'download' && (
-          <section className="vc-section" id="downloads">
-            <h2 className="vc-section-title">
-              <span className="vc-title-icon">⬇️</span> Download VaniCore
-            </h2>
-            <p className="vc-section-sub">
-              Available on Windows, macOS, and Android.{' '}
-              <strong>Sign in</strong> to access download links.
-            </p>
-            {!auth && (
-              <div className="vc-signin-nudge">
-                🔐 Downloads are restricted to registered participants. Please{' '}
-                <button className="vc-inline-link" onClick={() => setShowLogin(true)}>Sign In</button>
-                {' '}to download.
-              </div>
-            )}
-            <div className="vc-dl-grid">
-              {BUILDS.map((b) => (
-                <DownloadCard
-                  key={b.id}
-                  build={b}
-                  extraCount={downloads[b.id] || 0}
-                  onDownload={handleDownload}
-                  auth={auth}
-                  onLogin={() => setShowLogin(true)}
-                />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── Setup ── */}
-        {activeTab === 'setup' && <SetupGuide auth={auth} />}
+        {/* ── Setup ── keep mounted so the video iframe never resets */}
+        <div style={{ display: activeTab === 'setup' ? 'block' : 'none' }}>
+          <SetupGuide auth={auth} builds={BUILDS} downloads={downloads} onDownload={handleDownload} onLogin={() => setShowLogin(true)} />
+        </div>
 
         {/* ── Join Pilot ── */}
         {activeTab === 'pilot' && (
