@@ -346,6 +346,8 @@ const FLOW_STEPS = [
     sub: 'Android APK from Google Drive',
     color: '#3ddc84',
     bg: '#f0fff6',
+    videoId: '1j6Eptr5sHER7xJCwZscH0iajaUfpJrR7',
+    videoLabel: '📱 Android Setup (Steps 1–4)',
   },
   {
     id: 'install-android',
@@ -373,6 +375,8 @@ const FLOW_STEPS = [
     sub: 'VaniCare is ready to scan — keep screen on',
     color: '#3ddc84',
     bg: '#f0fff6',
+    videoId: '1ZDYpctill3FgoMBNf7sosGjFV1oAjQPN',
+    videoLabel: '💻 Computer Setup (Steps 4–8)',
   },
   {
     id: 'dl-win',
@@ -409,6 +413,8 @@ const FLOW_STEPS = [
     sub: 'Point VaniCare camera at the Windows QR code',
     color: '#6a11cb',
     bg: '#f5f0ff',
+    videoId: '1qse5ihDnzfiX6M5pzFrtqhflyVUlxPoS',
+    videoLabel: '🔗 Final Setup (Steps 8–10)',
   },
   {
     id: 'calib',
@@ -483,8 +489,8 @@ const SetupGuide = ({ auth, builds, downloads, onDownload, onLogin }) => (
         <div className="vc-video-embed-label">📹 Setup Walkthrough Video</div>
         <div className="vc-video-embed-frame">
           <iframe
-            src="https://drive.google.com/file/d/1f_AcOHNckHwcC9j9uidSceTLcC13zAoL/preview"
-            title="VANI Setup Walkthrough"
+            src="https://drive.google.com/file/d/1mLXhPnQoD8gux39TNxUW1PineyfHPUWN/preview"
+            title="VANI Setup Intro"
             allow="autoplay"
             allowFullScreen
           />
@@ -513,7 +519,7 @@ const SetupGuide = ({ auth, builds, downloads, onDownload, onLogin }) => (
     <div className="vc-flow-chart">
       {FLOW_STEPS.map((step, i) => (
         <React.Fragment key={step.id}>
-          <div className="vc-flow-item">
+          <div className={`vc-flow-item${step.videoId ? ' vc-flow-item-with-video' : ''}`}>
             <div className="vc-flow-node" style={{ borderColor: step.color, background: step.bg }}>
               <div className="vc-flow-step-num" style={{ background: step.color }}>
                 <span className="vc-step-word">Step</span>
@@ -549,10 +555,21 @@ const SetupGuide = ({ auth, builds, downloads, onDownload, onLogin }) => (
                       <button key={b.id} className="vc-step-dl-btn vc-step-dl-btn-locked" onClick={onLogin}>🔐 Sign in to Download</button>
                     )
                   )}
-                  {!auth && null}
                 </div>
               )}
             </div>
+            {step.videoId && (
+              <div className="vc-step-video-tile">
+                <div className="vc-step-video-label">{step.videoLabel}</div>
+                <iframe
+                  src={`https://drive.google.com/file/d/${step.videoId}/preview`}
+                  title={step.videoLabel}
+                  allow="autoplay"
+                  allowFullScreen
+                  className="vc-step-video-iframe"
+                />
+              </div>
+            )}
           </div>
           {i < FLOW_STEPS.length - 1 && (
             <div className="vc-flow-arrow">

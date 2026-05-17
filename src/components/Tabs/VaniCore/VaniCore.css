@@ -1656,9 +1656,47 @@
   .vc-system-plus { transform: rotate(90deg); width: 100%; justify-content: center; padding: 4px 0; }
 }
 
+/* ── Step video tiles (beside flow nodes) ────────────────────────────────── */
+.vc-flow-item-with-video {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 860px;
+}
+.vc-flow-item-with-video .vc-flow-node {
+  flex: 0 0 240px;
+  width: 240px;
+}
+.vc-step-video-tile {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.vc-step-video-label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--vc-text-2);
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+.vc-step-video-iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 10px;
+  box-shadow: var(--vc-shadow-md);
+  display: block;
+}
+@media (max-width: 640px) {
+  .vc-flow-item-with-video { flex-direction: column; }
+  .vc-flow-item-with-video .vc-flow-node { flex: 0 0 auto; width: 100%; }
+}
+
 /* ── In-step download buttons ────────────────────────────────────────────── */
 .vc-step-dl-group {
-  display: flex;
   flex-wrap: wrap;
   gap: 7px;
   justify-content: center;
