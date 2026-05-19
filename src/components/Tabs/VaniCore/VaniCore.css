@@ -1434,6 +1434,19 @@
   color: var(--vc-red);
   vertical-align: middle;
 }
+.vc-tab-wip {
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .3px;
+  background: rgba(234,179,8,.18);
+  border: 1px solid rgba(234,179,8,.45);
+  border-radius: 8px;
+  padding: 1px 6px;
+  margin-left: 4px;
+  color: #a16207;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 .vc-tab-icon { font-size: 1rem; }
 .vc-tab-label { font-size: .82rem; letter-spacing: .2px; }
 

@@ -90,8 +90,8 @@ const TABS = [
   { id: 'home',      icon: '🏠', label: 'Home',       locked: false, hidden: false, desc: '' },
   { id: 'setup',     icon: '📖', label: 'Setup',      locked: true,  hidden: false, desc: 'Step-by-step setup in under 10 min' },
   { id: 'pilot',     icon: '📋', label: 'Join Pilot', locked: true,  hidden: true,  desc: 'Register as a pilot participant' },
-  { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false, hidden: false, desc: 'Read & share community feedback' },
-  { id: 'dashboard', icon: '📊', label: 'Dashboard',  locked: false, hidden: false, desc: 'Your patient dashboard' },
+  { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false, hidden: false, wip: true, desc: 'Read & share community feedback' },
+  { id: 'dashboard', icon: '📊', label: 'Dashboard',  locked: false, hidden: false, wip: true, desc: 'Your patient dashboard' },
 ];
 
 const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
@@ -111,6 +111,9 @@ const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
             <span className="vc-tab-icon">{t.icon}</span>
             <span className="vc-tab-label">{t.label}</span>
             {isLocked && <span className="vc-tab-lock">🔒</span>}
+            {t.wip && auth && (auth.role === 'admin' || auth.role === 'caregiver') && (
+              <span className="vc-tab-wip">In Progress</span>
+            )}
             {t.desc && <span className="vc-tab-tooltip">{isLocked ? '🔒 Sign in — ' : ''}{t.desc}</span>}
           </button>
         );
