@@ -111,7 +111,7 @@ const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
             <span className="vc-tab-icon">{t.icon}</span>
             <span className="vc-tab-label">{t.label}</span>
             {isLocked && <span className="vc-tab-lock">🔒</span>}
-            {t.wip && auth && (auth.role === 'admin' || auth.role === 'caregiver') && (
+            {t.wip && (t.id === 'feedback' || (auth && (auth.role === 'admin' || auth.role === 'caregiver'))) && (
               <span className="vc-tab-wip">In Progress</span>
             )}
             {t.desc && <span className="vc-tab-tooltip">{isLocked ? '🔒 Sign in — ' : ''}{t.desc}</span>}
