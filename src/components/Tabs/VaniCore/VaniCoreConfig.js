@@ -10,10 +10,10 @@ export const BUILDS = [
     icon: '🪟',
     description: 'VaniCore for Windows 10 / 11 (64-bit) — Run VaniCore.exe',
     ext: '.exe',
-    filename: 'VaniCore-1.0.0-pilot.exe',
-    url: 'https://drive.google.com/file/d/1kOckC8vij4O8UDYt1Qgx-C0w2DLGNc1T/view?usp=sharing',
-    version: '1.0.0-pilot',
-    releaseDate: '2026-05-11',
+    filename: 'VaniCore-1.1.0-pilot.exe',
+    url: 'https://drive.google.com/file/d/1X2-taKYMwJHwPpmusAAeAjXSlT2vF-1n/view?usp=sharing',
+    version: '1.1.0-pilot',
+    releaseDate: '2026-05-19',
     size: '~48 MB',
     baseDownloads: 0,
   },
@@ -23,10 +23,10 @@ export const BUILDS = [
     icon: '🍎',
     description: 'VaniCore for macOS 12 Monterey or later — Run the DMG installer',
     ext: '.dmg',
-    filename: 'VaniCore-1.0.0-pilot.dmg',
-    url: 'https://drive.google.com/file/d/1xOJLnQCQS2euhqNSG1XsDzKPUDQZg-Gt/view?usp=sharing',
-    version: '1.0.0-pilot',
-    releaseDate: '2026-05-11',
+    filename: 'VaniCore-1.1.0-pilot.dmg',
+    url: 'https://drive.google.com/file/d/1wf4jiK3kNgtQaf760FI7E7YtC0K_yAkk/view?usp=sharing',
+    version: '1.1.0-pilot',
+    releaseDate: '2026-05-19',
     size: '~52 MB',
     baseDownloads: 0,
   },
@@ -36,10 +36,10 @@ export const BUILDS = [
     icon: '🤖',
     description: 'VaniCare for Android 8.0+ — Enable unknown sources before installing',
     ext: '.apk',
-    filename: 'VaniCare-1.0.0-pilot.apk',
-    url: 'https://drive.google.com/file/d/1UBFlkUPdrQ2roDS-c9yUu6vXiYlNTORo/view?usp=sharing',
-    version: '1.0.0-pilot',
-    releaseDate: '2026-05-11',
+    filename: 'VaniCare-1.1.0-pilot.apk',
+    url: 'https://drive.google.com/file/d/1GTqjviEhEorykKyoBstxto3Qo0VVuDTy/view?usp=sharing',
+    version: '1.1.0-pilot',
+    releaseDate: '2026-05-19',
     size: '~24 MB',
     baseDownloads: 0,
   },
@@ -142,3 +142,41 @@ export const SEED_FEEDBACK = [];
 export const LS_PILOTS    = 'vanicore_pilots_v1';
 export const LS_FEEDBACK  = 'vanicore_feedback_v2';
 export const LS_DOWNLOADS = 'vanicore_downloads_v2';
+
+// ── Build Changelog (newest first, max 10 entries) ─────────────────────────────
+export const CHANGELOG = [
+  {
+    version: '1.1.0-pilot',
+    date: '2026-05-19',
+    time: '18:00',
+    entries: [
+      {
+        platform: 'Android',
+        icon: '🤖',
+        notes: 'Added tab bar for Dashboard, Guide, Settings and manual patient entry and sync.',
+      },
+      {
+        platform: 'Windows / macOS',
+        icon: '💻',
+        notes: 'Fixed issues on UI, QR code, input box and added informative text.',
+      },
+    ],
+  },
+  {
+    version: '1.0.0-pilot',
+    date: '2026-05-11',
+    time: '10:00',
+    entries: [
+      {
+        platform: 'Android',
+        icon: '🤖',
+        notes: 'Initial pilot release of VaniCare — real-time gesture notifications via Firebase.',
+      },
+      {
+        platform: 'Windows / macOS',
+        icon: '💻',
+        notes: 'Initial pilot release of VaniCore — webcam-based gesture detection with QR pairing.',
+      },
+    ],
+  },
+];

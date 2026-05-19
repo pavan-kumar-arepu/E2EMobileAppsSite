@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './VaniCore.css';
 import {
   BUILDS,
+  CHANGELOG,
   CONDITIONS,
   MOTOR_PARTS,
   GESTURE_CAPABILITIES,
@@ -795,6 +796,42 @@ const PilotForm = ({ onSubmit, submitted }) => {
   );
 };
 
+// ── Changelog Section ───────────────────────────────────────────────────────────
+const ChangelogSection = () => {
+  const builds = CHANGELOG.slice(0, 10);
+  return (
+    <section className="vc-section vc-changelog-section" id="changelog">
+      <h2 className="vc-section-title">
+        <span className="vc-title-icon">📜</span> Build Changelog
+      </h2>
+      <p className="vc-section-sub">
+        Latest releases — showing up to 10 builds.
+      </p>
+      <div className="vc-changelog-list">
+        {builds.map((build, bi) => (
+          <div key={build.version} className={`vc-changelog-entry${bi === 0 ? ' vc-changelog-latest' : ''}`}>
+            <div className="vc-changelog-header">
+              <span className="vc-changelog-version">{build.version}</span>
+              {bi === 0 && <span className="vc-changelog-badge">Latest</span>}
+              <span className="vc-changelog-date">
+                📅 {build.date}&nbsp;&nbsp;⏰ {build.time}
+              </span>
+            </div>
+            <ul className="vc-changelog-notes">
+              {build.entries.map((entry, ei) => (
+                <li key={ei} className="vc-changelog-note">
+                  <span className="vc-changelog-platform">{entry.icon} {entry.platform}</span>
+                  <span className="vc-changelog-note-text">{entry.notes}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
 const PilotCount = ({ pilots }) => {
   if (pilots.length === 0) return null;
   return (
@@ -1065,6 +1102,7 @@ const VaniCore = () => {
         {activeTab === 'home' && (
           <>
             <Hero pilotCount={pilots.length} totalDownloads={totalDownloads} />
+            <ChangelogSection />
           </>
         )}
 
