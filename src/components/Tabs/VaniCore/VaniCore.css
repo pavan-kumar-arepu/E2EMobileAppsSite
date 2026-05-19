@@ -1870,6 +1870,86 @@
   flex-shrink: 0;
 }
 
+/* ── Build Info Modal ─────────────────────────────────────────────────────── */
+.vc-bim-card {
+  max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.vc-bim-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--vc-border);
+}
+.vc-bim-platform-icon { font-size: 2.4rem; line-height: 1; }
+.vc-bim-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--vc-navy);
+  margin: 0 0 4px;
+}
+.vc-bim-subtitle { font-size: .82rem; color: var(--vc-text-3); margin: 0; }
+.vc-bim-releases { display: flex; flex-direction: column; gap: 16px; }
+.vc-bim-release {
+  border: 1px solid var(--vc-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.vc-bim-release-latest {
+  border-color: var(--vc-purple);
+  background: rgba(106,17,203,.03);
+}
+.vc-bim-release-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.vc-bim-version { font-weight: 700; font-size: .95rem; color: var(--vc-purple); }
+.vc-bim-badge {
+  background: var(--vc-purple);
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.vc-bim-date { font-size: .78rem; color: var(--vc-text-3); margin-left: auto; }
+.vc-bim-section { margin-bottom: 8px; }
+.vc-bim-label {
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--vc-purple);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 3px;
+}
+.vc-bim-text { font-size: .87rem; color: var(--vc-text-2); margin: 0; line-height: 1.55; }
+.vc-bim-actions { margin-top: 10px; }
+.vc-bim-dl-btn {
+  display: inline-block;
+  font-size: .88rem !important;
+  padding: 8px 18px !important;
+  text-decoration: none;
+}
+.vc-bim-dl-btn-prev {
+  display: inline-block;
+  font-size: .8rem !important;
+  padding: 5px 12px !important;
+  text-decoration: none;
+}
+.vc-bim-dl-btn-locked { font-size: .88rem; padding: 8px 18px; }
+@media (max-width: 500px) {
+  .vc-bim-card { padding: 20px 14px; }
+  .vc-bim-date { margin-left: 0; width: 100%; }
+}
+
 /* ── Changelog ────────────────────────────────────────────────────────────── */
 .vc-changelog-section { max-width: 740px; margin: 0 auto; }
 .vc-changelog-list {

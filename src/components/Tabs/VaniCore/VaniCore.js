@@ -337,6 +337,78 @@ const CheckboxGroup = ({ options, selected, onChange }) => {
   );
 };
 
+// ── Build Info Modal ────────────────────────────────────────────────────────────
+const BuildInfoModal = ({ platformId, builds, onClose, onDownload, auth, onLogin }) => {
+  const build = builds.find(b => b.id === platformId);
+  const category = platformId === 'android' ? 'android' : 'windows_mac';
+  const history = CHANGELOG
+    .map(release => ({ ...release, entry: release.entries.find(e => e.platformId === category) }))
+    .filter(r => r.entry)
+    .slice(0, 10);
+
+  const getUrl = (entry) => {
+    if (platformId === 'android') return entry.url;
+    if (platformId === 'windows') return entry.urlWindows;
+    return entry.urlMac;
+  };
+
+  if (!build) return null;
+
+  return (
+    <div className="vc-modal-overlay" onClick={onClose}>
+      <div className="vc-bim-card vc-modal-card" onClick={e => e.stopPropagation()}>
+        <button className="vc-modal-close" onClick={onClose}>✕</button>
+        <div className="vc-bim-header">
+          <span className="vc-bim-platform-icon">{build.icon}</span>
+          <div>
+            <h3 className="vc-bim-title">{build.platform} — Release History</h3>
+            <p className="vc-bim-subtitle">Current version: <strong>{build.version}</strong> · Released {build.releaseDate}</p>
+          </div>
+        </div>
+        <div className="vc-bim-releases">
+          {history.map((release, i) => (
+            <div key={release.version} className={`vc-bim-release${i === 0 ? ' vc-bim-release-latest' : ''}`}>
+              <div className="vc-bim-release-header">
+                <span className="vc-bim-version">{release.version}</span>
+                {i === 0 && <span className="vc-bim-badge">Latest</span>}
+                <span className="vc-bim-date">📅 {release.date} · ⏰ {release.time}</span>
+              </div>
+              <div className="vc-bim-section">
+                <div className="vc-bim-label">🆕 What's New</div>
+                <p className="vc-bim-text">{release.entry.notes}</p>
+              </div>
+              <div className="vc-bim-section">
+                <div className="vc-bim-label">🧪 What to Test</div>
+                <p className="vc-bim-text">{release.entry.whatToTest}</p>
+              </div>
+              <div className="vc-bim-actions">
+                {auth ? (
+                  <a
+                    href={getUrl(release.entry)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={i === 0 ? 'vc-btn-primary vc-bim-dl-btn' : 'vc-btn-outline vc-bim-dl-btn-prev'}
+                    onClick={() => i === 0 && onDownload && onDownload(platformId)}
+                  >
+                    ⬇️ {i === 0 ? `Download ${build.platform} ${release.version}` : `Download ${release.version}`}
+                  </a>
+                ) : (
+                  <button
+                    className="vc-btn-outline vc-bim-dl-btn-locked"
+                    onClick={() => { onClose(); onLogin(); }}
+                  >
+                    🔐 Sign in to Download
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // ── Setup Guide ─────────────────────────────────────────────────────────────────
 const FLOW_STEPS = [
   {
@@ -443,7 +515,7 @@ const APP_BADGE = {
   sync:    { label: '🔗 Both in Sync', cls: 'vc-flow-badge-sync' },
 };
 
-const SetupGuide = ({ auth, builds, downloads, onDownload, onLogin }) => (
+const SetupGuide = ({ auth, builds, downloads, onDownload, onLogin, onBuildInfo }) => (
   <section className="vc-section" id="setup-guide">
     <h2 className="vc-section-title">
       <span className="vc-title-icon">📖</span> Setup Guide
@@ -533,29 +605,26 @@ const SetupGuide = ({ auth, builds, downloads, onDownload, onLogin }) => (
                 {APP_BADGE[step.app].label}
               </span>
               {/* Inline download — VaniCare (step dl-android) */}
-              {step.id === 'dl-android' && builds && (() => {
-                const b = builds.find(x => x.id === 'android');
-                if (!b) return null;
-                return auth ? (
-                  <a href={b.url} className="vc-step-dl-btn vc-step-dl-btn-care" target="_blank" rel="noopener noreferrer" onClick={() => onDownload && onDownload(b.id)}>
-                    ⬇️ Download VaniCare APK
-                  </a>
-                ) : (
-                  <button className="vc-step-dl-btn vc-step-dl-btn-locked" onClick={onLogin}>🔐 Sign in to Download</button>
-                );
-              })()}
+              {step.id === 'dl-android' && builds && builds.find(x => x.id === 'android') && (
+                <button
+                  className="vc-step-dl-btn vc-step-dl-btn-care"
+                  onClick={() => onBuildInfo && onBuildInfo('android')}
+                >
+                  📋 Build Info &amp; Download
+                </button>
+              )}
               {/* Inline download — VaniCore Win + Mac (step dl-win) */}
               {step.id === 'dl-win' && builds && (
                 <div className="vc-step-dl-group">
-                  {builds.filter(x => x.id === 'windows' || x.id === 'mac').map(b =>
-                    auth ? (
-                      <a key={b.id} href={b.url} className="vc-step-dl-btn vc-step-dl-btn-core" target="_blank" rel="noopener noreferrer" onClick={() => onDownload && onDownload(b.id)}>
-                        {b.icon} {b.platform}
-                      </a>
-                    ) : (
-                      <button key={b.id} className="vc-step-dl-btn vc-step-dl-btn-locked" onClick={onLogin}>🔐 Sign in to Download</button>
-                    )
-                  )}
+                  {builds.filter(x => x.id === 'windows' || x.id === 'mac').map(b => (
+                    <button
+                      key={b.id}
+                      className="vc-step-dl-btn vc-step-dl-btn-core"
+                      onClick={() => onBuildInfo && onBuildInfo(b.id)}
+                    >
+                      {b.icon} {b.platform} — Build Info
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
@@ -796,42 +865,6 @@ const PilotForm = ({ onSubmit, submitted }) => {
   );
 };
 
-// ── Changelog Section ───────────────────────────────────────────────────────────
-const ChangelogSection = () => {
-  const builds = CHANGELOG.slice(0, 10);
-  return (
-    <section className="vc-section vc-changelog-section" id="changelog">
-      <h2 className="vc-section-title">
-        <span className="vc-title-icon">📜</span> Build Changelog
-      </h2>
-      <p className="vc-section-sub">
-        Latest releases — showing up to 10 builds.
-      </p>
-      <div className="vc-changelog-list">
-        {builds.map((build, bi) => (
-          <div key={build.version} className={`vc-changelog-entry${bi === 0 ? ' vc-changelog-latest' : ''}`}>
-            <div className="vc-changelog-header">
-              <span className="vc-changelog-version">{build.version}</span>
-              {bi === 0 && <span className="vc-changelog-badge">Latest</span>}
-              <span className="vc-changelog-date">
-                📅 {build.date}&nbsp;&nbsp;⏰ {build.time}
-              </span>
-            </div>
-            <ul className="vc-changelog-notes">
-              {build.entries.map((entry, ei) => (
-                <li key={ei} className="vc-changelog-note">
-                  <span className="vc-changelog-platform">{entry.icon} {entry.platform}</span>
-                  <span className="vc-changelog-note-text">{entry.notes}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
-
 const PilotCount = ({ pilots }) => {
   if (pilots.length === 0) return null;
   return (
@@ -966,6 +999,7 @@ const VaniCore = () => {
   });
   const [downloads, setDownloads] = useState(() => readLS(LS_DOWNLOADS, {}));
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [buildModal, setBuildModal] = useState(null); // null | 'android' | 'windows' | 'mac'
 
   useEffect(() => { writeLS(LS_PILOTS, pilots); }, [pilots]);
   useEffect(() => { writeLS(LS_FEEDBACK, feedback); }, [feedback]);
@@ -1102,13 +1136,12 @@ const VaniCore = () => {
         {activeTab === 'home' && (
           <>
             <Hero pilotCount={pilots.length} totalDownloads={totalDownloads} />
-            <ChangelogSection />
           </>
         )}
 
         {/* ── Setup ── keep mounted so the video iframe never resets */}
         <div style={{ display: activeTab === 'setup' ? 'block' : 'none' }}>
-          <SetupGuide auth={auth} builds={BUILDS} downloads={downloads} onDownload={handleDownload} onLogin={() => setShowLogin(true)} />
+          <SetupGuide auth={auth} builds={BUILDS} downloads={downloads} onDownload={handleDownload} onLogin={() => setShowLogin(true)} onBuildInfo={(pid) => setBuildModal(pid)} />
         </div>
 
         {/* ── Join Pilot ── */}
@@ -1141,6 +1174,17 @@ const VaniCore = () => {
       </div>
 
       <Footer />
+
+      {buildModal && (
+        <BuildInfoModal
+          platformId={buildModal}
+          builds={BUILDS}
+          onClose={() => setBuildModal(null)}
+          onDownload={handleDownload}
+          auth={auth}
+          onLogin={() => { setBuildModal(null); setShowLogin(true); }}
+        />
+      )}
 
       {showLogin && (
         <LoginModal

@@ -144,6 +144,8 @@ export const LS_FEEDBACK  = 'vanicore_feedback_v2';
 export const LS_DOWNLOADS = 'vanicore_downloads_v2';
 
 // ── Build Changelog (newest first, max 10 entries) ─────────────────────────────
+// platformId: 'android' | 'windows_mac'
+// url / urlWindows / urlMac — download links for each historical build
 export const CHANGELOG = [
   {
     version: '1.1.0-pilot',
@@ -151,14 +153,21 @@ export const CHANGELOG = [
     time: '18:00',
     entries: [
       {
-        platform: 'Android',
+        platform: 'Android (VaniCare)',
+        platformId: 'android',
         icon: '🤖',
-        notes: 'Added tab bar for Dashboard, Guide, Settings and manual patient entry and sync.',
+        url: 'https://drive.google.com/file/d/1GTqjviEhEorykKyoBstxto3Qo0VVuDTy/view?usp=sharing',
+        notes: 'Added tab bar with Dashboard, Guide, Settings and Manual Patient Entry screens. Improved Firebase sync reliability and added manual patient entry flow.',
+        whatToTest: 'Navigate all 4 tabs (Dashboard, Guide, Settings, Manual Entry). Test manual patient entry and verify data syncs with VaniCore on desktop in real time.',
       },
       {
-        platform: 'Windows / macOS',
+        platform: 'Windows / macOS (VaniCore)',
+        platformId: 'windows_mac',
         icon: '💻',
-        notes: 'Fixed issues on UI, QR code, input box and added informative text.',
+        urlWindows: 'https://drive.google.com/file/d/1X2-taKYMwJHwPpmusAAeAjXSlT2vF-1n/view?usp=sharing',
+        urlMac: 'https://drive.google.com/file/d/1wf4jiK3kNgtQaf760FI7E7YtC0K_yAkk/view?usp=sharing',
+        notes: 'Fixed UI layout issues, QR code display glitches and input box behaviour. Added informative instructional text throughout all screens.',
+        whatToTest: 'Launch app — verify QR code generates cleanly. Scan from VaniCare. Check input boxes accept text correctly and all screens show informative labels.',
       },
     ],
   },
@@ -168,15 +177,24 @@ export const CHANGELOG = [
     time: '10:00',
     entries: [
       {
-        platform: 'Android',
+        platform: 'Android (VaniCare)',
+        platformId: 'android',
         icon: '🤖',
-        notes: 'Initial pilot release of VaniCare — real-time gesture notifications via Firebase.',
+        url: 'https://drive.google.com/file/d/1Ns6J9mGCmPWYVFopUeostKV3AUGczo7i/view?usp=sharing',
+        notes: 'Initial pilot release — single-screen Android app to receive real-time gesture notifications from the patient via Firebase.',
+        whatToTest: "Install APK (enable Unknown Sources first), open VaniCare, scan the QR code shown on VaniCore desktop. Verify gesture alerts (Blink, Double-Blink, Gaze) appear on the caregiver's phone in real time.",
       },
       {
-        platform: 'Windows / macOS',
+        platform: 'Windows / macOS (VaniCore)',
+        platformId: 'windows_mac',
         icon: '💻',
-        notes: 'Initial pilot release of VaniCore — webcam-based gesture detection with QR pairing.',
+        urlWindows: 'https://drive.google.com/file/d/1kOckC8vij4O8UDYt1Qgx-C0w2DLGNc1T/view?usp=sharing',
+        urlMac: 'https://drive.google.com/file/d/1O6e_aeTI-XQxTUn1SzJeA88MNMs2hssa/view?usp=sharing',
+        notes: 'Initial pilot release — VaniCore desktop communication system. Enrol in the pilot program, generate a QR code and let the caregiver app scan it to sync with VaniCore.',
+        whatToTest: 'Run VaniCore, enter your name on the landing screen, confirm the QR code appears. Scan from VaniCare on Android and verify the connection is established. Perform gestures and confirm they are received on the Android device.',
       },
     ],
+  },
+];
   },
 ];
