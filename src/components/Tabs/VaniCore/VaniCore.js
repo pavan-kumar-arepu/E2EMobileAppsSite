@@ -267,7 +267,7 @@ const HeroCarousel = () => {
   );
 };
 
-const Hero = ({ pilotCount, totalDownloads }) => (
+const Hero = ({ pilotCount, totalDownloads, gestureCount }) => (
   <section className="vc-hero">
     <div className="vc-hero-badge">Pilot Program — Open Now</div>
     <h1 className="vc-hero-title">VANI — A Voice of Unheard</h1>
@@ -297,7 +297,7 @@ const Hero = ({ pilotCount, totalDownloads }) => (
       </div>
       <div className="vc-hero-stat-divider" />
       <div className="vc-hero-stat">
-        <span className="vc-hero-stat-num">10+</span>
+        <span className="vc-hero-stat-num">{gestureCount}</span>
         <span className="vc-hero-stat-label">Gestures Captured</span>
       </div>
       <div className="vc-hero-stat-divider" />
@@ -1031,9 +1031,8 @@ const VaniCore = () => {
     } catch { /* sync best-effort */ }
   }, [feedback]);
 
-  const totalDownloads =
-    BUILDS.reduce((sum, b) => sum + b.baseDownloads, 0) +
-    BUILDS.reduce((sum, b) => sum + (downloads[b.id] || 0), 0);
+  const totalDownloads = Object.values(downloads).reduce((s, v) => s + v, 0);
+  const totalGestures = patients.reduce((s, p) => s + (p._gestureCount || 0), 0);
 
   const myRegistration = auth && (auth.role === 'caregiver' || auth.role === 'patient')
     ? pilots.find((p) => p.alias === (auth.alias || auth.username))
@@ -1049,7 +1048,7 @@ const VaniCore = () => {
         {/* ── Home ── */}
         {activeTab === 'home' && (
           <>
-            <Hero pilotCount={pilots.length} totalDownloads={totalDownloads} />
+            <Hero pilotCount={patients.length} totalDownloads={totalDownloads} gestureCount={totalGestures} />
           </>
         )}
 
