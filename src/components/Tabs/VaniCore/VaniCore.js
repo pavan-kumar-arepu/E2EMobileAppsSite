@@ -87,15 +87,15 @@ const TopBar = ({ auth, onLogin, onLogout }) => (
 
 // ── Tab Nav ────────────────────────────────────────────────────────────────────
 const TABS = [
-  { id: 'home',      icon: '🏠', label: 'Home',       locked: false, desc: '' },
-  { id: 'setup',     icon: '📖', label: 'Setup',      locked: true,  desc: 'Step-by-step setup in under 10 min' },
-  { id: 'pilot',     icon: '📋', label: 'Join Pilot', locked: true,  desc: 'Register as a pilot participant' },
-  { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false, desc: 'Read & share community feedback' },
-  { id: 'dashboard', icon: '📊', label: 'Dashboard',  locked: false, desc: 'Your patient dashboard' },
+  { id: 'home',      icon: '🏠', label: 'Home',       locked: false, hidden: false, desc: '' },
+  { id: 'setup',     icon: '📖', label: 'Setup',      locked: true,  hidden: false, desc: 'Step-by-step setup in under 10 min' },
+  { id: 'pilot',     icon: '📋', label: 'Join Pilot', locked: true,  hidden: true,  desc: 'Register as a pilot participant' },
+  { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false, hidden: false, desc: 'Read & share community feedback' },
+  { id: 'dashboard', icon: '📊', label: 'Dashboard',  locked: false, hidden: false, desc: 'Your patient dashboard' },
 ];
 
 const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
-  const visible = TABS.filter((t) => t.id !== 'dashboard' || auth);
+  const visible = TABS.filter((t) => !t.hidden && (t.id !== 'dashboard' || auth));
   return (
     <nav className="vc-tab-nav" role="tablist">
       {visible.map((t) => {
@@ -411,250 +411,141 @@ const BuildInfoModal = ({ platformId, builds, onClose, onDownload, auth, onLogin
 
 // ── Setup Guide ─────────────────────────────────────────────────────────────────
 const FLOW_STEPS = [
-  {
-    id: 'dl-android',
-    icon: '📲',
-    app: 'android',
-    label: 'Download VaniCare',
-    sub: 'Android APK from Google Drive',
-    color: '#3ddc84',
-    bg: '#f0fff6',
-    videoId: '1j6Eptr5sHER7xJCwZscH0iajaUfpJrR7',
-    videoLabel: '📱 Android Setup (Steps 1–4)',
-  },
-  {
-    id: 'install-android',
-    icon: '⚙️',
-    app: 'android',
-    label: 'Install & Open VaniCare',
-    sub: 'Enable "Install from Unknown Sources" first',
-    color: '#3ddc84',
-    bg: '#f0fff6',
-  },
-  {
-    id: 'perms',
-    icon: '🔐',
-    app: 'android',
-    label: 'Accept Permissions',
-    sub: 'Camera · Microphone · Notifications',
-    color: '#3ddc84',
-    bg: '#f0fff6',
-  },
-  {
-    id: 'wait-qr',
-    icon: '⏳',
-    app: 'android',
-    label: 'Wait for QR Screen',
-    sub: 'VaniCare is ready to scan — keep screen on',
-    color: '#3ddc84',
-    bg: '#f0fff6',
-    videoId: '1ZDYpctill3FgoMBNf7sosGjFV1oAjQPN',
-    videoLabel: '💻 Computer Setup (Steps 4–8)',
-  },
-  {
-    id: 'dl-win',
-    icon: '📦',
-    app: 'windows',
-    label: 'Install VaniCore',
-    sub: 'Download ZIP · Extract · Run VaniCore.exe',
-    color: '#0078d4',
-    bg: '#f0f6ff',
-  },
-  {
-    id: 'enter-name',
-    icon: '🙋',
-    app: 'windows',
-    label: 'Enter Your Name',
-    sub: 'Type your name on the landing screen → Enter',
-    color: '#0078d4',
-    bg: '#f0f6ff',
-  },
-  {
-    id: 'qr-win',
-    icon: '📷',
-    app: 'windows',
-    label: 'QR Code Appears',
-    sub: 'Keep the QR code visible on your Windows screen',
-    color: '#0078d4',
-    bg: '#f0f6ff',
-  },
-  {
-    id: 'scan',
-    icon: '🔗',
-    app: 'sync',
-    label: 'Scan QR from Android',
-    sub: 'Point VaniCare camera at the Windows QR code',
-    color: '#6a11cb',
-    bg: '#f5f0ff',
-    videoId: '1qse5ihDnzfiX6M5pzFrtqhflyVUlxPoS',
-    videoLabel: '🔗 Final Setup (Steps 8–10)',
-  },
-  {
-    id: 'calib',
-    icon: '👁️',
-    app: 'windows',
-    label: 'Start Calibration',
-    sub: 'Follow on-screen gesture prompts on Windows',
-    color: '#0078d4',
-    bg: '#f0f6ff',
-  },
-  {
-    id: 'live',
-    icon: '🎉',
-    app: 'sync',
-    label: 'Go Live!',
-    sub: 'Android receives notifications when gestures detected',
-    color: '#10b981',
-    bg: '#f0fff8',
-  },
+  { id: 'dl-android',      icon: '📲', app: 'android', label: 'Download VaniCare',             sub: 'Android APK — tap “Build Info & Download” below',    color: '#3ddc84', bg: '#f0fff6' },
+  { id: 'install-android', icon: '⚙️', app: 'android', label: 'Install & Open VaniCare',        sub: 'Enable “Install from Unknown Sources” first',        color: '#3ddc84', bg: '#f0fff6' },
+  { id: 'perms',           icon: '🔐', app: 'android', label: 'Accept Permissions',              sub: 'Camera · Microphone · Notifications',                 color: '#3ddc84', bg: '#f0fff6' },
+  { id: 'wait-qr',         icon: '⏳', app: 'android', label: 'Wait for QR Screen',              sub: 'Keep screen on — VaniCare is ready to scan',          color: '#3ddc84', bg: '#f0fff6' },
+  { id: 'dl-win',          icon: '📦', app: 'windows', label: 'Install VaniCore',                sub: 'Download · Extract ZIP · Run VaniCore.exe / .dmg',    color: '#0078d4', bg: '#f0f6ff' },
+  { id: 'enter-name',      icon: '🙋', app: 'windows', label: 'Enter Your Name',                 sub: 'Type your name on the landing screen → press Enter', color: '#0078d4', bg: '#f0f6ff' },
+  { id: 'qr-win',          icon: '📷', app: 'windows', label: 'QR Code Appears on Screen',       sub: 'Keep VaniCore window visible with the QR code',       color: '#0078d4', bg: '#f0f6ff' },
+  { id: 'scan',            icon: '🔗', app: 'sync',    label: 'Scan QR from Android',            sub: 'Point VaniCare camera at the QR code on screen',      color: '#6a11cb', bg: '#f5f0ff' },
+  { id: 'calib',           icon: '👁️', app: 'windows', label: 'Start Calibration',               sub: 'Follow on-screen gesture prompts on the desktop',     color: '#6a11cb', bg: '#f5f0ff' },
+  { id: 'live',            icon: '🎉', app: 'sync',    label: 'Go Live!',                        sub: 'Android alerts the caregiver when gestures are detected', color: '#10b981', bg: '#f0fff8' },
 ];
 
-const APP_BADGE = {
-  android: { label: '🤖 VaniCare (Android)', cls: 'vc-flow-badge-android' },
-  windows: { label: '🪟 VaniCore (Windows)', cls: 'vc-flow-badge-win' },
-  sync:    { label: '🔗 Both in Sync', cls: 'vc-flow-badge-sync' },
-};
+const SETUP_VIDEOS = [
+  { id: '1j6Eptr5sHER7xJCwZscH0iajaUfpJrR7', label: '📱 Android Setup', steps: 'Steps 1 – 4' },
+  { id: '1ZDYpctill3FgoMBNf7sosGjFV1oAjQPN', label: '💻 Desktop Setup',  steps: 'Steps 5 – 8' },
+  { id: '1qse5ihDnzfiX6M5pzFrtqhflyVUlxPoS', label: '🔗 Connect & Go Live', steps: 'Steps 8 – 10' },
+];
 
-const SetupGuide = ({ auth, builds, downloads, onDownload, onLogin, onBuildInfo }) => (
-  <section className="vc-section" id="setup-guide">
+const SETUP_PHASES = [
+  { id: 'android', num: '01', title: 'VaniCare — Android', subtitle: 'Install on the caregiver’s phone first',   accentColor: '#3ddc84', badgeCls: 'vc-flow-badge-android', badgeLabel: '🤖 VaniCare (Android)', stepIds: ['dl-android','install-android','perms','wait-qr'] },
+  { id: 'desktop', num: '02', title: 'VaniCore — Desktop',  subtitle: 'Install on the patient’s computer',       accentColor: '#0078d4', badgeCls: 'vc-flow-badge-win',     badgeLabel: '🪟 VaniCore (Windows / macOS)', stepIds: ['dl-win','enter-name','qr-win'] },
+  { id: 'sync',    num: '03', title: 'Connect & Go Live',   subtitle: 'Pair both devices and start detecting',    accentColor: '#6a11cb', badgeCls: 'vc-flow-badge-sync',    badgeLabel: '🔗 Both Devices in Sync', stepIds: ['scan','calib','live'] },
+];
+
+const SetupGuide = ({ auth, builds, onDownload, onLogin, onBuildInfo }) => (
+  <section className="vc-section vc-sg" id="setup-guide">
     <h2 className="vc-section-title">
       <span className="vc-title-icon">📖</span> Setup Guide
     </h2>
     <p className="vc-section-sub">
-      Follow this sequence exactly — start with Android first, then Windows.
-      Total setup time: less than 10&nbsp;minutes.
+      Follow the three phases in order — total setup time is under 10&nbsp;minutes.
     </p>
 
-    {/* Two-part system explanation */}
+    {/* System intro cards */}
     <div className="vc-system-intro">
       <h3 className="vc-system-intro-title">🔗 VANI is a two-part system</h3>
       <p className="vc-system-intro-desc">
-        To fully set up VANI, you need to install <strong>two apps</strong> — one on the patient's
-        computer and one on the caregiver's Android phone. They work together as one connected system.
-        Complete <em>both</em> setups to go live.
+        Install <strong>both apps</strong> — one on the patient’s computer and one on the caregiver’s
+        Android phone. They sync wirelessly via Firebase.
       </p>
       <div className="vc-system-parts">
         <div className="vc-system-part vc-system-part-core">
           <div className="vc-system-part-icon">🪟</div>
           <div className="vc-system-part-name">VaniCore</div>
-          <div className="vc-system-part-platform">Windows · macOS — Desktop App</div>
-          <p className="vc-system-part-desc">
-            Installed on the <strong>patient's computer</strong>. Uses the webcam to continuously
-            detect eye and facial gestures — no keypress required.
-          </p>
+          <div className="vc-system-part-platform">Windows · macOS</div>
+          <p className="vc-system-part-desc">On the <strong>patient’s computer</strong>. Detects eye &amp; facial gestures via webcam — no keypress needed.</p>
         </div>
         <div className="vc-system-plus">＋</div>
         <div className="vc-system-part vc-system-part-care">
           <div className="vc-system-part-icon">🤖</div>
           <div className="vc-system-part-name">VaniCare</div>
-          <div className="vc-system-part-platform">Android — Mobile App</div>
-          <p className="vc-system-part-desc">
-            Installed on the <strong>caregiver's Android phone</strong>. Receives instant alerts
-            when the patient performs a gesture — "Yes", "No", "Help", and more.
-          </p>
+          <div className="vc-system-part-platform">Android</div>
+          <p className="vc-system-part-desc">On the <strong>caregiver’s phone</strong>. Gets instant alerts — “Yes”, “No”, “Help” — the moment a gesture is detected.</p>
         </div>
       </div>
     </div>
 
-    {/* Video walkthrough — login required */}
-    {auth ? (
-      <div className="vc-video-embed-wrap">
-        <div className="vc-video-embed-label">📹 Setup Walkthrough Video</div>
-        <div className="vc-video-embed-frame">
-          <iframe
-            src="https://drive.google.com/file/d/1mLXhPnQoD8gux39TNxUW1PineyfHPUWN/preview"
-            title="VANI Setup Intro"
-            allow="autoplay"
-            allowFullScreen
-          />
-        </div>
-      </div>
-    ) : (
-      <div className="vc-video-placeholder">
-        <div className="vc-video-inner">
-          <div className="vc-video-play-icon">▶</div>
-          <div className="vc-video-text">
-            <strong>📹 Setup Walkthrough Video</strong>
-            <p>🔐 Sign in (Admin or Patient / Caregiver) to watch the full video walkthrough.</p>
-          </div>
-        </div>
-      </div>
-    )}
-
-    {/* Legend */}
-    <div className="vc-flow-legend">
-      <span className="vc-flow-badge vc-flow-badge-android">🤖 VaniCare (Android)</span>
-      <span className="vc-flow-badge vc-flow-badge-win">🪟 VaniCore (Windows)</span>
-      <span className="vc-flow-badge vc-flow-badge-sync">🔗 Both Devices in Sync</span>
-    </div>
-
-    {/* Flowchart */}
-    <div className="vc-flow-chart">
-      {FLOW_STEPS.map((step, i) => (
-        <React.Fragment key={step.id}>
-          <div className={`vc-flow-item${step.videoId ? ' vc-flow-item-with-video' : ''}`}>
-            <div className="vc-flow-node" style={{ borderColor: step.color, background: step.bg }}>
-              <div className="vc-flow-step-num" style={{ background: step.color }}>
-                <span className="vc-step-word">Step</span>
-                <span className="vc-step-n">{i + 1}</span>
-              </div>
-              <div className="vc-flow-icon">{step.icon}</div>
-              <div className="vc-flow-label">{step.label}</div>
-              <div className="vc-flow-sub">{step.sub}</div>
-              <span className={`vc-flow-badge ${APP_BADGE[step.app].cls}`}>
-                {APP_BADGE[step.app].label}
-              </span>
-              {/* Inline download — VaniCare (step dl-android) */}
-              {step.id === 'dl-android' && builds && builds.find(x => x.id === 'android') && (
-                <button
-                  className="vc-step-dl-btn vc-step-dl-btn-care"
-                  onClick={() => onBuildInfo && onBuildInfo('android')}
-                >
-                  📋 Build Info &amp; Download
-                </button>
-              )}
-              {/* Inline download — VaniCore Win + Mac (step dl-win) */}
-              {step.id === 'dl-win' && builds && (
-                <div className="vc-step-dl-group">
-                  {builds.filter(x => x.id === 'windows' || x.id === 'mac').map(b => (
-                    <button
-                      key={b.id}
-                      className="vc-step-dl-btn vc-step-dl-btn-core"
-                      onClick={() => onBuildInfo && onBuildInfo(b.id)}
-                    >
-                      {b.icon} {b.platform} — Build Info
-                    </button>
-                  ))}
-                </div>
-              )}
+    {/* Video walkthroughs — 3 equal cards */}
+    <div className="vc-sg-videos">
+      <div className="vc-sg-videos-title">📹 Video Walkthroughs</div>
+      <div className="vc-sg-video-grid">
+        {SETUP_VIDEOS.map((v) => (
+          <div key={v.id} className="vc-sg-video-card">
+            <div className="vc-sg-video-meta">
+              <span className="vc-sg-video-label">{v.label}</span>
+              <span className="vc-sg-video-steps">{v.steps}</span>
             </div>
-            {step.videoId && (
-              <div className="vc-step-video-tile">
-                <div className="vc-step-video-label">{step.videoLabel}</div>
+            {auth ? (
+              <div className="vc-sg-video-frame">
                 <iframe
-                  src={`https://drive.google.com/file/d/${step.videoId}/preview`}
-                  title={step.videoLabel}
+                  src={`https://drive.google.com/file/d/${v.id}/preview`}
+                  title={v.label}
                   allow="autoplay"
                   allowFullScreen
-                  className="vc-step-video-iframe"
                 />
+              </div>
+            ) : (
+              <div className="vc-sg-video-locked" onClick={onLogin}>
+                <div className="vc-sg-video-play">▶</div>
+                <p>🔐 Sign in to watch</p>
               </div>
             )}
           </div>
-          {i < FLOW_STEPS.length - 1 && (
-            <div className="vc-flow-arrow">
-              <svg viewBox="0 0 24 40" xmlns="http://www.w3.org/2000/svg">
-                <line x1="12" y1="0" x2="12" y2="28" stroke="#c4b9f0" strokeWidth="2" strokeDasharray="4 3"/>
-                <polygon points="6,28 18,28 12,38" fill="#6a11cb" opacity="0.7"/>
-              </svg>
-            </div>
-          )}
-        </React.Fragment>
-      ))}
+        ))}
+      </div>
     </div>
 
-    {/* Two-column detailed cards */}
+    {/* Phases */}
+    {SETUP_PHASES.map((phase) => {
+      const steps = phase.stepIds.map((sid) => FLOW_STEPS.find((s) => s.id === sid)).filter(Boolean);
+      return (
+        <div key={phase.id} className="vc-sg-phase">
+          <div className="vc-sg-phase-header" style={{ borderLeftColor: phase.accentColor }}>
+            <span className="vc-sg-phase-num" style={{ background: phase.accentColor }}>{phase.num}</span>
+            <div className="vc-sg-phase-text">
+              <div className="vc-sg-phase-title">{phase.title}</div>
+              <div className="vc-sg-phase-sub">{phase.subtitle}</div>
+            </div>
+            <span className={`vc-flow-badge ${phase.badgeCls}`}>{phase.badgeLabel}</span>
+          </div>
 
+          <div className="vc-sg-steps-grid">
+            {steps.map((step) => {
+              const globalIdx = FLOW_STEPS.findIndex((s) => s.id === step.id);
+              return (
+                <div key={step.id} className="vc-sg-step-card" style={{ '--step-color': phase.accentColor }}>
+                  <div className="vc-sg-step-num" style={{ background: phase.accentColor }}>
+                    {globalIdx + 1}
+                  </div>
+                  <div className="vc-sg-step-icon">{step.icon}</div>
+                  <div className="vc-sg-step-label">{step.label}</div>
+                  <div className="vc-sg-step-sub">{step.sub}</div>
+                  {/* Android download button */}
+                  {step.id === 'dl-android' && builds && builds.find(x => x.id === 'android') && (
+                    <button className="vc-sg-dl-btn vc-sg-dl-btn-android" onClick={() => onBuildInfo && onBuildInfo('android')}>
+                      📋 Build Info &amp; Download
+                    </button>
+                  )}
+                  {/* Desktop download buttons */}
+                  {step.id === 'dl-win' && builds && (
+                    <div className="vc-sg-dl-group">
+                      {builds.filter(x => x.id === 'windows' || x.id === 'mac').map(b => (
+                        <button key={b.id} className="vc-sg-dl-btn vc-sg-dl-btn-desktop" onClick={() => onBuildInfo && onBuildInfo(b.id)}>
+                          {b.icon} {b.platform}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    })}
   </section>
 );
 
@@ -1000,6 +891,7 @@ const VaniCore = () => {
   const [downloads, setDownloads] = useState(() => readLS(LS_DOWNLOADS, {}));
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [buildModal, setBuildModal] = useState(null); // null | 'android' | 'windows' | 'mac'
+  const [patients, setPatients] = useState([]);
 
   useEffect(() => { writeLS(LS_PILOTS, pilots); }, [pilots]);
   useEffect(() => { writeLS(LS_FEEDBACK, feedback); }, [feedback]);
@@ -1024,6 +916,28 @@ const VaniCore = () => {
           writeLS(LS_FEEDBACK, fsData);
         }
       } catch { /* Firestore unavailable — use localStorage */ }
+      // Load live patients
+      try {
+        const patSnap = await getDocs(collection(db, 'patients'));
+        if (!patSnap.empty) {
+          const patData = await Promise.all(patSnap.docs.map(async (d) => {
+            const base = { ...d.data(), _fsId: d.id };
+            // Fetch recent gesture events
+            try {
+              const evtSnap = await getDocs(query(collection(db, 'gestures', d.id, 'events'), orderBy('timestamp', 'desc')));
+              base._recentGestures = evtSnap.docs.slice(0, 5).map(e => e.data());
+              base._gestureCount = evtSnap.size;
+            } catch { base._recentGestures = []; base._gestureCount = 0; }
+            // Fetch pending notifications
+            try {
+              const notifSnap = await getDocs(collection(db, 'notifications', d.id, 'pending'));
+              base._pendingNotifs = notifSnap.docs.map(e => e.data());
+            } catch { base._pendingNotifs = []; }
+            return base;
+          }));
+          setPatients(patData);
+        }
+      } catch { /* patients unavailable */ }
     })();
   }, []);
 
@@ -1163,6 +1077,7 @@ const VaniCore = () => {
             pilots={pilots}
             feedback={feedback}
             downloads={downloads}
+            patients={patients}
             onApproveFeedback={handleApproveFeedback}
             onDismissFeedback={handleDismissFeedback}
           />
