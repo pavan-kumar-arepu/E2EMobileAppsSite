@@ -356,16 +356,15 @@ export default function VaniJourney() {
       <section className="vj-close">
         <div className="vj-close-inner">
           <div className="vj-close-glow" />
-          <h2 className="vj-close-title">Still Building — For Her</h2>
+          <h2 className="vj-close-title">Ready for Pilot</h2>
           <p className="vj-close-body">
-            My mother's name is Arepu Vijaya Vani. VANI carries her name.
-            Watching her closely is what made this real — not an idea from a paper,
-            not a project for a portfolio, but an answer to something I saw with my own eyes.
-            The first installer is in a client's hands. Patients are waiting.
-            This keeps going because it has to.
+            What began as a personal answer to something deeply felt
+            is now ready for the people it was always meant to serve.
+            The first build is in a client's hands. Real patients are next.
+            This is not the end of the journey — it is where it truly begins.
           </p>
           <div className="vj-close-tags">
-            <span className="vj-ctag">Open Source Intent</span>
+            <span className="vj-ctag">Pilot Phase</span>
             <span className="vj-ctag">ALS Community</span>
             <span className="vj-ctag">No Login. No Cost.</span>
             <span className="vj-ctag">Edge AI for Good</span>
