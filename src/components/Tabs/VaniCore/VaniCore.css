@@ -339,6 +339,45 @@
   letter-spacing: .8px;
   margin-top: 4px;
 }
+/* ── Journey link inside VaniCore hero ──────────────────────────────── */
+.vc-journey-link-wrap {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+}
+.vc-journey-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: transparent;
+  border: 1px solid rgba(0,201,167,0.35);
+  border-radius: 100px;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  max-width: 680px;
+  text-align: center;
+}
+.vc-journey-link:hover {
+  background: rgba(0,201,167,0.10);
+  border-color: rgba(0,201,167,0.65);
+  transform: translateY(-2px);
+}
+.vc-journey-link-label {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+}
+.vc-journey-link-cta {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #00c9a7;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
 .vc-hero-stat-divider {
   width: 1px;
   height: 40px;

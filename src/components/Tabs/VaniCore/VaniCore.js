@@ -1,6 +1,7 @@
 // src/components/Tabs/VaniCore/VaniCore.js
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './VaniCore.css';
+import VaniJourney from '../VaniJourney/VaniJourney';
 import {
   BUILDS,
   CHANGELOG,
@@ -89,6 +90,7 @@ const TopBar = ({ auth, onLogin, onLogout }) => (
 const TABS = [
   { id: 'home',      icon: '🏠', label: 'Home',       locked: false, hidden: false, desc: '' },
   { id: 'setup',     icon: '📖', label: 'Setup',      locked: true,  hidden: false, desc: 'Step-by-step setup in under 10 min' },
+  { id: 'journey',   icon: '✦',  label: 'Journey',    locked: false, hidden: false, desc: 'The story behind VANI' },
   { id: 'pilot',     icon: '📋', label: 'Join Pilot', locked: true,  hidden: true,  desc: 'Register as a pilot participant' },
   { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false, hidden: false, wip: true, desc: 'Read & share community feedback' },
   { id: 'dashboard', icon: '📊', label: 'Dashboard',  locked: false, hidden: false, wip: true, desc: 'Your patient dashboard' },
@@ -1054,6 +1056,9 @@ const VaniCore = () => {
             <Hero pilotCount={patients.length} totalDownloads={totalDownloads} gestureCount={totalGestures} />
           </>
         )}
+
+        {/* ── Journey ── */}
+        {activeTab === 'journey' && <VaniJourney />}
 
         {/* ── Setup ── keep mounted so the video iframe never resets */}
         <div style={{ display: activeTab === 'setup' ? 'block' : 'none' }}>
