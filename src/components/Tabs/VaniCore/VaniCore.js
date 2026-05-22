@@ -884,7 +884,8 @@ const FeedbackSection = ({ feedback, auth, onSubmit, onEdit, onDelete }) => {
   };
 
   return (
-    <section className="vc-section" id="feedback">
+    <section className="vc-fb-section" id="feedback">
+      <div className="vc-fb-inner">
       <h2 className="vc-section-title">
         <span className="vc-title-icon">💬</span> Community Feedback
       </h2>
@@ -959,6 +960,7 @@ const FeedbackSection = ({ feedback, auth, onSubmit, onEdit, onDelete }) => {
           <button type="submit" className="vc-btn-primary vc-submit-btn">Submit Feedback</button>
         </form>
       )}
+      </div>
     </section>
   );
 };

@@ -739,6 +739,114 @@
 }
 .vc-feedback-form { display: flex; flex-direction: column; gap: 16px; }
 
+/* ── Feedback section — dark hero-style wrapper ────────────────────────── */
+.vc-fb-section {
+  background: linear-gradient(160deg, #0f0c29 0%, #1a1040 45%, #0d1427 100%);
+  color: #f1f5f9;
+  padding: clamp(48px, 7vw, 80px) 0;
+}
+.vc-fb-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 48px);
+}
+/* Title — gradient text like hero */
+.vc-fb-section .vc-section-title {
+  background: linear-gradient(135deg, #ffffff 30%, #00c9a7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.vc-fb-section .vc-title-icon { -webkit-text-fill-color: initial; }
+.vc-fb-section .vc-section-sub   { color: rgba(241,245,249,.65); margin-bottom: 28px; }
+.vc-fb-section .vc-sub-heading   { color: rgba(241,245,249,.9); margin-top: 36px; }
+/* Admin notice */
+.vc-fb-section .vc-fb-admin-notice {
+  background: rgba(0,201,167,.07);
+  border-color: rgba(0,201,167,.2);
+  border-left-color: #00c9a7;
+  color: rgba(241,245,249,.8);
+  margin-bottom: 28px;
+}
+/* Cards — glassmorphism on dark */
+.vc-fb-section .vc-fb-card {
+  background: rgba(255,255,255,.04);
+  border-color: rgba(255,255,255,.08);
+  box-shadow: 0 2px 16px rgba(0,0,0,.3);
+}
+.vc-fb-section .vc-fb-card:hover {
+  background: rgba(255,255,255,.07);
+  box-shadow: 0 8px 32px rgba(0,0,0,.45);
+  transform: translateY(-3px);
+}
+.vc-fb-section .vc-fb-card-pending {
+  border-color: rgba(245,158,11,.3) !important;
+  background: rgba(245,158,11,.05) !important;
+}
+.vc-fb-section .vc-fb-pending-badge {
+  background: rgba(245,158,11,.15);
+  border-color: rgba(245,158,11,.4);
+  color: #fde68a;
+}
+/* Card text */
+.vc-fb-section .vc-fb-msg   { color: rgba(241,245,249,.82); }
+.vc-fb-section .vc-fb-alias { color: #00c9a7; }
+.vc-fb-section .vc-fb-date  { color: rgba(241,245,249,.38); }
+/* Avatar */
+.vc-fb-section .vc-pilot-chip-avatar {
+  background: linear-gradient(135deg, #00c9a7 0%, #6a11cb 100%);
+  flex-shrink: 0;
+}
+/* Admin bar */
+.vc-fb-section .vc-fb-admin-bar  { border-top-color: rgba(255,255,255,.08); }
+.vc-fb-section .vc-btn-outline {
+  border-color: rgba(255,255,255,.2);
+  color: rgba(241,245,249,.8);
+  background: transparent;
+}
+.vc-fb-section .vc-btn-outline:hover { border-color: #00c9a7; color: #00c9a7; }
+.vc-fb-section .vc-btn-red   { background: rgba(239,68,68,.15);  color: #fca5a5; }
+.vc-fb-section .vc-btn-green { background: rgba(16,185,129,.15); color: #6ee7b7; }
+/* Empty state */
+.vc-fb-section .vc-feedback-empty { color: rgba(241,245,249,.4); }
+/* Form card */
+.vc-fb-section .vc-form {
+  background: rgba(255,255,255,.04);
+  border-color: rgba(255,255,255,.08);
+  box-shadow: 0 4px 24px rgba(0,0,0,.3);
+}
+/* Form fields */
+.vc-fb-section .vc-field label          { color: rgba(241,245,249,.88); }
+.vc-fb-section .vc-label-hint           { color: rgba(241,245,249,.38); }
+.vc-fb-section .vc-required             { color: #f87171; }
+.vc-fb-section .vc-field input[type="text"],
+.vc-fb-section .vc-field textarea {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.12);
+  color: #f1f5f9;
+}
+.vc-fb-section .vc-field input[type="text"]::placeholder,
+.vc-fb-section .vc-field textarea::placeholder { color: rgba(241,245,249,.28); }
+.vc-fb-section .vc-field input:focus,
+.vc-fb-section .vc-field textarea:focus {
+  border-color: #00c9a7;
+  box-shadow: 0 0 0 3px rgba(0,201,167,.15);
+  background: rgba(255,255,255,.09);
+}
+/* Stars */
+.vc-fb-section .vc-star-btn        { color: rgba(241,245,249,.18); }
+.vc-fb-section .vc-star-btn.active { color: #f59e0b; }
+.vc-fb-section .vc-star-btn:hover  { color: #f59e0b; }
+/* Char count */
+.vc-fb-section .vc-fb-char-count { color: rgba(241,245,249,.32); }
+/* Success inline */
+.vc-fb-section .vc-success-inline {
+  background: rgba(16,185,129,.1);
+  border-color: rgba(16,185,129,.28);
+  color: #6ee7b7;
+}
+/* Edit-in-card textarea inherits vc-field overrides above */
+
 /* ── Feedback v2 (real-time, star picker, admin controls) ─────────────────── */
 .vc-fb-grid {
   display: grid;
