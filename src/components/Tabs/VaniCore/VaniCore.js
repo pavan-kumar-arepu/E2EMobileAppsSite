@@ -818,16 +818,18 @@ const FeedbackCard = ({ f, isAdmin, onEdit, onDelete }) => {
 
   return (
     <div className={`vc-fb-card${f.approved ? '' : ' vc-fb-card-pending'}`}>
-      {!f.approved && <span className="vc-fb-pending-badge">⏳ Awaiting Approval</span>}
+      {!f.approved && <span className="vc-fb-pending-badge">⏳ Pending Review</span>}
       {editing ? (
         <div className="vc-fb-edit-area">
           <StarPicker value={draft.rating} onChange={(r) => setDraft((d) => ({ ...d, rating: r }))} />
-          <textarea
-            className="vc-fb-edit-textarea"
-            value={draft.message}
-            onChange={(e) => setDraft((d) => ({ ...d, message: e.target.value }))}
-            rows={3}
-          />
+          <div className="vc-field">
+            <textarea
+              value={draft.message}
+              onChange={(e) => setDraft((d) => ({ ...d, message: e.target.value }))}
+              rows={3}
+              placeholder="Edit feedback…"
+            />
+          </div>
           <div className="vc-fb-edit-actions">
             <button className="vc-btn-primary vc-btn-sm" onClick={save} disabled={saving}>
               {saving ? 'Saving…' : 'Save'}
@@ -837,18 +839,23 @@ const FeedbackCard = ({ f, isAdmin, onEdit, onDelete }) => {
         </div>
       ) : (
         <>
-          <div className="vc-fb-stars">{'★'.repeat(f.rating)}{'☆'.repeat(5 - f.rating)}</div>
-          <p className="vc-fb-msg">"{f.message}"</p>
-          <div className="vc-fb-meta">
-            <span className="vc-fb-alias">{f.alias || 'Anonymous'}</span>
-            <span className="vc-fb-date">{f.date}</span>
+          <div className="vc-fb-card-top">
+            <span className="vc-pilot-chip-avatar">{(f.alias || 'A')[0].toUpperCase()}</span>
+            <div className="vc-fb-card-main">
+              <div className="vc-fb-stars">{'★'.repeat(f.rating || 0)}{'☆'.repeat(5 - (f.rating || 0))}</div>
+              <p className="vc-fb-msg">"{f.message}"</p>
+              <div className="vc-fb-meta">
+                <span className="vc-fb-alias">{f.alias || 'Anonymous'}</span>
+                <span className="vc-fb-date">{f.date}</span>
+              </div>
+            </div>
           </div>
           {isAdmin && (
             <div className="vc-fb-admin-bar">
-              <button className="vc-fb-admin-btn vc-fb-edit-btn" onClick={() => { setDraft({ message: f.message, rating: f.rating }); setEditing(true); }}>✏️ Edit</button>
-              <button className="vc-fb-admin-btn vc-fb-del-btn" onClick={() => onDelete(f)}>🗑️ Delete</button>
+              <button className="vc-btn-sm vc-btn-outline" onClick={() => { setDraft({ message: f.message, rating: f.rating }); setEditing(true); }}>✏️ Edit</button>
+              <button className="vc-btn-sm vc-btn-red" onClick={() => onDelete(f)}>🗑️ Delete</button>
               {!f.approved && (
-                <button className="vc-fb-admin-btn vc-fb-approve-btn" onClick={() => onEdit(f, { approved: true })}>✅ Approve</button>
+                <button className="vc-btn-sm vc-btn-green" onClick={() => onEdit(f, { approved: true })}>✅ Approve</button>
               )}
             </div>
           )}
@@ -878,21 +885,18 @@ const FeedbackSection = ({ feedback, auth, onSubmit, onEdit, onDelete }) => {
 
   return (
     <section className="vc-section" id="feedback">
-      <div className="vc-fb-header">
-        <h2 className="vc-section-title">
-          <span className="vc-title-icon">💬</span> Community Feedback
-        </h2>
-        <p className="vc-section-sub">
-          Real experiences from caregivers and patients. Every voice helps shape the next release.
-        </p>
-        {isAdmin && (
-          <div className="vc-fb-admin-notice">
-            ⚙️ Admin view — pending and approved entries visible. Edit or delete syncs to Firebase instantly.
-          </div>
-        )}
-      </div>
+      <h2 className="vc-section-title">
+        <span className="vc-title-icon">💬</span> Community Feedback
+      </h2>
+      <p className="vc-section-sub">
+        Real experiences from caregivers and patients. Every voice helps shape the next release.
+      </p>
+      {isAdmin && (
+        <div className="vc-fb-admin-notice">
+          ⚙️ Admin view — pending and approved entries visible. Edit or delete syncs to Firebase instantly.
+        </div>
+      )}
 
-      {/* ── Cards ── */}
       {visible.length > 0 ? (
         <div className="vc-fb-grid">
           {visible.map((f) => (
@@ -912,50 +916,49 @@ const FeedbackSection = ({ feedback, auth, onSubmit, onEdit, onDelete }) => {
         </div>
       )}
 
-      {/* ── Submit form ── */}
-      <div className="vc-fb-submit-box">
-        <h3 className="vc-sub-heading">Share Your Experience</h3>
-        {done ? (
-          <div className="vc-success-inline">
-            ✅ Thank you — your feedback has been received and will be reviewed shortly.
-            <button className="vc-fb-again-btn" onClick={() => setDone(false)}>Submit another</button>
+      <h3 className="vc-sub-heading" style={{ marginTop: 8 }}>Share Your Experience</h3>
+      {done ? (
+        <div className="vc-success-inline">
+          ✅ Thank you — your feedback has been received and will be reviewed shortly.
+          <div style={{ marginTop: 12 }}>
+            <button className="vc-btn-outline" onClick={() => setDone(false)}>Submit another</button>
           </div>
-        ) : (
-          <form className="vc-fb-form" onSubmit={handleSubmit} noValidate>
-            <div className="vc-form-row">
-              <div className="vc-field">
-                <label htmlFor="fb-alias">Your Name / Alias <span className="vc-label-hint">(optional)</span></label>
-                <input
-                  id="fb-alias"
-                  type="text"
-                  value={form.alias}
-                  onChange={(e) => setForm((f) => ({ ...f, alias: e.target.value }))}
-                  placeholder="e.g. Caregiver in Chennai"
-                  maxLength={40}
-                />
-              </div>
-              <div className="vc-field">
-                <label>How would you rate VANI?</label>
-                <StarPicker value={form.rating} onChange={(r) => setForm((f) => ({ ...f, rating: r }))} />
-              </div>
+        </div>
+      ) : (
+        <form className="vc-form" style={{ maxWidth: 560 }} onSubmit={handleSubmit} noValidate>
+          <div className="vc-form-row">
+            <div className="vc-field">
+              <label htmlFor="fb-alias">Your Name / Alias <span className="vc-label-hint">(optional)</span></label>
+              <input
+                id="fb-alias"
+                type="text"
+                value={form.alias}
+                onChange={(e) => setForm((f) => ({ ...f, alias: e.target.value }))}
+                placeholder="e.g. Caregiver in Chennai"
+                maxLength={40}
+              />
             </div>
             <div className="vc-field">
-              <label htmlFor="fb-msg">Your Experience <span className="vc-required">*</span></label>
-              <textarea
-                id="fb-msg"
-                value={form.message}
-                onChange={(e) => { setErr(''); setForm((f) => ({ ...f, message: e.target.value })); }}
-                placeholder="How has VANI helped? What would make it better?"
-                rows={4}
-                maxLength={600}
-              />
-              <div className="vc-fb-char-count">{form.message.length}/600</div>
-              {err && <span className="vc-field-error">{err}</span>}
+              <label>How would you rate VANI?</label>
+              <StarPicker value={form.rating} onChange={(r) => setForm((f) => ({ ...f, rating: r }))} />
             </div>
-            <button type="submit" className="vc-btn-primary vc-fb-submit-btn">Submit Feedback</button>
-          </form>
-        )}
-      </div>
+          </div>
+          <div className="vc-field">
+            <label htmlFor="fb-msg">Your Experience <span className="vc-required">*</span></label>
+            <textarea
+              id="fb-msg"
+              value={form.message}
+              onChange={(e) => { setErr(''); setForm((f) => ({ ...f, message: e.target.value })); }}
+              placeholder="How has VANI helped? What would make it better?"
+              rows={4}
+              maxLength={600}
+            />
+            <div className="vc-fb-char-count">{form.message.length}/600</div>
+            {err && <span className="vc-field-error">{err}</span>}
+          </div>
+          <button type="submit" className="vc-btn-primary vc-submit-btn">Submit Feedback</button>
+        </form>
+      )}
     </section>
   );
 };
