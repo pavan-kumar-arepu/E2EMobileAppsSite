@@ -61,9 +61,9 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-        <h1>E2E Mobile App Solutions</h1>
+        <h1>E2E Real-Time Solutions</h1>
         <p className="header-left-description">
-          Transforming Ideas into Impactful Mobile App Solutions
+          Transforming Ideas into Impactful End-to-End Solutions
         </p>
       </div>
       <div className="header-right">

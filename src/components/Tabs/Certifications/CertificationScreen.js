@@ -9,68 +9,137 @@ import azureIcon from "../../../assets/certifications/AzureFundamentalsIcon.png"
 import azurePdf from "../../../assets/certifications/AzureFundamentalsFull.pdf";
 import psmPdf from "../../../assets/certifications/PSM1.pdf";
 import psmIcon from "../../../assets/certifications/psm1logo.png";
-
 import rxswift from "../../../assets/certifications/rxswift.png";
 import Rx_Swift from "../../../assets/certifications/Rx_Swift.pdf";
-
 import solid from "../../../assets/certifications/Solid.png";
 import solidpdf from "../../../assets/certifications/SolidP.pdf";
-
 import kotlin from "../../../assets/certifications/kotline.png";
 import Android_Kotlin from "../../../assets/certifications/Android_Kotline.pdf";
+import aiBe10xPdf from "../../../assets/certifications/AI_Be10x_Certificate.pdf";
+import edgeAiPdf from "../../../assets/certifications/Edge AI_Course Certificate - Pavan Kumar Arepu.pdf";
 
 import styled from "styled-components";
 import "./CertificationScreen.css";
 
-const certifications = [
+const certificationCategories = [
   {
-    id: 1,
-    name: "AWS Solutions Architect",
-    icon: awsIcon,
-    pdf: awsPdf,
-    credentials: "AWS Certified Solutions Architect - Associate",
+    category: "Artificial Intelligence",
+    emoji: "🤖",
+    color: "#6C3483",
+    certs: [
+      {
+        id: 7,
+        name: "AI for Everyone – Be10x",
+        icon: null,
+        emoji: "🧠",
+        pdf: aiBe10xPdf,
+        credentials: "AI Fundamentals & Productivity – Be10x",
+      },
+      {
+        id: 8,
+        name: "Edge AI",
+        icon: null,
+        emoji: "⚡",
+        pdf: edgeAiPdf,
+        credentials: "Edge AI Course Completion Certificate",
+      },
+    ],
   },
   {
-    id: 2,
-    name: "Azure Fundamentals",
-    icon: azureIcon,
-    pdf: azurePdf,
-    credentials: "Microsoft Certified: Azure Fundamentals",
+    category: "Cloud & Infrastructure",
+    emoji: "☁️",
+    color: "#1A5276",
+    certs: [
+      {
+        id: 1,
+        name: "AWS Solutions Architect",
+        icon: awsIcon,
+        pdf: awsPdf,
+        credentials: "AWS Certified Solutions Architect – Associate",
+      },
+      {
+        id: 2,
+        name: "Azure Fundamentals",
+        icon: azureIcon,
+        pdf: azurePdf,
+        credentials: "Microsoft Certified: Azure Fundamentals",
+      },
+    ],
   },
   {
-    id: 3,
-    name: "Professional Scrum Master",
-    icon: psmIcon,
-    pdf: psmPdf,
-    credentials: "Scrum Certified: Professional Scrum Master - 1",
+    category: "Mobile Development",
+    emoji: "📱",
+    color: "#145A32",
+    certs: [
+      {
+        id: 4,
+        name: "RxSwift",
+        icon: rxswift,
+        pdf: Rx_Swift,
+        credentials: "Complete RxSwift Course Completion",
+      },
+      {
+        id: 6,
+        name: "Android using Kotlin",
+        icon: kotlin,
+        pdf: Android_Kotlin,
+        credentials: "Complete Android 14 Course Completion with Kotlin",
+      },
+    ],
   },
   {
-    id: 4,
-    name: "RxSwfit",
-    icon: rxswift,
-    pdf: Rx_Swift,
-    credentials: "A complete Rx-Swift Course completed",
+    category: "Software Engineering",
+    emoji: "🏗️",
+    color: "#784212",
+    certs: [
+      {
+        id: 5,
+        name: "SOLID Principles",
+        icon: solid,
+        pdf: solidpdf,
+        credentials: "SOLID Principles – Deep Understanding",
+      },
+    ],
   },
   {
-    id: 5,
-    name: "Solid Principles",
-    icon: solid,
-    pdf: solidpdf,
-    credentials: "A Solid understanding of SoliD Principles",
+    category: "Agile & Process",
+    emoji: "🔄",
+    color: "#1B2631",
+    certs: [
+      {
+        id: 3,
+        name: "Professional Scrum Master",
+        icon: psmIcon,
+        pdf: psmPdf,
+        credentials: "Scrum.org: Professional Scrum Master I (PSM I)",
+      },
+    ],
   },
-  {
-    id: 6,
-    name: "Android using Kotlin",
-    icon: kotlin,
-    pdf: Android_Kotlin,
-    credentials: "A Complete Android 14 Course Completion with Kotlin",
-  },
-  // Add more certifications as needed
 ];
+
+const CategorySection = styled.div`
+  margin-bottom: 36px;
+`;
+
+const CategoryHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid ${(props) => props.color || "#ccc"};
+`;
+
+const CategoryTitle = styled.h2`
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: ${(props) => props.color || "#333"};
+  margin: 0;
+`;
 
 const CertificationsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
 `;
 
@@ -79,12 +148,35 @@ const CertificationItem = styled.div`
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  padding: 16px 10px;
+  border-radius: 10px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+  }
 `;
 
 const CertificationIcon = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
   margin-bottom: 10px;
+`;
+
+const EmojiIcon = styled.div`
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  background: ${(props) => props.bg || "#f0f0f0"};
+  border-radius: 50%;
 `;
 
 const CertificationDetails = styled.div`
@@ -133,17 +225,29 @@ const Certifications = () => {
 
   return (
     <div className="certifications">
-      <CertificationsGrid>
-        {certifications.map((cert) => (
-          <CertificationItem key={cert.id} onClick={() => openModal(cert.pdf)}>
-            <CertificationIcon src={cert.icon} alt={`${cert.name} Icon`} />
-            <CertificationDetails>
-              <h3>{cert.name}</h3>
-              <p>{cert.credentials}</p>
-            </CertificationDetails>
-          </CertificationItem>
-        ))}
-      </CertificationsGrid>
+      {certificationCategories.map((group) => (
+        <CategorySection key={group.category}>
+          <CategoryHeader color={group.color}>
+            <span style={{ fontSize: "1.4rem" }}>{group.emoji}</span>
+            <CategoryTitle color={group.color}>{group.category}</CategoryTitle>
+          </CategoryHeader>
+          <CertificationsGrid>
+            {group.certs.map((cert) => (
+              <CertificationItem key={cert.id} onClick={() => openModal(cert.pdf)}>
+                {cert.icon ? (
+                  <CertificationIcon src={cert.icon} alt={`${cert.name} Icon`} />
+                ) : (
+                  <EmojiIcon bg={group.color + "22"}>{cert.emoji}</EmojiIcon>
+                )}
+                <CertificationDetails>
+                  <h3 style={{ fontSize: "0.95rem" }}>{cert.name}</h3>
+                  <p style={{ fontSize: "0.8rem", color: "#666" }}>{cert.credentials}</p>
+                </CertificationDetails>
+              </CertificationItem>
+            ))}
+          </CertificationsGrid>
+        </CategorySection>
+      ))}
 
       {modalIsOpen && (
         <>
