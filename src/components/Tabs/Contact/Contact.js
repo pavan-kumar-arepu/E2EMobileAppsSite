@@ -6,86 +6,90 @@ const CONTACT_ROWS = [
   {
     icon: "💼",
     label: "LinkedIn",
-    value: (
-      <a
-        href="https://www.linkedin.com/in/pavan-kumar-arepu-software-architect-engineer/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        pavan-kumar-arepu
-      </a>
-    ),
+    href: "https://www.linkedin.com/in/pavan-kumar-arepu-software-architect-engineer/",
+    value: "pavan-kumar-arepu",
   },
   {
     icon: "🐙",
     label: "GitHub",
-    value: (
-      <a
-        href="https://github.com/pavan-kumar-arepu"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        github.com/pavan-kumar-arepu
-      </a>
-    ),
+    href: "https://github.com/pavan-kumar-arepu",
+    value: "github.com/pavan-kumar-arepu",
   },
   {
     icon: "✉️",
     label: "Email",
-    value: (
-      <a href="mailto:iOSDeveloper.ipa@gmail.com">iOSDeveloper.ipa@gmail.com</a>
-    ),
+    href: "mailto:Vaaninnovations@gmail.com",
+    value: "Vaaninnovations@gmail.com",
   },
   {
     icon: "📱",
     label: "Mobile",
-    value: "+46 76 431 65 99  ·  +91 8121 040 308",
+    href: "tel:+918121040308",
+    value: "+91 8121 040 308",
   },
   {
     icon: "✍️",
     label: "Blog",
-    value: (
-      <>
-        <a href="https://iossprinter.blogspot.com" target="_blank" rel="noopener noreferrer">iOS Sprinter Blog</a>
-        {" · "}
-        <a href="https://iosapps.blogspot.com" target="_blank" rel="noopener noreferrer">iOS Apps Blog</a>
-      </>
-    ),
+    href: "https://iosapps.blogspot.com",
+    value: "iOS Apps Blog",
   },
   {
     icon: "📍",
     label: "Based In",
+    href: null,
     value: "Hyderabad, India · Open to global opportunities",
   },
 ];
 
 const Contact = () => (
   <div className="contact-page">
-    <div className="contact-inner">
-      {/* Left — avatar */}
-      <div className="contact-left">
+    <div className="contact-content">
+
+      {/* Dark gradient banner — matches other tabs */}
+      <div className="contact-banner">
         <div className="contact-avatar-ring">
           <img src={contactImage} alt="Pavan Kumar Arepu" className="contact-image" />
         </div>
-        <p className="contact-name">Pavan Kumar Arepu</p>
-        <p className="contact-role">Sr Manager UI/UX (Technical Manager) · Verizon</p>
+        <div className="contact-banner-text">
+          <h2>Pavan Kumar Arepu</h2>
+          <p>Sr Manager UI/UX · Technical Manager · Verizon</p>
+          <span className="contact-availability">🟢 Open to global opportunities</span>
+        </div>
       </div>
 
-      {/* Right — contact card */}
+      {/* Contact card */}
       <div className="contact-card">
-        <h2>Let's Connect</h2>
-        <p>
-          Reach out to discuss exciting mobile projects, architecture challenges,
-          or collaboration opportunities — I'm always up for a conversation.
-        </p>
+        <div className="contact-card-header">
+          <h3>💬 Let's Connect</h3>
+          <p>
+            Reach out to discuss architecture challenges, real-time solutions,
+            or collaboration opportunities — I'm always up for a conversation.
+          </p>
+        </div>
+
         <div className="contact-rows">
           {CONTACT_ROWS.map((row) => (
             <div key={row.label} className="contact-row">
               <span className="contact-row-icon">{row.icon}</span>
-              <div>
+              <div className="contact-row-body">
                 <div className="contact-row-label">{row.label}</div>
-                <div className="contact-row-value">{row.value}</div>
+                <div className="contact-row-value">
+                  {row.href ? (
+                    <a
+                      href={row.href}
+                      target={row.href.startsWith("http") ? "_blank" : undefined}
+                      rel={row.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    >
+                      {row.value}
+                    </a>
+                  ) : (
+                    row.value
+                  )}
+                </div>
               </div>
+              {row.href && row.href.startsWith("http") && (
+                <span className="contact-row-arrow">↗</span>
+              )}
             </div>
           ))}
         </div>
