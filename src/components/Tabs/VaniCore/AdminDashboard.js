@@ -1,7 +1,6 @@
 // src/components/Tabs/VaniCore/AdminDashboard.js
 import React, { useState } from 'react';
 import { BUILDS } from './VaniCoreConfig';
-import GestureThresholdViewer from './GestureThresholdViewer';
 
 const exportCSV = (filename, rows) => {
   if (!rows.length) return;
@@ -15,7 +14,7 @@ const exportCSV = (filename, rows) => {
   URL.revokeObjectURL(url);
 };
 
-const SECTIONS = ['Overview', 'Patients', 'Thresholds', 'Pilots', 'Gestures', 'Feedback'];
+const SECTIONS = ['Overview', 'Patients', 'Pilots', 'Gestures', 'Feedback'];
 
 const STATUS_BADGE = {
   active:   { cls: 'badge-green', label: 'Active' },
@@ -46,7 +45,6 @@ const fmtTs = (ts) => {
 const PatientRow = ({ pat, idx }) => {
   const [open, setOpen] = useState(false);
   const statusCfg = STATUS_BADGE[pat.status] || STATUS_BADGE.pending;
-  const unread = (pat._pendingNotifs || []).filter(n => !n.read).length;
   return (
     <>
       <tr
@@ -71,11 +69,6 @@ const PatientRow = ({ pat, idx }) => {
           </span>
         </td>
         <td><strong>{pat._gestureCount ?? '—'}</strong></td>
-        <td>
-          {unread > 0
-            ? <span className="vc-badge badge-orange">{unread} unread</span>
-            : <span className="vc-badge badge-gray">{(pat._pendingNotifs || []).length}</span>}
-        </td>
         <td style={{ fontSize: '.78rem' }}>{fmtTs(pat.created_at)}</td>
         <td className="vc-pat-expand-btn">{open ? '▲' : '▼'}</td>
       </tr>
@@ -97,18 +90,6 @@ const PatientRow = ({ pat, idx }) => {
                   ))}
               </div>
               <div className="vc-pat-detail-col">
-                <div className="vc-pat-detail-heading">🔔 Pending Notifications</div>
-                {(pat._pendingNotifs || []).length === 0
-                  ? <p className="vc-pat-detail-empty">No pending notifications.</p>
-                  : (pat._pendingNotifs || []).slice(0, 5).map((n, i) => (
-                    <div key={i} className={'vc-pat-notif-row' + (!n.read ? ' unread' : '')}>
-                      <span className="vc-pat-notif-gesture">{GESTURE_ICONS[n.gesture] || '🤖'} {n.gesture}</span>
-                      <span className="vc-pat-notif-action">{n.intended_action}</span>
-                      <span className="vc-pat-notif-ts">{fmtTs(n.timestamp)}</span>
-                    </div>
-                  ))}
-              </div>
-              <div className="vc-pat-detail-col">
                 <div className="vc-pat-detail-heading">📟 Device &amp; Stage Info</div>
                 <div className="vc-pat-info-grid">
                   <div className="vc-pat-info-row"><span>Device ID</span><strong>{pat.device_id || '—'}</strong></div>
@@ -122,56 +103,6 @@ const PatientRow = ({ pat, idx }) => {
         </tr>
       )}
     </>
-  );
-};
-
-// ── Thresholds Section ─────────────────────────────────────────────────────────
-const ThresholdsSection = ({ patients }) => {
-  const [selectedId, setSelectedId] = useState(patients[0]?._fsId || patients[0]?.patient_id || null);
-
-  if (patients.length === 0) {
-    return <div className="vc-empty">No patients found. Connect a patient device to populate threshold data.</div>;
-  }
-
-  const selected = patients.find(
-    (p) => (p._fsId || p.patient_id) === selectedId
-  );
-
-  return (
-    <div className="vc-thresh-admin">
-      <p className="vc-firebase-note">
-        📡 Live — Firestore <code>patients/&#123;id&#125;/gestureThresholds/profile</code> · Calibrated per-patient by VaniCore. Read-only.
-      </p>
-      <div className="vc-thresh-patient-list">
-        {patients.map((p) => {
-          const id = p._fsId || p.patient_id;
-          const isActive = id === selectedId;
-          return (
-            <button
-              key={id}
-              className={`vc-thresh-patient-btn${isActive ? ' active' : ''}`}
-              onClick={() => setSelectedId(id)}
-            >
-              <span className="vc-thresh-patient-btn-avatar">
-                {(p.patient_name || id || '?').charAt(0).toUpperCase()}
-              </span>
-              <div className="vc-thresh-patient-btn-text">
-                <div className="vc-thresh-patient-btn-name">{p.patient_name || '—'}</div>
-                <div className="vc-thresh-patient-btn-id">{id}</div>
-              </div>
-              {isActive && <span className="vc-thresh-patient-btn-dot" />}
-            </button>
-          );
-        })}
-      </div>
-      {selected && (
-        <GestureThresholdViewer
-          key={selectedId}
-          patientId={selected._fsId || selected.patient_id}
-          patientName={selected.patient_name}
-        />
-      )}
-    </div>
   );
 };
 
@@ -209,9 +140,6 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
             )}
             {s === 'Patients' && patients.length > 0 && (
               <span className="vc-badge-dot vc-badge-dot-green">{patients.length}</span>
-            )}
-            {s === 'Thresholds' && patients.length > 0 && (
-              <span className="vc-badge-dot vc-badge-dot-purple">{patients.length}</span>
             )}
           </button>
         ))}
@@ -265,7 +193,6 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
                   Stage:        p.current_stage || '',
                   QRPaired:     p.device_pairing?.paired_devices?.qr_code_generated ? 'Yes' : 'No',
                   GestureCount: p._gestureCount || 0,
-                  PendingNotifs: (p._pendingNotifs || []).length,
                   CreatedAt:    p.created_at ? String(p.created_at) : '',
                 })))}
               >
@@ -282,7 +209,7 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
                   <tr>
                     <th>#</th><th>Patient</th><th>Status</th><th>Device ID</th>
                     <th>Stage</th><th>Pairing</th><th>Gestures</th>
-                    <th>Notifications</th><th>Created</th><th></th>
+                    <th>Created</th><th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -294,11 +221,6 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
             </div>
           )}
         </div>
-      )}
-
-      {/* Thresholds */}
-      {section === 'Thresholds' && (
-        <ThresholdsSection patients={patients} />
       )}
 
       {/* Pilots */}

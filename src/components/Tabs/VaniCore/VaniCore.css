@@ -2840,8 +2840,82 @@
 .vc-cg-empty-icon { font-size: 3rem; margin-bottom: 12px; }
 .vc-cg-empty-hint { font-size: .85rem; color: var(--vc-text-3); margin-top: 8px; }
 
+/* Patient info card */
+.vc-cg-info-card {
+  background: var(--vc-surface);
+  border: 1px solid var(--vc-border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 12px rgba(26,33,80,.07);
+}
+.vc-cg-info-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 60%, #24243e 100%);
+}
+.vc-cg-info-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+.vc-cg-info-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.vc-cg-info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.vc-cg-info-table tr {
+  border-bottom: 1px solid var(--vc-border);
+}
+.vc-cg-info-table tr:last-child { border-bottom: none; }
+.vc-cg-info-label {
+  padding: 10px 24px;
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--vc-text-3);
+  width: 160px;
+  background: var(--vc-bg);
+  border-right: 1px solid var(--vc-border);
+}
+.vc-cg-info-value {
+  padding: 10px 20px;
+  font-size: .9rem;
+  color: var(--vc-text);
+  font-weight: 500;
+}
+
+.vc-cg-thresh-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--vc-primary, #6a11cb);
+  margin: 20px 0 4px;
+}
+
 @media (max-width: 600px) {
   .vc-thresh-sections { grid-template-columns: 1fr; }
   .vc-thresh-section  { border-right: none; }
   .vc-cg-add-row      { flex-direction: column; align-items: stretch; }
+  .vc-cg-info-label   { width: 110px; padding: 10px 14px; }
+  .vc-cg-info-value   { padding: 10px 14px; }
 }
