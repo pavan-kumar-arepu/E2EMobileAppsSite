@@ -1131,26 +1131,34 @@ const VaniCore = () => {
   }, [feedback]);
 
   const handleDeletePilot = useCallback(async (pilot) => {
-    // pilot object passed so we can match even if _fsId was missing from cache
-    if (!pilot._fsId) {
-      // _fsId missing — re-fetch pilots from Firestore to get real IDs, then delete
-      try {
+    const doDelete = async (fsId) => {
+      setPilots((prev) => prev.filter((p) => p._fsId !== fsId && p.id !== fsId));
+      await deleteDoc(doc(db, 'pilots', fsId));
+    };
+    try {
+      if (pilot._fsId) {
+        await doDelete(pilot._fsId);
+      } else {
+        // _fsId missing in cache — re-fetch to get real document IDs
         const snap = await getDocs(query(collection(db, 'pilots'), orderBy('date', 'desc')));
-        const match = snap.docs.find(d => d.data().alias === pilot.alias && d.data().date === pilot.date);
+        const allPilots = snap.docs.map(d => ({ ...d.data(), _fsId: d.id }));
+        const match = snap.docs.find(d => {
+          const data = d.data();
+          return data.alias === pilot.alias;
+        });
         if (match) {
-          setPilots((prev) => prev.filter((p) => !(p.alias === pilot.alias && p.date === pilot.date)));
-          await deleteDoc(doc(db, 'pilots', match.id));
-          const remaining = snap.docs.filter(d => d.id !== match.id).map(d => ({ ...d.data(), _fsId: d.id }));
+          await doDelete(match.id);
+          const remaining = allPilots.filter(p => p._fsId !== match.id);
           setPilots(remaining);
           writeLS(LS_PILOTS, remaining);
+        } else {
+          alert('Could not find this pilot in Firestore. Try refreshing the page.');
         }
-      } catch { /* best-effort */ }
-      return;
+      }
+    } catch (err) {
+      console.error('Pilot delete failed:', err);
+      alert('Delete failed: ' + (err?.message || String(err)));
     }
-    setPilots((prev) => prev.filter((p) => p._fsId !== pilot._fsId));
-    try {
-      await deleteDoc(doc(db, 'pilots', pilot._fsId));
-    } catch { /* sync best-effort */ }
   }, []);
 
   const handleEditFeedback = useCallback(async (entry, changes) => {
