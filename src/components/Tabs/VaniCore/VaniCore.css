@@ -136,6 +136,58 @@
 .vc-btn-outline:hover { border-color: var(--vc-purple); color: var(--vc-purple); }
 .vc-btn-sm { padding: 6px 14px !important; font-size: .82rem !important; }
 .vc-full-width { width: 100%; }
+.vc-mt-8 { margin-top: 8px !important; }
+
+/* Google Sign-In button */
+.vc-btn-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  background: #fff;
+  color: #3c4043;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  font-size: .95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s, box-shadow .2s;
+}
+.vc-btn-google:hover:not(:disabled) {
+  background: #f8f9fa;
+  box-shadow: 0 1px 3px rgba(60,64,67,.3);
+}
+.vc-btn-google:disabled { opacity: .6; cursor: not-allowed; }
+.vc-google-icon { width: 18px; height: 18px; }
+
+/* OR divider */
+.vc-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0;
+  color: var(--vc-text-3);
+  font-size: .82rem;
+}
+.vc-divider::before,
+.vc-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--vc-border);
+}
+
+/* Password reset confirmation */
+.vc-reset-sent {
+  color: #00b894;
+  font-size: .9rem;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background: rgba(0,184,148,.08);
+  border-radius: 6px;
+}
 
 /* ── Hero ────────────────────────────────────────────────────────────────── */
 .vc-hero {

@@ -1,11 +1,17 @@
 // src/components/Tabs/VaniCore/LoginModal.js
-// Real Firebase Authentication — Email/Password
+// Real Firebase Authentication — Email/Password + Google Sign-In
 // Admin:   username "admin" → mapped to admin@vanicore.app internally
-// Others:  full email + password, account created via SignupModal
+// Others:  full email + password or Google, account created via SignupModal
 
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  sendPasswordResetEmail,
+} from 'firebase/auth';
+import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth as fbAuth, db } from '../../../firebase';
 
 // Internal email used for the single admin account
@@ -25,6 +31,8 @@ const LoginModal = ({ onClose, onSignup, context }) => {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState('');
+  const [forgotMode, setForgotMode] = useState(false);
+  const [resetSent, setResetSent]   = useState(false);
 
   const switchTab = (t) => {
     setTab(t);
@@ -32,6 +40,54 @@ const LoginModal = ({ onClose, onSignup, context }) => {
     setUsername('');
     setEmail('');
     setPassword('');
+    setForgotMode(false);
+    setResetSent(false);
+  };
+
+  const handleGoogleSignIn = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      const cred = await signInWithPopup(fbAuth, provider);
+      const user = cred.user;
+      // Create Firestore user doc if first time
+      const snap = await getDoc(doc(db, 'users', user.uid));
+      if (!snap.exists()) {
+        await setDoc(doc(db, 'users', user.uid), {
+          name:      user.displayName || user.email,
+          email:     user.email,
+          role:      'caregiver',
+          createdAt: serverTimestamp(),
+        });
+      }
+      onClose();
+    } catch (err) {
+      if (err.code === 'auth/popup-closed-by-user') {
+        setError('Sign-in cancelled.');
+      } else {
+        setError('Google sign-in failed: ' + (err.message || 'Please try again.'));
+      }
+    }
+    setLoading(false);
+  };
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    if (!email.trim()) { setError('Enter your email address above first.'); return; }
+    setLoading(true);
+    setError('');
+    try {
+      await sendPasswordResetEmail(fbAuth, email.trim().toLowerCase());
+      setResetSent(true);
+    } catch (err) {
+      if (err.code === 'auth/user-not-found') {
+        setError('No account found with this email.');
+      } else {
+        setError('Could not send reset email. Please try again.');
+      }
+    }
+    setLoading(false);
   };
 
   const handleSubmit = async (e) => {
@@ -158,38 +214,95 @@ const LoginModal = ({ onClose, onSignup, context }) => {
             </div>
           )}
 
-          <div className="vc-field">
-            <label htmlFor="vc-pass">Password</label>
-            <div className="vc-pass-wrap">
-              <input
-                id="vc-pass"
-                type={showPass ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="password"
-                autoComplete="current-password"
-                required
-              />
-              <button
-                type="button"
-                className="vc-pass-toggle"
-                onClick={() => setShowPass((s) => !s)}
-                aria-label={showPass ? 'Hide password' : 'Show password'}
-              >
-                {showPass ? '🙈' : '👁️'}
-              </button>
+          {(!forgotMode) && (
+            <div className="vc-field">
+              <label htmlFor="vc-pass">Password</label>
+              <div className="vc-pass-wrap">
+                <input
+                  id="vc-pass"
+                  type={showPass ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="password"
+                  autoComplete="current-password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="vc-pass-toggle"
+                  onClick={() => setShowPass((s) => !s)}
+                  aria-label={showPass ? 'Hide password' : 'Show password'}
+                >
+                  {showPass ? '🙈' : '👁️'}
+                </button>
+              </div>
             </div>
-          </div>
+          )}
 
           {error && <p className="vc-login-error" role="alert">{error}</p>}
+          {resetSent && (
+            <p className="vc-reset-sent" role="status">
+              ✅ Reset link sent! Check your inbox.
+            </p>
+          )}
 
-          <button
-            type="submit"
-            className="vc-btn-primary vc-full-width"
-            disabled={loading}
-          >
-            {loading ? 'Signing in…' : 'Sign In'}
-          </button>
+          {forgotMode ? (
+            <>
+              <button
+                type="button"
+                className="vc-btn-primary vc-full-width"
+                disabled={loading}
+                onClick={handleForgotPassword}
+              >
+                {loading ? 'Sending…' : 'Send Reset Link'}
+              </button>
+              <button
+                type="button"
+                className="vc-inline-link vc-full-width vc-mt-8"
+                onClick={() => { setForgotMode(false); setResetSent(false); setError(''); }}
+              >
+                ← Back to Sign In
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                type="submit"
+                className="vc-btn-primary vc-full-width"
+                disabled={loading}
+              >
+                {loading ? 'Signing in…' : 'Sign In'}
+              </button>
+
+              {tab === 'care' && (
+                <>
+                  <div className="vc-divider"><span>or</span></div>
+                  <button
+                    type="button"
+                    className="vc-btn-google vc-full-width"
+                    disabled={loading}
+                    onClick={handleGoogleSignIn}
+                  >
+                    <img
+                      src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                      alt="Google"
+                      className="vc-google-icon"
+                    />
+                    Sign in with Google
+                  </button>
+                  <div style={{ textAlign: 'right', marginTop: 6 }}>
+                    <button
+                      type="button"
+                      className="vc-inline-link"
+                      onClick={() => { setForgotMode(true); setError(''); }}
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
+                </>
+              )}
+            </>
+          )}
         </form>
 
         {tab === 'care' && (

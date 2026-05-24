@@ -2,8 +2,8 @@
 // Caregiver / Patient self-registration via Firebase Auth + Firestore
 
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth as fbAuth, db } from '../../../firebase';
 
 const SignupModal = ({ onClose, onSwitchToLogin }) => {
@@ -18,6 +18,33 @@ const SignupModal = ({ onClose, onSwitchToLogin }) => {
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState('');
   const [done, setDone]         = useState(false);
+
+  const handleGoogleSignUp = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      const cred = await signInWithPopup(fbAuth, provider);
+      const user = cred.user;
+      const snap = await getDoc(doc(db, 'users', user.uid));
+      if (!snap.exists()) {
+        await setDoc(doc(db, 'users', user.uid), {
+          name:      user.displayName || user.email,
+          email:     user.email,
+          role:      'caregiver',
+          createdAt: serverTimestamp(),
+        });
+      }
+      setDone(true);
+    } catch (err) {
+      if (err.code === 'auth/popup-closed-by-user') {
+        setError('Sign-in cancelled.');
+      } else {
+        setError('Google sign-in failed: ' + (err.message || 'Please try again.'));
+      }
+    }
+    setLoading(false);
+  };
 
   const set = (k, v) => { setForm((f) => ({ ...f, [k]: v })); setError(''); };
 
@@ -169,6 +196,21 @@ const SignupModal = ({ onClose, onSwitchToLogin }) => {
                 {loading ? 'Creating Account…' : 'Sign Up'}
               </button>
             </form>
+
+            <div className="vc-divider"><span>or</span></div>
+            <button
+              type="button"
+              className="vc-btn-google vc-full-width"
+              disabled={loading}
+              onClick={handleGoogleSignUp}
+            >
+              <img
+                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                alt="Google"
+                className="vc-google-icon"
+              />
+              Sign up with Google
+            </button>
 
             <p className="vc-modal-footer">
               Already have an account?{' '}
