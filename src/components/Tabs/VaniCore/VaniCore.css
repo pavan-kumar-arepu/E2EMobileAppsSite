@@ -2537,4 +2537,311 @@
 
 /* Orange badge for unread notifs */
 .badge-orange { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
-.vc-badge-dot-green { background: #3ddc84; }
+.vc-badge-dot-green  { background: #3ddc84; }
+.vc-badge-dot-purple { background: #9b59b6; color: #fff; }
+
+/* ═══════════════════════════════════════════════════════
+   GESTURE THRESHOLD VIEWER
+═══════════════════════════════════════════════════════ */
+
+/* Loading / error states */
+.vc-thresh-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px;
+  background: var(--vc-bg);
+  border: 1px solid var(--vc-border);
+  border-radius: 12px;
+  color: var(--vc-text-2);
+  font-size: .9rem;
+  margin-top: 16px;
+}
+.vc-thresh-error { color: #c0392b; border-color: #f5c6cb; background: #fff5f5; }
+.vc-thresh-spinner {
+  width: 18px; height: 18px;
+  border: 3px solid var(--vc-border);
+  border-top-color: var(--vc-primary);
+  border-radius: 50%;
+  animation: vc-spin .7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes vc-spin { to { transform: rotate(360deg); } }
+
+/* Card wrapper */
+.vc-thresh-card {
+  background: var(--vc-surface);
+  border: 1px solid var(--vc-border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 20px;
+  box-shadow: 0 4px 20px rgba(26,33,80,.08);
+}
+.vc-thresh-compact { margin-top: 0; }
+
+/* Card header */
+.vc-thresh-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--vc-border);
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 60%, #24243e 100%);
+}
+.vc-thresh-patient-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.vc-thresh-avatar {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+.vc-thresh-pname { font-size: 1rem; font-weight: 700; color: #fff; }
+.vc-thresh-pid   { font-size: .72rem; color: rgba(255,255,255,.55); margin-top: 2px; }
+.vc-thresh-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.vc-thresh-updated { font-size: .72rem; color: rgba(255,255,255,.5); }
+
+/* Sections grid */
+.vc-thresh-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0;
+}
+
+/* Individual section */
+.vc-thresh-section {
+  padding: 20px 24px;
+  border-right: 1px solid var(--vc-border);
+  border-bottom: 1px solid var(--vc-border);
+}
+.vc-thresh-section:last-child { border-right: none; }
+
+.vc-thresh-sec-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--sec-color, #6a11cb);
+}
+.vc-thresh-sec-icon  { font-size: 1.2rem; }
+.vc-thresh-sec-label {
+  flex: 1;
+  font-size: .8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--sec-color, #6a11cb);
+}
+.vc-thresh-sec-badge { font-size: .65rem !important; }
+
+/* Field rows */
+.vc-thresh-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.vc-thresh-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--vc-border);
+}
+.vc-thresh-field:last-child { border-bottom: none; }
+.vc-thresh-field-label {
+  font-size: .78rem;
+  color: var(--vc-text-3);
+}
+.vc-thresh-field-value {
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--vc-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Footer note */
+.vc-thresh-footer {
+  padding: 12px 24px;
+  font-size: .72rem;
+  color: var(--vc-text-3);
+  background: var(--vc-bg);
+  border-top: 1px solid var(--vc-border);
+}
+
+/* ═══════════════════════════════════════════════════════
+   ADMIN — THRESHOLDS SECTION
+═══════════════════════════════════════════════════════ */
+.vc-thresh-admin { display: flex; flex-direction: column; gap: 16px; }
+
+.vc-thresh-patient-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.vc-thresh-patient-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--vc-surface);
+  border: 1px solid var(--vc-border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s;
+  position: relative;
+}
+.vc-thresh-patient-btn:hover { border-color: var(--vc-primary); }
+.vc-thresh-patient-btn.active {
+  border-color: var(--vc-primary);
+  box-shadow: 0 0 0 3px rgba(106,17,203,.12);
+}
+.vc-thresh-patient-btn-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .9rem;
+  font-weight: 800;
+  color: #fff;
+}
+.vc-thresh-patient-btn-name { font-size: .85rem; font-weight: 600; color: var(--vc-text); }
+.vc-thresh-patient-btn-id   { font-size: .68rem; color: var(--vc-text-3); }
+.vc-thresh-patient-btn-dot {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 8px; height: 8px;
+  background: var(--vc-primary);
+  border-radius: 50%;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CAREGIVER DASHBOARD
+═══════════════════════════════════════════════════════ */
+.vc-cg-dash { max-width: 900px; }
+
+/* Add panel */
+.vc-cg-add-panel {
+  background: var(--vc-surface);
+  border: 1px solid var(--vc-border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+.vc-cg-add-label {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--vc-text-3);
+  margin-bottom: 10px;
+}
+.vc-cg-add-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.vc-cg-input {
+  flex: 1;
+  min-width: 240px;
+  padding: 9px 14px;
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  background: var(--vc-bg);
+  color: var(--vc-text);
+  font-size: .9rem;
+  transition: border-color .2s;
+}
+.vc-cg-input:focus    { outline: none; border-color: var(--vc-primary); }
+.vc-cg-input:disabled { opacity: .6; cursor: not-allowed; }
+.vc-cg-error {
+  margin-top: 8px;
+  font-size: .82rem;
+  color: #c0392b;
+}
+
+/* Patient tab pills */
+.vc-cg-patient-tabs { margin-bottom: 20px; }
+.vc-cg-tabs-label {
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--vc-text-3);
+  margin-bottom: 10px;
+}
+.vc-cg-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.vc-cg-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--vc-surface);
+  border: 1px solid var(--vc-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s;
+  user-select: none;
+}
+.vc-cg-tab.active {
+  border-color: var(--vc-primary);
+  box-shadow: 0 0 0 3px rgba(106,17,203,.12);
+}
+.vc-cg-tab:hover:not(.active) { border-color: #b39ddb; }
+.vc-cg-tab-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .95rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+.vc-cg-tab-text { flex: 1; min-width: 0; }
+.vc-cg-tab-name { font-size: .85rem; font-weight: 600; color: var(--vc-text); }
+.vc-cg-tab-id   { font-size: .68rem; color: var(--vc-text-3); }
+.vc-cg-tab-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--vc-text-3);
+  font-size: .75rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: background .15s, color .15s;
+  flex-shrink: 0;
+}
+.vc-cg-tab-remove:hover { background: #fee2e2; color: #c0392b; }
+
+/* Empty state */
+.vc-cg-empty { text-align: center; padding: 48px 24px; }
+.vc-cg-empty-icon { font-size: 3rem; margin-bottom: 12px; }
+.vc-cg-empty-hint { font-size: .85rem; color: var(--vc-text-3); margin-top: 8px; }
+
+@media (max-width: 600px) {
+  .vc-thresh-sections { grid-template-columns: 1fr; }
+  .vc-thresh-section  { border-right: none; }
+  .vc-cg-add-row      { flex-direction: column; align-items: stretch; }
+}

@@ -1,6 +1,7 @@
 // src/components/Tabs/VaniCore/AdminDashboard.js
 import React, { useState } from 'react';
 import { BUILDS } from './VaniCoreConfig';
+import GestureThresholdViewer from './GestureThresholdViewer';
 
 const exportCSV = (filename, rows) => {
   if (!rows.length) return;
@@ -14,7 +15,7 @@ const exportCSV = (filename, rows) => {
   URL.revokeObjectURL(url);
 };
 
-const SECTIONS = ['Overview', 'Patients', 'Pilots', 'Gestures', 'Feedback'];
+const SECTIONS = ['Overview', 'Patients', 'Thresholds', 'Pilots', 'Gestures', 'Feedback'];
 
 const STATUS_BADGE = {
   active:   { cls: 'badge-green', label: 'Active' },
@@ -124,6 +125,56 @@ const PatientRow = ({ pat, idx }) => {
   );
 };
 
+// ── Thresholds Section ─────────────────────────────────────────────────────────
+const ThresholdsSection = ({ patients }) => {
+  const [selectedId, setSelectedId] = useState(patients[0]?._fsId || patients[0]?.patient_id || null);
+
+  if (patients.length === 0) {
+    return <div className="vc-empty">No patients found. Connect a patient device to populate threshold data.</div>;
+  }
+
+  const selected = patients.find(
+    (p) => (p._fsId || p.patient_id) === selectedId
+  );
+
+  return (
+    <div className="vc-thresh-admin">
+      <p className="vc-firebase-note">
+        📡 Live — Firestore <code>patients/&#123;id&#125;/gestureThresholds/profile</code> · Calibrated per-patient by VaniCore. Read-only.
+      </p>
+      <div className="vc-thresh-patient-list">
+        {patients.map((p) => {
+          const id = p._fsId || p.patient_id;
+          const isActive = id === selectedId;
+          return (
+            <button
+              key={id}
+              className={`vc-thresh-patient-btn${isActive ? ' active' : ''}`}
+              onClick={() => setSelectedId(id)}
+            >
+              <span className="vc-thresh-patient-btn-avatar">
+                {(p.patient_name || id || '?').charAt(0).toUpperCase()}
+              </span>
+              <div className="vc-thresh-patient-btn-text">
+                <div className="vc-thresh-patient-btn-name">{p.patient_name || '—'}</div>
+                <div className="vc-thresh-patient-btn-id">{id}</div>
+              </div>
+              {isActive && <span className="vc-thresh-patient-btn-dot" />}
+            </button>
+          );
+        })}
+      </div>
+      {selected && (
+        <GestureThresholdViewer
+          key={selectedId}
+          patientId={selected._fsId || selected.patient_id}
+          patientName={selected.patient_name}
+        />
+      )}
+    </div>
+  );
+};
+
 const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveFeedback, onDismissFeedback }) => {
   const [section, setSection] = useState('Overview');
 
@@ -158,6 +209,9 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
             )}
             {s === 'Patients' && patients.length > 0 && (
               <span className="vc-badge-dot vc-badge-dot-green">{patients.length}</span>
+            )}
+            {s === 'Thresholds' && patients.length > 0 && (
+              <span className="vc-badge-dot vc-badge-dot-purple">{patients.length}</span>
             )}
           </button>
         ))}
@@ -240,6 +294,11 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
             </div>
           )}
         </div>
+      )}
+
+      {/* Thresholds */}
+      {section === 'Thresholds' && (
+        <ThresholdsSection patients={patients} />
       )}
 
       {/* Pilots */}

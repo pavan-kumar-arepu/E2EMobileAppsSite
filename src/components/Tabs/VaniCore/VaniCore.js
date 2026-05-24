@@ -21,6 +21,7 @@ import LoginModal from './LoginModal';
 import SignupModal from './SignupModal';
 import AdminDashboard from './AdminDashboard';
 import PatientDashboard from './PatientDashboard';
+import CaregiverDashboard from './CaregiverDashboard';
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 const uid = () => Math.random().toString(36).slice(2, 10);
@@ -1199,7 +1200,9 @@ const VaniCore = () => {
           />
         )}
         {activeTab === 'dashboard' && auth && (auth.role === 'caregiver' || auth.role === 'patient') && (
-          <PatientDashboard auth={auth} myRegistration={myRegistration} />
+          auth.role === 'caregiver'
+            ? <CaregiverDashboard auth={auth} />
+            : <PatientDashboard auth={auth} myRegistration={myRegistration} />
         )}
 
       </div>
