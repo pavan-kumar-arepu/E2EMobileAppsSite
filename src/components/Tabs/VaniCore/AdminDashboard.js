@@ -1,6 +1,7 @@
 // src/components/Tabs/VaniCore/AdminDashboard.js
 import React, { useState } from 'react';
 import { BUILDS } from './VaniCoreConfig';
+import GestureThresholdViewer from './GestureThresholdViewer';
 
 const exportCSV = (filename, rows) => {
   if (!rows.length) return;
@@ -14,7 +15,7 @@ const exportCSV = (filename, rows) => {
   URL.revokeObjectURL(url);
 };
 
-const SECTIONS = ['Overview', 'Patients', 'Pilots', 'Gestures', 'Feedback'];
+const SECTIONS = ['Overview', 'Patients', 'Thresholds', 'Pilots', 'Gestures', 'Feedback'];
 
 const STATUS_BADGE = {
   active:   { cls: 'badge-green', label: 'Active' },
@@ -106,8 +107,9 @@ const PatientRow = ({ pat, idx }) => {
   );
 };
 
-const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveFeedback, onDismissFeedback }) => {
+const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveFeedback, onDismissFeedback, onDeletePilot }) => {
   const [section, setSection] = useState('Overview');
+  const [thresholdPatient, setThresholdPatient] = useState('');
 
   const totalDownloads =
     BUILDS.reduce((sum, b) => sum + b.baseDownloads, 0) +
@@ -139,6 +141,9 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
               <span className="vc-badge-dot">{pendingFeedback.length}</span>
             )}
             {s === 'Patients' && patients.length > 0 && (
+              <span className="vc-badge-dot vc-badge-dot-green">{patients.length}</span>
+            )}
+            {s === 'Thresholds' && patients.length > 0 && (
               <span className="vc-badge-dot vc-badge-dot-green">{patients.length}</span>
             )}
           </button>
@@ -223,6 +228,40 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
         </div>
       )}
 
+      {/* Thresholds */}
+      {section === 'Thresholds' && (
+        <div>
+          <p className="vc-firebase-note">
+            📡 Read-only gesture thresholds from Firestore <code>patients/&#123;id&#125;/gestureThresholds/profile</code>
+          </p>
+          {patients.length === 0 ? (
+            <div className="vc-empty">No patients found in Firestore yet.</div>
+          ) : (
+            <>
+              <div style={{ marginBottom: 16 }}>
+                <label className="vc-input-label" style={{ marginRight: 10 }}>Select Patient:</label>
+                <select
+                  className="vc-select"
+                  value={thresholdPatient}
+                  onChange={e => setThresholdPatient(e.target.value)}
+                >
+                  <option value="">— choose a patient —</option>
+                  {patients.map(p => (
+                    <option key={p._fsId} value={p.patient_id || p._fsId}>
+                      {p.patient_name || p.patient_id || p._fsId}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {thresholdPatient
+                ? <GestureThresholdViewer patientId={thresholdPatient} />
+                : <div className="vc-empty">Select a patient above to view their gesture thresholds.</div>
+              }
+            </>
+          )}
+        </div>
+      )}
+
       {/* Pilots */}
       {section === 'Pilots' && (
         <div>
@@ -249,12 +288,12 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
                 <thead>
                   <tr>
                     <th>#</th><th>Alias</th><th>Age Group</th><th>Condition</th>
-                    <th>Willingness</th><th>Affected Parts</th><th>Platform</th><th>Date</th>
+                    <th>Willingness</th><th>Affected Parts</th><th>Platform</th><th>Date</th><th></th>
                   </tr>
                 </thead>
                 <tbody>
                   {pilots.map((p, i) => (
-                    <tr key={p.id}>
+                    <tr key={p._fsId || p.id || i}>
                       <td>{i + 1}</td>
                       <td><strong>{p.alias || '—'}</strong></td>
                       <td>{p.ageGroup || '—'}</td>
@@ -267,6 +306,19 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
                       <td className="vc-parts-cell">{(p.impactedParts || []).join(', ') || '—'}</td>
                       <td>{(p.platforms || []).join(', ') || '—'}</td>
                       <td>{p.date}</td>
+                      <td>
+                        {onDeletePilot && p._fsId && (
+                          <button
+                            className="vc-btn-sm vc-btn-red"
+                            title="Delete pilot registration"
+                            onClick={() => {
+                              if (window.confirm(`Delete registration for "${p.alias || 'this pilot'}"?`)) {
+                                onDeletePilot(p._fsId);
+                              }
+                            }}
+                          >🗑️</button>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

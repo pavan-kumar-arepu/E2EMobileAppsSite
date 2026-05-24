@@ -1130,6 +1130,13 @@ const VaniCore = () => {
     } catch { /* sync best-effort */ }
   }, [feedback]);
 
+  const handleDeletePilot = useCallback(async (fsId) => {
+    setPilots((prev) => prev.filter((p) => p._fsId !== fsId));
+    try {
+      await deleteDoc(doc(db, 'pilots', fsId));
+    } catch { /* sync best-effort */ }
+  }, []);
+
   const handleEditFeedback = useCallback(async (entry, changes) => {
     const key = entry._fsId || entry.id;
     setFeedback((prev) => prev.map((f) =>
@@ -1197,6 +1204,7 @@ const VaniCore = () => {
             patients={patients}
             onApproveFeedback={handleApproveFeedback}
             onDismissFeedback={handleDismissFeedback}
+            onDeletePilot={handleDeletePilot}
           />
         )}
         {activeTab === 'dashboard' && auth && (auth.role === 'caregiver' || auth.role === 'patient') && (
