@@ -1130,10 +1130,26 @@ const VaniCore = () => {
     } catch { /* sync best-effort */ }
   }, [feedback]);
 
-  const handleDeletePilot = useCallback(async (fsId) => {
-    setPilots((prev) => prev.filter((p) => p._fsId !== fsId));
+  const handleDeletePilot = useCallback(async (pilot) => {
+    // pilot object passed so we can match even if _fsId was missing from cache
+    if (!pilot._fsId) {
+      // _fsId missing — re-fetch pilots from Firestore to get real IDs, then delete
+      try {
+        const snap = await getDocs(query(collection(db, 'pilots'), orderBy('date', 'desc')));
+        const match = snap.docs.find(d => d.data().alias === pilot.alias && d.data().date === pilot.date);
+        if (match) {
+          setPilots((prev) => prev.filter((p) => !(p.alias === pilot.alias && p.date === pilot.date)));
+          await deleteDoc(doc(db, 'pilots', match.id));
+          const remaining = snap.docs.filter(d => d.id !== match.id).map(d => ({ ...d.data(), _fsId: d.id }));
+          setPilots(remaining);
+          writeLS(LS_PILOTS, remaining);
+        }
+      } catch { /* best-effort */ }
+      return;
+    }
+    setPilots((prev) => prev.filter((p) => p._fsId !== pilot._fsId));
     try {
-      await deleteDoc(doc(db, 'pilots', fsId));
+      await deleteDoc(doc(db, 'pilots', pilot._fsId));
     } catch { /* sync best-effort */ }
   }, []);
 

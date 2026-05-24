@@ -303,13 +303,13 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
                       <td>{(p.platforms || []).join(', ') || '—'}</td>
                       <td>{p.date}</td>
                       <td>
-                        {onDeletePilot && p._fsId && (
+                        {onDeletePilot && (
                           <button
                             className="vc-btn-sm vc-btn-red"
                             title="Delete pilot registration"
                             onClick={() => {
                               if (window.confirm(`Delete registration for "${p.alias || 'this pilot'}"?`)) {
-                                onDeletePilot(p._fsId);
+                                onDeletePilot(p);
                               }
                             }}
                           >🗑️</button>
