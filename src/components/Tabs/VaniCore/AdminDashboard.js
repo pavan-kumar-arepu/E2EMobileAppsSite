@@ -154,10 +154,6 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
       {section === 'Overview' && (
         <div className="vc-grid-3">
           <div className="vc-stat-card">
-            <div className="vc-stat-num">{patients.length}</div>
-            <div className="vc-stat-label">Total Patients (Firestore)</div>
-          </div>
-          <div className="vc-stat-card">
             <div className="vc-stat-num">{activePatients.length}</div>
             <div className="vc-stat-label">Active Patients</div>
           </div>
