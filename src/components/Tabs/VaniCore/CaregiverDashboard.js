@@ -76,6 +76,7 @@ const CaregiverDashboard = ({ auth }) => {
       setSelected(patientIds[0]);
     }
     if (patientIds.length === 0) setSelected(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [patientIds]);
 
   // Re-fetch data for already-saved patients on mount
