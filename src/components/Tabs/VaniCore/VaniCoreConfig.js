@@ -36,12 +36,26 @@ export const BUILDS = [
     icon: '🤖',
     description: 'VaniCare for Android 8.0+ — Enable unknown sources before installing',
     ext: '.apk',
-    filename: 'VaniCare-1.1.0-pilot.apk',
-    url: 'https://drive.google.com/file/d/1GTqjviEhEorykKyoBstxto3Qo0VVuDTy/view?usp=sharing',
-    version: '1.1.0-pilot',
-    releaseDate: '2026-05-19',
+    filename: 'VaniCare-1.3.0-pilot.apk',
+    url: 'https://drive.google.com/file/d/1JAPbjqHdRwT72rOAPUfRIZCJsPjcPjnH/view?usp=sharing',
+    version: '1.3.0-pilot',
+    buildNumber: 3,
+    releaseDate: '2026-05-25',
     size: '~24 MB',
     baseDownloads: 0,
+    changelog: {
+      new: [
+        'Settings tab — reads calibrated gesture thresholds from Firestore (Eye / Head / Mouth / Face / Meta)',
+      ],
+      improved: [
+        'Tab order: Alerts → Dashboard → Guide → Settings → Patient',
+        'App opens on Alerts by default',
+        'Tab labels always visible',
+      ],
+      fixed: [
+        'Firestore PERMISSION_DENIED on Settings screen',
+      ],
+    },
   },
 ];
 
@@ -147,6 +161,21 @@ export const LS_DOWNLOADS = 'vanicore_downloads_v2';
 // platformId: 'android' | 'windows_mac'
 // url / urlWindows / urlMac — download links for each historical build
 export const CHANGELOG = [
+  {
+    version: '1.3.0-pilot',
+    date: '2026-05-25',
+    time: '00:00',
+    entries: [
+      {
+        platform: 'Android (VaniCare)',
+        platformId: 'android',
+        icon: '🤖',
+        url: 'https://drive.google.com/file/d/1JAPbjqHdRwT72rOAPUfRIZCJsPjcPjnH/view?usp=sharing',
+        notes: 'New Settings tab — reads calibrated gesture thresholds from Firestore (Eye / Head / Mouth / Face / Meta). Tab order updated to Alerts → Dashboard → Guide → Settings → Patient. App now opens on Alerts by default. Tab labels always visible. Fixed Firestore PERMISSION_DENIED on Settings screen.',
+        whatToTest: 'Open VaniCare — confirm it lands on Alerts. Navigate all 5 tabs in order. Open Settings and verify gesture thresholds load from Firestore without permission errors.',
+      },
+    ],
+  },
   {
     version: '1.1.0-pilot',
     date: '2026-05-19',
