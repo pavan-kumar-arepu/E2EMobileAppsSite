@@ -1186,6 +1186,22 @@
   border-radius: var(--vc-radius-sm);
 }
 
+/* ── WIP banner ──────────────────────────────────────────────────────────── */
+.vc-wip-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+  border: 1px solid #f0c040;
+  border-left: 4px solid #f5a623;
+  border-radius: var(--vc-radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 18px;
+}
+.vc-wip-icon { font-size: 1.6rem; flex-shrink: 0; }
+.vc-wip-title { font-weight: 700; color: #8a5e00; font-size: .95rem; margin-bottom: 3px; }
+.vc-wip-sub { color: #7a6020; font-size: .85rem; line-height: 1.4; }
+
 /* ── Login Modal ─────────────────────────────────────────────────────────── */
 .vc-modal-overlay {
   position: fixed;

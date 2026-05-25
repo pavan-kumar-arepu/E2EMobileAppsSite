@@ -227,6 +227,13 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
       {/* Thresholds */}
       {section === 'Thresholds' && (
         <div>
+          <div className="vc-wip-banner">
+            <span className="vc-wip-icon">🚧</span>
+            <div>
+              <div className="vc-wip-title">Under Construction</div>
+              <div className="vc-wip-sub">Soon all patients' calibrated thresholds will be visible here in one view — no patient selection needed.</div>
+            </div>
+          </div>
           <p className="vc-firebase-note">
             📡 Read-only gesture thresholds from Firestore <code>patients/&#123;id&#125;/gestureThresholds/profile</code>
           </p>
