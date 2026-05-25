@@ -94,10 +94,6 @@ const SignupModal = ({ onClose, onSwitchToLogin }) => {
       <div className="vc-modal-card" onClick={(e) => e.stopPropagation()}>
         <button className="vc-modal-close" onClick={onClose} aria-label="Close">✕</button>
 
-        <div className="vc-modal-logo">
-          <span className="vc-logo-icon">🧠</span>
-          <span className="vc-logo-text">VANI</span>
-        </div>
         <h2 className="vc-modal-title">Create Account</h2>
 
         {done ? (

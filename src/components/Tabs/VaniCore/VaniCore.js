@@ -93,8 +93,8 @@ const TABS = [
   { id: 'setup',     icon: '📖', label: 'Setup',      locked: true,  hidden: false, desc: 'Step-by-step setup in under 10 min' },
   { id: 'journey',   icon: '✦',  label: 'Journey',    locked: false, hidden: false, desc: 'The story behind VANI' },
   { id: 'pilot',     icon: '📋', label: 'Join Pilot', locked: true,  hidden: true,  desc: 'Register as a pilot participant' },
-  { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false, hidden: false, wip: true, desc: 'Read & share community feedback' },
   { id: 'dashboard', icon: '📊', label: 'Dashboard',  locked: false, hidden: false, wip: true, desc: 'Your patient dashboard' },
+  { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false, hidden: false, wip: true, desc: 'Read & share community feedback' },
 ];
 
 const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
@@ -129,9 +129,6 @@ const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
 const Footer = () => (
   <footer className="vc-footer">
     <div className="vc-footer-inner">
-      <div className="vc-footer-brand">
-        <span className="vc-footer-logo">🧠</span>
-      </div>
       <div className="vc-footer-contact">
         <a href="tel:+918121040308" className="vc-footer-link">📞 +91 81210 40308</a>
         <span className="vc-footer-sep">·</span>

@@ -15,7 +15,7 @@ const exportCSV = (filename, rows) => {
   URL.revokeObjectURL(url);
 };
 
-const SECTIONS = ['Overview', 'Patients', 'Thresholds', 'Pilots', 'Gestures', 'Feedback'];
+const SECTIONS = ['Overview', 'Patients', 'Thresholds', 'Pilots', 'Feedback'];
 
 const STATUS_BADGE = {
   active:   { cls: 'badge-green', label: 'Active' },
@@ -317,57 +317,6 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
                       </td>
                     </tr>
                   ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Gestures */}
-      {section === 'Gestures' && (
-        <div>
-          <p className="vc-firebase-note">
-            📡 Live gesture summary per patient from Firestore <code>gestures/&#123;patientId&#125;/events</code>
-          </p>
-          {patients.length === 0 ? (
-            <div className="vc-empty">No patient gesture data available.</div>
-          ) : (
-            <div className="vc-table-wrap">
-              <table className="vc-table">
-                <thead>
-                  <tr>
-                    <th>Patient</th><th>Device</th><th>Total Events</th>
-                    <th>Last 5 Gestures</th><th>Latest Timestamp</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {patients.map((p) => {
-                    const recent = p._recentGestures || [];
-                    const latest = recent[0];
-                    return (
-                      <tr key={p._fsId}>
-                        <td>
-                          <div><strong>{p.patient_name || '—'}</strong></div>
-                          <div style={{ fontSize: '.75rem', color: 'var(--vc-text-3)' }}>{p.patient_id || p._fsId}</div>
-                        </td>
-                        <td>{p.device_id || '—'}</td>
-                        <td><strong>{p._gestureCount ?? '—'}</strong></td>
-                        <td>
-                          <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-                            {recent.length === 0
-                              ? <span style={{ color: 'var(--vc-text-3)', fontSize: '.8rem' }}>—</span>
-                              : recent.map((g, i) => (
-                                <span key={i} className="vc-gesture-chip" title={g.gesture}>
-                                  {GESTURE_ICONS[g.gesture] || '🤖'}
-                                </span>
-                              ))}
-                          </div>
-                        </td>
-                        <td>{latest ? fmtTs(latest.timestamp) : '—'}</td>
-                      </tr>
-                    );
-                  })}
                 </tbody>
               </table>
             </div>

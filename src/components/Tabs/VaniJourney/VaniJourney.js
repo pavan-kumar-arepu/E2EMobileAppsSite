@@ -232,7 +232,6 @@ export default function VaniJourney() {
       <section className="vj-hero">
         <div className="vj-hero-glow" />
         <div className="vj-hero-inner">
-          <div className="vj-hero-badge">Open · No Login Required</div>
           <h1 className="vj-hero-title">
             The Vani Journey
           </h1>
