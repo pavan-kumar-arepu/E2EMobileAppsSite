@@ -1,87 +1,78 @@
 // GestureThresholdViewer.js
-// Fetches patients/{patientId}/gestureThresholds/profile and renders read-only threshold cards.
+// Fetches patients/{patientId}/thresholdValues/latest and renders read-only threshold cards.
 import React, { useEffect, useState } from 'react';
 import { db } from '../../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
-const SECTION_META = {
-  eye:   { icon: '👁️', label: 'Eye Gaze & Blink',  color: '#6a11cb' },
-  face:  { icon: '😐', label: 'Face Stability',     color: '#2575fc' },
-  head:  { icon: '🗣️', label: 'Head Movement',      color: '#00b894' },
-  mouth: { icon: '👄', label: 'Mouth',               color: '#e17055' },
-  hand:  { icon: '✋', label: 'Hand',                color: '#6c3483' },
+const THRESHOLD_LABELS = {
+  gaze_threshold:       { label: 'Gaze Threshold',       icon: '👁️' },
+  head_turn_threshold:  { label: 'Head Turn Threshold',   icon: '🗣️' },
+  wink_ear_threshold:   { label: 'Wink / Ear Threshold',  icon: '😉' },
+  blink_ear_threshold:  { label: 'Blink / Ear Threshold', icon: '😑' },
 };
 
-const FIELD_LABELS = {
-  blinkThreshold:          { label: 'Blink Threshold',          unit: '' },
-  doubleBlinkWindowMs:     { label: 'Double Blink Window',      unit: ' ms' },
-  downGazeThreshold:       { label: 'Gaze Down Threshold',      unit: '' },
-  leftGazeThreshold:       { label: 'Gaze Left Threshold',      unit: '' },
-  rightGazeThreshold:      { label: 'Gaze Right Threshold',     unit: '' },
-  upGazeThreshold:         { label: 'Gaze Up Threshold',        unit: '' },
-  faceStabilityThreshold:  { label: 'Face Stability Threshold', unit: '' },
-  downTiltAngle:           { label: 'Down Tilt Angle',          unit: '°' },
-  leftTurnAngle:           { label: 'Left Turn Angle',          unit: '°' },
-  rightTurnAngle:          { label: 'Right Turn Angle',         unit: '°' },
-  upTiltAngle:             { label: 'Up Tilt Angle',            unit: '°' },
-  enabled:                 { label: 'Enabled',                  unit: '' },
+const fmtTs = (ts) => {
+  if (!ts) return '—';
+  try {
+    const d = new Date(ts);
+    return isNaN(d) ? String(ts) : d.toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+  } catch { return String(ts); }
 };
 
-const fmtValue = (key, value) => {
-  if (typeof value === 'boolean') return value ? '✓ Yes' : '✗ No';
-  const meta = FIELD_LABELS[key];
-  return `${value}${meta?.unit ?? ''}`;
+const fmtNum = (v) => {
+  if (v === null || v === undefined) return '—';
+  return typeof v === 'number' ? v.toFixed(4) : String(v);
 };
 
-const ThresholdSection = ({ sectionKey, fields }) => {
-  const meta = SECTION_META[sectionKey] || { icon: '🔧', label: sectionKey, color: '#888' };
-  const enabled = fields.enabled;
-  const entries = Object.entries(fields).filter(([k]) => k !== 'enabled');
-
+const ThresholdRow = ({ fieldKey, value }) => {
+  const meta = THRESHOLD_LABELS[fieldKey] || { label: fieldKey, icon: '🔧' };
   return (
-    <div className="vc-thresh-section" style={{ '--sec-color': meta.color }}>
+    <div className="vc-thresh-field">
+      <span className="vc-thresh-field-label">
+        <span style={{ marginRight: 6 }}>{meta.icon}</span>{meta.label}
+      </span>
+      <span className="vc-thresh-field-value">{fmtNum(value)}</span>
+    </div>
+  );
+};
+
+const ThresholdGroup = ({ title, icon, fields }) => {
+  const entries = Object.entries(fields || {});
+  if (entries.length === 0) return null;
+  return (
+    <div className="vc-thresh-section">
       <div className="vc-thresh-sec-header">
-        <span className="vc-thresh-sec-icon">{meta.icon}</span>
-        <span className="vc-thresh-sec-label">{meta.label}</span>
-        <span className={`vc-badge ${enabled !== false ? 'badge-green' : 'badge-gray'} vc-thresh-sec-badge`}>
-          {enabled !== false ? 'Enabled' : 'Disabled'}
-        </span>
+        <span className="vc-thresh-sec-icon">{icon}</span>
+        <span className="vc-thresh-sec-label">{title}</span>
+        <span className="vc-badge badge-green vc-thresh-sec-badge">Calibrated</span>
       </div>
       <div className="vc-thresh-fields">
-        {entries.map(([key, value]) => {
-          const fm = FIELD_LABELS[key] || { label: key, unit: '' };
-          return (
-            <div key={key} className="vc-thresh-field">
-              <span className="vc-thresh-field-label">{fm.label}</span>
-              <span className="vc-thresh-field-value">{fmtValue(key, value)}</span>
-            </div>
-          );
-        })}
+        {entries.map(([k, v]) => (
+          <ThresholdRow key={k} fieldKey={k} value={v} />
+        ))}
       </div>
     </div>
   );
 };
 
 const GestureThresholdViewer = ({ patientId, patientName, compact = false }) => {
-  const [profile, setProfile] = useState(null);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [lastUpdated, setLastUpdated] = useState(null);
 
   useEffect(() => {
     if (!patientId) return;
     setLoading(true);
     setError(null);
-    setProfile(null);
+    setData(null);
 
-    const ref = doc(db, 'patients', patientId, 'gestureThresholds', 'profile');
+    const ref = doc(db, 'patients', patientId, 'thresholdValues', 'latest');
     getDoc(ref)
       .then((snap) => {
         if (snap.exists()) {
-          setProfile(snap.data());
-          setLastUpdated(new Date().toLocaleTimeString('en-IN'));
+          setData(snap.data());
         } else {
-          setError('No threshold profile found for this patient.');
+          setError('No threshold data found for this patient.');
         }
         setLoading(false);
       })
@@ -108,12 +99,9 @@ const GestureThresholdViewer = ({ patientId, patientName, compact = false }) => 
     );
   }
 
-  if (!profile) return null;
+  if (!data) return null;
 
-  // Only render top-level object fields as sections; skip primitives at root level
-  const sections = Object.entries(profile).filter(
-    ([, v]) => v !== null && typeof v === 'object' && !Array.isArray(v)
-  );
+  const { calibratedValues = {}, liveValues = {}, calibratedAt, updatedAt } = data;
 
   return (
     <div className={`vc-thresh-card${compact ? ' vc-thresh-compact' : ''}`}>
@@ -130,22 +118,33 @@ const GestureThresholdViewer = ({ patientId, patientName, compact = false }) => 
           </div>
           <div className="vc-thresh-header-right">
             <span className="vc-badge badge-green">✅ Profile Loaded</span>
-            {lastUpdated && (
-              <span className="vc-thresh-updated">🕐 {lastUpdated}</span>
+            {updatedAt && (
+              <span className="vc-thresh-updated">🕐 {fmtTs(updatedAt)}</span>
             )}
           </div>
         </div>
       )}
 
       <div className="vc-thresh-sections">
-        {sections.map(([key, fields]) => (
-          <ThresholdSection key={key} sectionKey={key} fields={fields} />
-        ))}
+        <ThresholdGroup
+          title="Calibrated Values"
+          icon="🎯"
+          fields={calibratedValues}
+        />
+        {Object.keys(liveValues || {}).length > 0 && (
+          <ThresholdGroup
+            title="Live Values"
+            icon="📡"
+            fields={liveValues}
+          />
+        )}
       </div>
 
-      <div className="vc-thresh-footer">
-        📌 These values are calibrated by VaniCore based on the patient's personal gesture baseline. Read-only.
-      </div>
+      {calibratedAt && (
+        <div className="vc-thresh-footer">
+          🗓️ Calibrated at: {fmtTs(calibratedAt)}
+        </div>
+      )}
     </div>
   );
 };

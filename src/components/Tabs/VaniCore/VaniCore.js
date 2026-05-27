@@ -1219,13 +1219,11 @@ const VaniCore = () => {
         {/* ── Dashboard ── */}
         {activeTab === 'dashboard' && auth && auth.role === 'admin' && (
           <AdminDashboard
-            pilots={pilots}
             feedback={feedback}
             downloads={downloads}
             patients={patients}
             onApproveFeedback={handleApproveFeedback}
             onDismissFeedback={handleDismissFeedback}
-            onDeletePilot={handleDeletePilot}
           />
         )}
         {activeTab === 'dashboard' && auth && (auth.role === 'caregiver' || auth.role === 'patient') && (

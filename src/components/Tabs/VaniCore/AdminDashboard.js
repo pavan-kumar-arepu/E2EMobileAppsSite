@@ -15,7 +15,7 @@ const exportCSV = (filename, rows) => {
   URL.revokeObjectURL(url);
 };
 
-const SECTIONS = ['Overview', 'Patients', 'Thresholds', 'Pilots', 'Feedback'];
+const SECTIONS = ['Overview', 'Patients', 'Thresholds', 'Feedback'];
 
 const STATUS_BADGE = {
   active:   { cls: 'badge-green', label: 'Active' },
@@ -107,7 +107,7 @@ const PatientRow = ({ pat, idx }) => {
   );
 };
 
-const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveFeedback, onDismissFeedback, onDeletePilot }) => {
+const AdminDashboard = ({ feedback, downloads, patients = [], onApproveFeedback, onDismissFeedback }) => {
   const [section, setSection] = useState('Overview');
   const [thresholdPatient, setThresholdPatient] = useState('');
 
@@ -126,7 +126,7 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
         <h2 className="vc-section-title">
           <span className="vc-title-icon">⚙️</span> Admin Dashboard
         </h2>
-        <p className="vc-section-sub">Live patient data · Pilot registrations · Community feedback</p>
+        <p className="vc-section-sub">Live patient data · Community feedback</p>
       </div>
 
       <div className="vc-admin-nav">
@@ -160,10 +160,6 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
           <div className="vc-stat-card">
             <div className="vc-stat-num">{pairedPatients.length}</div>
             <div className="vc-stat-label">Devices Paired</div>
-          </div>
-          <div className="vc-stat-card">
-            <div className="vc-stat-num">{pilots.length}</div>
-            <div className="vc-stat-label">Pilot Registrations</div>
           </div>
           <div className="vc-stat-card">
             <div className="vc-stat-num">{totalDownloads}</div>
@@ -235,7 +231,7 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
             </div>
           </div>
           <p className="vc-firebase-note">
-            📡 Read-only gesture thresholds from Firestore <code>patients/&#123;id&#125;/gestureThresholds/profile</code>
+            📡 Read-only gesture thresholds from Firestore <code>patients/&#123;id&#125;/thresholdValues/latest</code>
           </p>
           {patients.length === 0 ? (
             <div className="vc-empty">No patients found in Firestore yet.</div>
@@ -261,72 +257,6 @@ const AdminDashboard = ({ pilots, feedback, downloads, patients = [], onApproveF
                 : <div className="vc-empty">Select a patient above to view their gesture thresholds.</div>
               }
             </>
-          )}
-        </div>
-      )}
-
-      {/* Pilots */}
-      {section === 'Pilots' && (
-        <div>
-          {pilots.length > 0 && (
-            <div style={{ marginBottom: 12, textAlign: 'right' }}>
-              <button
-                className="vc-btn-outline vc-btn-sm"
-                onClick={() => exportCSV('vani-pilots.csv', pilots.map(p => ({
-                  Alias: p.alias, 'Age Group': p.ageGroup, Condition: p.condition,
-                  Symptoms: p.symptoms, 'Affected Parts': (p.impactedParts || []).join('; '),
-                  'Gesture Capabilities': (p.gestureCapabilities || []).join('; '),
-                  Willingness: p.willingness, 'Caregiver Note': p.caregiverNote, Date: p.date,
-                })))}
-              >
-                ⬇️ Export Registrations CSV
-              </button>
-            </div>
-          )}
-          {pilots.length === 0 ? (
-            <div className="vc-empty">No pilot registrations yet.</div>
-          ) : (
-            <div className="vc-table-wrap">
-              <table className="vc-table">
-                <thead>
-                  <tr>
-                    <th>#</th><th>Alias</th><th>Age Group</th><th>Condition</th>
-                    <th>Willingness</th><th>Affected Parts</th><th>Platform</th><th>Date</th><th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {pilots.map((p, i) => (
-                    <tr key={p._fsId || p.id || i}>
-                      <td>{i + 1}</td>
-                      <td><strong>{p.alias || '—'}</strong></td>
-                      <td>{p.ageGroup || '—'}</td>
-                      <td>{p.condition || '—'}</td>
-                      <td>
-                        <span className={'vc-badge ' + (p.willingness === 'eager' ? 'badge-green' : p.willingness === 'willing' ? 'badge-blue' : 'badge-gray')}>
-                          {p.willingness}
-                        </span>
-                      </td>
-                      <td className="vc-parts-cell">{(p.impactedParts || []).join(', ') || '—'}</td>
-                      <td>{(p.platforms || []).join(', ') || '—'}</td>
-                      <td>{p.date}</td>
-                      <td>
-                        {onDeletePilot && (
-                          <button
-                            className="vc-btn-sm vc-btn-red"
-                            title="Delete pilot registration"
-                            onClick={() => {
-                              if (window.confirm(`Delete registration for "${p.alias || 'this pilot'}"?`)) {
-                                onDeletePilot(p);
-                              }
-                            }}
-                          >🗑️</button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           )}
         </div>
       )}
