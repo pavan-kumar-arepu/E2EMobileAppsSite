@@ -1127,36 +1127,6 @@ const VaniCore = () => {
     } catch { /* sync best-effort */ }
   }, [feedback]);
 
-  const handleDeletePilot = useCallback(async (pilot) => {
-    const doDelete = async (fsId) => {
-      setPilots((prev) => prev.filter((p) => p._fsId !== fsId && p.id !== fsId));
-      await deleteDoc(doc(db, 'pilots', fsId));
-    };
-    try {
-      if (pilot._fsId) {
-        await doDelete(pilot._fsId);
-      } else {
-        // _fsId missing in cache — re-fetch to get real document IDs
-        const snap = await getDocs(query(collection(db, 'pilots'), orderBy('date', 'desc')));
-        const allPilots = snap.docs.map(d => ({ ...d.data(), _fsId: d.id }));
-        const match = snap.docs.find(d => {
-          const data = d.data();
-          return data.alias === pilot.alias;
-        });
-        if (match) {
-          await doDelete(match.id);
-          const remaining = allPilots.filter(p => p._fsId !== match.id);
-          setPilots(remaining);
-          writeLS(LS_PILOTS, remaining);
-        } else {
-          alert('Could not find this pilot in Firestore. Try refreshing the page.');
-        }
-      }
-    } catch (err) {
-      console.error('Pilot delete failed:', err);
-      alert('Delete failed: ' + (err?.message || String(err)));
-    }
-  }, []);
 
   const handleEditFeedback = useCallback(async (entry, changes) => {
     const key = entry._fsId || entry.id;
