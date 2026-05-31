@@ -1,8 +1,9 @@
 // src/components/Tabs/VaniCore/PilotRegistration.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../../firebase';
+import { db, auth } from '../../../firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { signInAnonymously } from 'firebase/auth';
 
 const PilotRegistration = ({ onSubmitSuccess }) => {
   const navigate = useNavigate();
@@ -127,6 +128,9 @@ const PilotRegistration = ({ onSubmitSuccess }) => {
 
     setIsSubmitting(true);
     try {
+      if (!auth.currentUser) {
+        await signInAnonymously(auth);
+      }
       await addDoc(collection(db, 'pilotRegistrations'), {
         ...form,
         pilotStatus: 'pending',
@@ -137,7 +141,8 @@ const PilotRegistration = ({ onSubmitSuccess }) => {
       if (onSubmitSuccess) onSubmitSuccess();
     } catch (err) {
       console.error('Registration submission error:', err);
-      setErrors({ submit: 'Failed to submit registration. Please try again.' });
+      const message = err?.message ? `Failed to submit registration: ${err.message}` : 'Failed to submit registration. Please try again.';
+      setErrors({ submit: message });
     } finally {
       setIsSubmitting(false);
     }
