@@ -1,6 +1,6 @@
-Firebase Cloud Function: Pilot Registration Email
+Firebase Cloud Function: Pilot Registration Notification
 
-This Cloud Function triggers when a new document is created in the `pilotRegistrations` Firestore collection and sends a notification email (using SendGrid) to the VANI team with submitted details and recorded consents.
+This Cloud Function triggers when a new document is created in the `pilotRegistrations` Firestore collection and stores a notification object in Firestore. The notification includes registration details, consent values, and a reference to the original registration.
 
 Setup & Deploy
 
@@ -18,15 +18,7 @@ cd functions
 npm install
 ```
 
-3. Configure SendGrid API key (recommended):
-
-```bash
-firebase functions:config:set sendgrid.key="YOUR_SENDGRID_API_KEY"
-```
-
-Alternatively, you can set `SENDGRID_API_KEY` as an environment variable on your deployment environment.
-
-4. Deploy the function:
+3. Deploy the function:
 
 ```bash
 cd ..
@@ -34,5 +26,5 @@ firebase deploy --only functions:onPilotRegistrationCreate
 ```
 
 Notes
-- Replace `noreply@vanicore.app` in `functions/index.js` with a verified sender identity in your SendGrid account.
-- If you prefer SMTP or another mail provider, replace `@sendgrid/mail` usage with `nodemailer` and configure SMTP credentials instead.
+- The function writes notification documents to the `pilotRegistrationNotifications` collection.
+- If you later want email notifications, the function can be extended to use SendGrid or SMTP.
