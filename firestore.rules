@@ -1,0 +1,65 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── VANI Website: user profiles (admin + caregivers) ──────────────────
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Devices — RPi can read/write its own device doc
+    match /devices/{deviceId} {
+      allow read, write: if true; // TODO: lock down with auth after MVP
+    }
+
+    // Patients — caregiver app reads, RPi writes
+    match /patients/{patientId} {
+      allow read, write: if true; // TODO: lock down with auth after MVP
+
+      match /data/{docId} {
+        allow read, write: if true;
+      }
+
+      // Calibrated gesture threshold profiles — written by VaniCore (RPi), read by caregiver app
+      // Path: patients/{patientId}/gestureThresholds/{document}
+      match /gestureThresholds/{document} {
+        allow read: if true;   // TODO: lock down with auth after MVP
+        allow write: if true;  // TODO: restrict to VaniCore service account after MVP
+      }
+
+      // Latest threshold values — written by VaniCore (RPi), read by caregiver app
+      // Path: patients/{patientId}/thresholdValues/{document}
+      match /thresholdValues/{document} {
+        allow read: if true;   // TODO: lock down with auth after MVP
+        allow write: if true;  // TODO: restrict to VaniCore service account after MVP
+      }
+    }
+
+    // Gesture events — RPi writes, caregiver reads
+    match /gestures/{patientId}/events/{eventId} {
+      allow read, write: if true; // TODO: lock down with auth after MVP
+    }
+
+    // Notifications — RPi writes, Cloud Function reads, caregiver reads
+    match /notifications/{patientId}/pending/{notifId} {
+      allow read, write: if true; // TODO: lock down with auth after MVP
+    }
+
+    // FCM tokens — devices register their push tokens
+    match /fcm_tokens/{tokenId} {
+      allow read, write: if true; // TODO: lock down with auth after MVP
+    }
+
+    // Pilot registrations — public can submit, admin review may be added later
+    match /pilotRegistrations/{pilotId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    // Pilot registrations (legacy public collection)
+    match /pilots/{pilotId} {
+      allow read, create: if true;
+      allow delete, update: if request.auth != null;
+    }
+  }
+}
