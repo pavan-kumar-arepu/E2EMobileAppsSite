@@ -1,9 +1,11 @@
 // src/components/Tabs/VaniCore/PilotRegistration.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { db } from '../../../firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 const PilotRegistration = ({ onSubmitSuccess }) => {
+  const navigate = useNavigate();
   const [step, setStep] = useState('form'); // 'form' | 'success'
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
@@ -181,7 +183,7 @@ const PilotRegistration = ({ onSubmitSuccess }) => {
           </p>
           <button 
             className="vc-btn-primary vc-success-btn"
-            onClick={() => window.location.href = '/'}
+            onClick={() => navigate('/')}
           >
             Return Home
           </button>

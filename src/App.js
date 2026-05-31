@@ -9,6 +9,7 @@ import StoreApps from "./components/Tabs/StoreApps/StoreApps";
 import MyQuoteScreen from "./components/Tabs/MyQuotes/MyQuoteScreen";
 import CertificationScreen from "./components/Tabs/Certifications/CertificationScreen";
 import VaniCore from "./components/Tabs/VaniCore/VaniCore";
+import PilotRegistration from "./components/Tabs/VaniCore/PilotRegistration";
 
 import "./App.css";
 import AboutMe from "./components/Tabs/AboutMe/AboutMe";
@@ -37,6 +38,7 @@ function AppInner() {
             element={<MyQuoteScreen tabName="MyQuotes" />}
           />
           <Route path="/vanicore" element={<VaniCore />} />
+          <Route path="/pilot-registration" element={<PilotRegistration />} />
           {/* Add more routes as needed */}
         </Routes>
     </div>
