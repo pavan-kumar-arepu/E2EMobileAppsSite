@@ -22,6 +22,8 @@ import SignupModal from './SignupModal';
 import AdminDashboard from './AdminDashboard';
 import PatientDashboard from './PatientDashboard';
 import CaregiverDashboard from './CaregiverDashboard';
+import RestrictedAccessScreen from './RestrictedAccessScreen';
+import PilotRegistration from './PilotRegistration';
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 const uid = () => Math.random().toString(36).slice(2, 10);
@@ -89,35 +91,41 @@ const TopBar = ({ auth, onLogin, onLogout }) => (
 
 // ── Tab Nav ────────────────────────────────────────────────────────────────────
 const TABS = [
-  { id: 'home',      icon: '🏠', label: 'Home',       locked: false, hidden: false, desc: '' },
-  { id: 'setup',     icon: '📖', label: 'Setup',      locked: true,  hidden: false, desc: 'Step-by-step setup in under 10 min' },
-  { id: 'journey',   icon: '✦',  label: 'Journey',    locked: false, hidden: false, desc: 'The story behind VANI' },
-  { id: 'pilot',     icon: '📋', label: 'Join Pilot', locked: true,  hidden: true,  desc: 'Register as a pilot participant' },
-  { id: 'dashboard', icon: '📊', label: 'Dashboard',  locked: false, hidden: false, wip: true, desc: 'Your patient dashboard' },
-  { id: 'feedback',  icon: '💬', label: 'Feedback',   locked: false, hidden: false, wip: true, desc: 'Read & share community feedback' },
+  { id: 'home',      icon: '🏠', label: 'Home',                   locked: false, hidden: false, desc: '', adminOnly: false },
+  { id: 'setup',     icon: '📖', label: 'Setup',                  locked: false, hidden: false, desc: 'Step-by-step setup in under 10 min', adminOnly: true },
+  { id: 'registration', icon: '📋', label: 'Pilot Registration',  locked: false, hidden: false, desc: 'Register as a pilot participant', adminOnly: false },
+  { id: 'journey',   icon: '✦',  label: 'Journey',               locked: false, hidden: false, desc: 'The story behind VANI', adminOnly: false },
+  { id: 'feedback',  icon: '💬', label: 'Feedback',              locked: false, hidden: false, desc: 'Read & share community feedback', adminOnly: false },
+  { id: 'dashboard', icon: '📊', label: 'Dashboard',             locked: false, hidden: false, wip: true, desc: 'Your patient dashboard', adminOnly: false },
 ];
 
 const TabNav = ({ active, onChange, auth, onLoginRequest }) => {
-  const visible = TABS.filter((t) => !t.hidden && (t.id !== 'dashboard' || auth));
+  const visible = TABS.filter((t) => {
+    if (t.hidden) return false;
+    if (t.id === 'dashboard' && !auth) return false;
+    if (t.adminOnly && (!auth || auth.role !== 'admin')) return false;
+    return true;
+  });
   return (
     <nav className="vc-tab-nav" role="tablist">
       {visible.map((t) => {
-        const isLocked = t.locked && !auth;
+        const isRestricted = !auth && t.locked;
+        const isAdminOnly = t.adminOnly && (!auth || auth.role !== 'admin');
         return (
           <button
             key={t.id}
             role="tab"
             aria-selected={active === t.id}
-            className={`vc-tab-btn ${active === t.id ? 'active' : ''} ${isLocked ? 'locked' : ''}`}
-            onClick={() => isLocked ? onLoginRequest(t.id) : onChange(t.id)}
+            className={`vc-tab-btn ${active === t.id ? 'active' : ''} ${isRestricted ? 'locked' : ''} ${isAdminOnly ? 'admin-only' : ''}`}
+            onClick={() => isRestricted ? onLoginRequest(t.id) : onChange(t.id)}
           >
             <span className="vc-tab-icon">{t.icon}</span>
             <span className="vc-tab-label">{t.label}</span>
-            {isLocked && <span className="vc-tab-lock">🔒</span>}
+            {(isRestricted || isAdminOnly) && <span className="vc-tab-lock">🔒</span>}
             {t.wip && (t.id === 'feedback' || (auth && (auth.role === 'admin' || auth.role === 'caregiver'))) && (
               <span className="vc-tab-wip">In Progress</span>
             )}
-            {t.desc && <span className="vc-tab-tooltip">{isLocked ? '🔒 Sign in — ' : ''}{t.desc}</span>}
+            {t.desc && <span className="vc-tab-tooltip">{isRestricted ? '🔒 Sign in — ' : ''}{isAdminOnly ? '🔒 Admin only — ' : ''}{t.desc}</span>}
           </button>
         );
       })}
@@ -1163,11 +1171,23 @@ const VaniCore = () => {
         {activeTab === 'journey' && <VaniJourney />}
 
         {/* ── Setup ── keep mounted so the video iframe never resets */}
-        <div style={{ display: activeTab === 'setup' ? 'block' : 'none' }}>
-          <SetupGuide auth={auth} builds={BUILDS} downloads={downloads} onDownload={handleDownload} onLogin={() => setShowLogin(true)} onBuildInfo={(pid) => setBuildModal(pid)} />
-        </div>
+        {/* ── Setup ── with admin-only access control */}
+        {activeTab === 'setup' && (
+          auth && auth.role === 'admin' ? (
+            <SetupGuide auth={auth} builds={BUILDS} downloads={downloads} onDownload={handleDownload} onLogin={() => setShowLogin(true)} onBuildInfo={(pid) => setBuildModal(pid)} />
+          ) : (
+            <RestrictedAccessScreen onNavigateToPilot={() => setActiveTab('registration')} />
+          )
+        )}
 
-        {/* ── Join Pilot ── */}
+        {/* ── Pilot Registration ── */}
+        {activeTab === 'registration' && (
+          <>
+            <PilotRegistration onSubmitSuccess={() => { /* optional callback */ }} />
+          </>
+        )}
+
+        {/* ── Old Join Pilot Form (keeping for backward compatibility) -- hidden by default ── */}
         {activeTab === 'pilot' && (
           <>
             <PilotForm onSubmit={handlePilotSubmit} submitted={formSubmitted} />
