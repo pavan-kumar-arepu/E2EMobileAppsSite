@@ -84,7 +84,7 @@ const LoginModal = ({ onClose, onSignup, context }) => {
       if (err.code === 'auth/user-not-found') {
         setError('No account found with this email.');
       } else {
-        setError('Could not send reset email. Please try again.');
+        setError('Login failed. ' + (err.message || 'Please try again.'));
       }
     }
     setLoading(false);

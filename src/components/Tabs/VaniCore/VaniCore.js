@@ -22,7 +22,6 @@ import SignupModal from './SignupModal';
 import AdminDashboard from './AdminDashboard';
 import PatientDashboard from './PatientDashboard';
 import CaregiverDashboard from './CaregiverDashboard';
-import RestrictedAccessScreen from './RestrictedAccessScreen';
 import PilotRegistration from './PilotRegistration';
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
@@ -40,6 +39,13 @@ const readLS = (key, fallback) => {
 const writeLS = (key, data) => {
   try { localStorage.setItem(key, JSON.stringify(data)); } catch { /* quota */ }
 };
+
+const SETUP_ACCESS_CODES = (process.env.REACT_APP_SETUP_ACCESS_CODES || '152430')
+  .split(',')
+  .map((code) => code.trim())
+  .filter(Boolean);
+const LS_SETUP_ACCESS = 'vc_setup_access_granted';
+const isSetupCodeValid = (code) => SETUP_ACCESS_CODES.includes(code.trim());
 
 // ── Initial form state ─────────────────────────────────────────────────────────
 const EMPTY_FORM = {
@@ -92,7 +98,7 @@ const TopBar = ({ auth, onLogin, onLogout }) => (
 // ── Tab Nav ────────────────────────────────────────────────────────────────────
 const TABS = [
   { id: 'home',      icon: '🏠', label: 'Home',                   locked: false, hidden: false, desc: '', adminOnly: false },
-  { id: 'setup',     icon: '📖', label: 'Setup',                  locked: false, hidden: false, desc: 'Step-by-step setup in under 10 min', adminOnly: true },
+  { id: 'setup',     icon: '📖', label: 'Setup',                  locked: true,  hidden: false, desc: 'Step-by-step setup in under 10 min', adminOnly: false },
   { id: 'registration', icon: '📋', label: 'Pilot Registration',  locked: false, hidden: false, desc: 'Register as a pilot participant', adminOnly: false },
   { id: 'journey',   icon: '✦',  label: 'Journey',               locked: false, hidden: false, desc: 'The story behind VANI', adminOnly: false },
   { id: 'feedback',  icon: '💬', label: 'Feedback',              locked: false, hidden: false, desc: 'Read & share community feedback', adminOnly: false },
@@ -979,6 +985,9 @@ const VaniCore = () => {
   const [showSignup, setShowSignup]   = useState(false);
   const [loginContext, setLoginContext] = useState('default');
   const [activeTab, setActiveTab]     = useState('home');
+  const [setupAccessGranted, setSetupAccessGranted] = useState(() => readLS(LS_SETUP_ACCESS, false));
+  const [setupCodeInput, setSetupCodeInput] = useState('');
+  const [setupCodeError, setSetupCodeError] = useState('');
   const [pilots, setPilots] = useState(() => readLS(LS_PILOTS, []));
   const [feedback, setFeedback] = useState(() => {
     const stored = readLS(LS_FEEDBACK, null);
@@ -992,6 +1001,7 @@ const VaniCore = () => {
   useEffect(() => { writeLS(LS_PILOTS, pilots); }, [pilots]);
   useEffect(() => { writeLS(LS_FEEDBACK, feedback); }, [feedback]);
   useEffect(() => { writeLS(LS_DOWNLOADS, downloads); }, [downloads]);
+  useEffect(() => { writeLS(LS_SETUP_ACCESS, setupAccessGranted); }, [setupAccessGranted]);
 
   // ── Real-time Firestore listeners ──────────────────────────────────────────
   useEffect(() => {
@@ -1173,10 +1183,70 @@ const VaniCore = () => {
         {/* ── Setup ── keep mounted so the video iframe never resets */}
         {/* ── Setup ── with admin-only access control */}
         {activeTab === 'setup' && (
-          auth && auth.role === 'admin' ? (
-            <SetupGuide auth={auth} builds={BUILDS} downloads={downloads} onDownload={handleDownload} onLogin={() => setShowLogin(true)} onBuildInfo={(pid) => setBuildModal(pid)} />
+          auth ? (
+            auth.role === 'admin' || setupAccessGranted ? (
+              <SetupGuide auth={auth} builds={BUILDS} downloads={downloads} onDownload={handleDownload} onLogin={() => setShowLogin(true)} onBuildInfo={(pid) => setBuildModal(pid)} />
+            ) : (
+              <div className="vc-setup-gate">
+                <div className="vc-setup-gate-card">
+                  <h2>Pilot Access Code Required</h2>
+                  <p>
+                    To access the Setup instructions and downloads, please enter your Pilot Access code.
+                    If you do not yet have a code, complete the Pilot Registration first.
+                  </p>
+                  <div className="vc-field">
+                    <label htmlFor="setup-access-code">Pilot Access Code</label>
+                    <input
+                      id="setup-access-code"
+                      type="text"
+                      value={setupCodeInput}
+                      onChange={(e) => { setSetupCodeInput(e.target.value); setSetupCodeError(''); }}
+                      placeholder="Enter your code"
+                    />
+                    {setupCodeError && <span className="vc-field-error">{setupCodeError}</span>}
+                  </div>
+                  <div className="vc-setup-gate-actions">
+                    <button
+                      className="vc-btn-primary"
+                      onClick={() => {
+                        if (!setupCodeInput.trim()) {
+                          setSetupCodeError('Please enter your access code.');
+                          return;
+                        }
+                        if (isSetupCodeValid(setupCodeInput)) {
+                          setSetupAccessGranted(true);
+                        } else {
+                          setSetupCodeError('Invalid access code. Please try again or complete pilot registration.');
+                        }
+                      }}
+                    >
+                      Unlock Setup
+                    </button>
+                    <button
+                      className="vc-btn-outline"
+                      onClick={() => setActiveTab('registration')}
+                    >
+                      Go To Pilot Registration
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )
           ) : (
-            <RestrictedAccessScreen onNavigateToPilot={() => setActiveTab('registration')} />
+            <div className="vc-setup-gate">
+              <div className="vc-setup-gate-card">
+                <h2>Sign in to access Setup</h2>
+                <p>
+                  Please sign in first. Once you are logged in, you can enter your Pilot Access code to view setup details and downloads.
+                </p>
+                <button className="vc-btn-primary" onClick={() => setShowLogin(true)}>
+                  Sign In
+                </button>
+                <button className="vc-btn-outline" onClick={() => setActiveTab('registration')}>
+                  Register for Pilot Access
+                </button>
+              </div>
+            </div>
           )
         )}
 
