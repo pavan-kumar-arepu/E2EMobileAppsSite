@@ -3090,6 +3090,61 @@
   .vc-restricted-icon { font-size: 3rem; }
 }
 
+.vc-setup-gate {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+.vc-setup-gate-card {
+  background: var(--vc-surface);
+  border: 1px solid var(--vc-border);
+  border-radius: var(--vc-radius);
+  box-shadow: var(--vc-shadow-md);
+  max-width: 560px;
+  width: 100%;
+  padding: 32px;
+  text-align: center;
+}
+.vc-setup-gate-card h2 {
+  font-size: clamp(1.4rem, 3vw, 1.75rem);
+  margin-bottom: 16px;
+  color: var(--vc-text);
+}
+.vc-setup-gate-card p {
+  font-size: .95rem;
+  line-height: 1.7;
+  color: var(--vc-text-2);
+  margin-bottom: 24px;
+}
+.vc-setup-gate-card .vc-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.vc-setup-gate-card input[type="text"] {
+  padding: 12px 14px;
+  border: 1px solid var(--vc-border);
+  border-radius: var(--vc-radius-xs);
+  font-size: .95rem;
+  color: var(--vc-text);
+  background: var(--vc-bg);
+}
+.vc-setup-gate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.vc-setup-gate-actions .vc-btn-outline {
+  min-width: 220px;
+}
+@media (max-width: 600px) {
+  .vc-setup-gate-card { padding: 24px; }
+  .vc-setup-gate-actions { flex-direction: column; }
+}
+
 /* ════════════════════════════════════════════════════════════════════════════
    PilotRegistration — Comprehensive registration form
 ═════════════════════════════════════════════════════════════════════════════ */
