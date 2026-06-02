@@ -989,6 +989,7 @@ const VaniCore = () => {
   const [setupCodeInput, setSetupCodeInput] = useState('');
   const [setupCodeError, setSetupCodeError] = useState('');
   const [pilots, setPilots] = useState(() => readLS(LS_PILOTS, []));
+  const [pilotRegistrations, setPilotRegistrations] = useState([]);
   const [feedback, setFeedback] = useState(() => {
     const stored = readLS(LS_FEEDBACK, null);
     return stored || SEED_FEEDBACK;
@@ -1092,6 +1093,23 @@ const VaniCore = () => {
     });
     return () => unsub();
   }, []);
+
+  useEffect(() => {
+    if (!auth || auth.role !== 'admin') {
+      setPilotRegistrations([]);
+      return;
+    }
+
+    (async () => {
+      try {
+        const regsSnap = await getDocs(query(collection(db, 'pilotRegistrations'), orderBy('submittedAt', 'desc')));
+        setPilotRegistrations(regsSnap.docs.map((doc) => ({ _fsId: doc.id, ...doc.data() })));
+      } catch (err) {
+        console.error('Failed to load pilot registrations:', err);
+        setPilotRegistrations([]);
+      }
+    })();
+  }, [auth]);
 
   const handleLogout = useCallback(async () => {
     await signOut(fbAuth);
@@ -1282,6 +1300,7 @@ const VaniCore = () => {
             feedback={feedback}
             downloads={downloads}
             patients={patients}
+            pilotRegistrations={pilotRegistrations}
             onApproveFeedback={handleApproveFeedback}
             onDismissFeedback={handleDismissFeedback}
           />

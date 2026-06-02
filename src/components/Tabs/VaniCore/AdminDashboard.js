@@ -15,7 +15,7 @@ const exportCSV = (filename, rows) => {
   URL.revokeObjectURL(url);
 };
 
-const SECTIONS = ['Overview', 'Patients', 'Thresholds', 'Feedback'];
+const SECTIONS = ['Overview', 'Patients', 'Thresholds', 'Registrations', 'Feedback'];
 
 const STATUS_BADGE = {
   active:   { cls: 'badge-green', label: 'Active' },
@@ -107,7 +107,7 @@ const PatientRow = ({ pat, idx }) => {
   );
 };
 
-const AdminDashboard = ({ feedback, downloads, patients = [], onApproveFeedback, onDismissFeedback }) => {
+const AdminDashboard = ({ feedback, downloads, patients = [], pilotRegistrations = [], onApproveFeedback, onDismissFeedback }) => {
   const [section, setSection] = useState('Overview');
   const [thresholdPatient, setThresholdPatient] = useState('');
 
@@ -221,6 +221,75 @@ const AdminDashboard = ({ feedback, downloads, patients = [], onApproveFeedback,
       )}
 
       {/* Thresholds */}
+      {section === 'Registrations' && (
+        <div>
+          <div className="vc-admin-section-bar">
+            <p className="vc-firebase-note">
+              📡 Live — Firestore <code>pilotRegistrations</code>. Review consent and registration details.
+            </p>
+            {pilotRegistrations.length > 0 && (
+              <button
+                className="vc-btn-outline vc-btn-sm"
+                onClick={() => exportCSV('pilot-registrations.csv', pilotRegistrations.map((p) => ({
+                  RegistrationID: p._fsId,
+                  FullName: p.fullName || p.alias || '',
+                  Email: p.email || '',
+                  Country: p.country || '',
+                  Relationship: p.relationshipToParticipant || '',
+                  Condition: p.condition || '',
+                  AgeGroup: p.ageGroup || '',
+                  PilotGoals: p.pilotGoals || '',
+                  Consent1: p.consent1 ? 'Yes' : 'No',
+                  Consent2: p.consent2 ? 'Yes' : 'No',
+                  Consent3: p.consent3 ? 'Yes' : 'No',
+                  SubmittedAt: p.submittedAt ? String(p.submittedAt) : '',
+                }))) }
+              >
+                ⬇️ Export Registrations CSV
+              </button>
+            )}
+          </div>
+          {pilotRegistrations.length === 0 ? (
+            <div className="vc-empty">No pilot registrations found yet.</div>
+          ) : (
+            <div className="vc-table-wrap">
+              <table className="vc-table vc-admin-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Country</th>
+                    <th>Condition</th>
+                    <th>Age Group</th>
+                    <th>Consent 1</th>
+                    <th>Consent 2</th>
+                    <th>Consent 3</th>
+                    <th>Submitted</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pilotRegistrations.map((reg, idx) => (
+                    <tr key={reg._fsId || idx}>
+                      <td>{idx + 1}</td>
+                      <td>{reg.fullName || reg.alias || '—'}</td>
+                      <td>{reg.email || '—'}</td>
+                      <td>{reg.country || '—'}</td>
+                      <td>{reg.condition || '—'}</td>
+                      <td>{reg.ageGroup || '—'}</td>
+                      <td>{reg.consent1 ? '✅' : '❌'}</td>
+                      <td>{reg.consent2 ? '✅' : '❌'}</td>
+                      <td>{reg.consent3 ? '✅' : '❌'}</td>
+                      <td>{fmtTs(reg.submittedAt)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
+
       {section === 'Thresholds' && (
         <div>
           <div className="vc-wip-banner">

@@ -104,7 +104,7 @@ const LoginModal = ({ onClose, onSignup, context }) => {
       try {
         await signInWithEmailAndPassword(fbAuth, ADMIN_EMAIL, password);
         onClose();
-      } catch {
+      } catch (err1) {
         // First launch: bootstrap admin Firebase account
         try {
           const cred = await createUserWithEmailAndPassword(fbAuth, ADMIN_EMAIL, password);
@@ -116,7 +116,7 @@ const LoginModal = ({ onClose, onSignup, context }) => {
           if (err2.code === 'auth/email-already-in-use') {
             setError('Invalid admin credentials. Please try again.');
           } else {
-            setError('Login failed. Please try again.');
+            setError('Login failed. ' + (err2.message || 'Please try again.'));
           }
         }
       }
