@@ -40,6 +40,7 @@ const EXPERIENCE = [
 
 const ACHIEVEMENTS = [
   { icon: "🏅", text: "Spotlight Award — For driving cross-org mobile platform unification and delivery excellence at Verizon." },
+  { icon: "🥇", text: "Vani Assistive Communication System — 'Voice of Unheard' — 1st Prize (AI/ML), BITS Technical Symposium 2026." },
   { icon: "🤝", text: "Experience Principle Award (Human) — For leadership, mentoring, and building an inclusive team culture." },
   { icon: "🏆", text: "Best Team Award — TCS Internal 2021 for a successful iOS project." },
   { icon: "🧠", text: "Context Master — TCS Internal 2020/2023 for process improvement." },

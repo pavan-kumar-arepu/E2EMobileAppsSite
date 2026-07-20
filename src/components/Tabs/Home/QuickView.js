@@ -147,6 +147,14 @@ const QuickView = () => (
           </div>
         </div>
 
+        {/* Awards */}
+        <div className="qv-awards">
+          <h3 className="qv-awards-title">Awards & Achievements</h3>
+          <ul>
+            <li>🥇 Vani Assistive Communication System — "Voice of Unheard" — 1st Prize (AI/ML), BITS Technical Symposium 2026</li>
+          </ul>
+        </div>
+
         {SKILLS.map((cat) => (
           <div key={cat.category} className="qv-category">
             <p className="qv-category-title">{cat.category}</p>
