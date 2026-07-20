@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/static/css/main.010539ae.css",
+    "main.js": "/static/js/main.7e243f30.js",
+    "static/js/453.a51f05fa.chunk.js": "/static/js/453.a51f05fa.chunk.js",
+    "static/media/casserole-pot.png": "/static/media/casserole-pot.7262e6a0bbdea37774e1.png",
+    "static/media/Rx_Swift.pdf": "/static/media/Rx_Swift.9699317c9f373e3f6458.pdf",
+    "static/media/BitsPrize1.pdf": "/static/media/BitsPrize1.28397b05e2c0604a41af.pdf",
+    "static/media/Edge AI_Course Certificate - Pavan Kumar Arepu.pdf": "/static/media/Edge AI_Course Certificate - Pavan Kumar Arepu.0bd8ede4d8ca9142fddb.pdf",
+    "static/media/AzureFundamentalsFull.pdf": "/static/media/AzureFundamentalsFull.1372a48bfe22f8238f95.pdf",
+    "static/media/PSM1.pdf": "/static/media/PSM1.f6df898b9dd20504dd4e.pdf",
+    "static/media/Google Professional Certification.pdf": "/static/media/Google Professional Certification.bebbb3afc84f2c3dc2e0.pdf",
+    "static/media/Google Essentails Certification.pdf": "/static/media/Google Essentails Certification.17a5ec731c8cb1d50bf5.pdf",
+    "static/media/AI_Be10x_Certificate.pdf": "/static/media/AI_Be10x_Certificate.61c67f5518ee38a3dca5.pdf",
+    "static/media/Android_Kotline.pdf": "/static/media/Android_Kotline.c6b6d53c4f828f56eacc.pdf",
+    "static/media/AWSSoluationIcon.png": "/static/media/AWSSoluationIcon.5de5ac5041c48c198d8b.png",
+    "static/media/Solid.png": "/static/media/Solid.da40f4ad072ba281b177.png",
+    "static/media/AWSSoluationArchitectFull.pdf": "/static/media/AWSSoluationArchitectFull.635b10a2fcc0c1e46afb.pdf",
+    "static/media/rxswift.png": "/static/media/rxswift.d2fd3e48809c9aac66a9.png",
+    "static/media/SolidP.pdf": "/static/media/SolidP.537c43807e89b5840e26.pdf",
+    "static/media/AzureFundamentalsIcon.png": "/static/media/AzureFundamentalsIcon.2bf170778bbaf7da5655.png",
+    "static/media/kotline.png": "/static/media/kotline.97a56df1d3c661f87e91.png",
+    "static/media/contact.png": "/static/media/contact.23865a45cfb4ec91dbcf.png",
+    "static/media/psm1logo.png": "/static/media/psm1logo.265026e89e3e954dab1f.png",
+    "static/media/smartphone.png": "/static/media/smartphone.336096d7332c4adfb72f.png",
+    "index.html": "/index.html",
+    "main.010539ae.css.map": "/static/css/main.010539ae.css.map",
+    "main.7e243f30.js.map": "/static/js/main.7e243f30.js.map",
+    "453.a51f05fa.chunk.js.map": "/static/js/453.a51f05fa.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.010539ae.css",
+    "static/js/main.7e243f30.js"
+  ]
+}
