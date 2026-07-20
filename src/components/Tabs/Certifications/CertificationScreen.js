@@ -17,6 +17,9 @@ import kotlin from "../../../assets/certifications/kotline.png";
 import Android_Kotlin from "../../../assets/certifications/Android_Kotline.pdf";
 import aiBe10xPdf from "../../../assets/certifications/AI_Be10x_Certificate.pdf";
 import edgeAiPdf from "../../../assets/certifications/Edge AI_Course Certificate - Pavan Kumar Arepu.pdf";
+import googleEssentialsPdf from "../../../assets/certifications/Google Essentails Certification.pdf";
+import googleProfessionalPdf from "../../../assets/certifications/Google Professional Certification.pdf";
+import googleIcon from "../../../assets/certifications/googleIcon.png";
 
 import styled from "styled-components";
 import "./CertificationScreen.css";
@@ -43,6 +46,20 @@ const certificationCategories = [
         pdf: edgeAiPdf,
         credentials: "Edge AI Course Completion Certificate",
       },
+      {
+        id: 9,
+        name: "Google Essentials",
+        icon: googleIcon,
+        pdf: googleEssentialsPdf,
+        credentials: "Google Essentials Certification",
+      },
+      {
+        id: 10,
+        name: "Google Professional Certification",
+        icon: googleIcon,
+        pdf: googleProfessionalPdf,
+        credentials: "Google Professional Certification",
+      },
     ],
   },
   {
@@ -64,6 +81,7 @@ const certificationCategories = [
         pdf: azurePdf,
         credentials: "Microsoft Certified: Azure Fundamentals",
       },
+        
     ],
   },
   {
