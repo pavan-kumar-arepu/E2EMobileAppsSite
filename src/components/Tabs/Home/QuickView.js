@@ -30,9 +30,8 @@ const SKILLS = [
     ],
   },
   {
-    category: "AI / ML & Cloud",
+    category: "Cloud & DevOps",
     items: [
-      { name: "AI/ML (M.Tech BITS Pilani)", stars: 4 },
       { name: "AWS (SAA-C03 Certified)", stars: 4 },
       { name: "Azure / Google Cloud", stars: 3 },
       { name: "CI/CD & DevOps", stars: 4 },
@@ -49,6 +48,20 @@ const SKILLS = [
     ],
   },
 ];
+
+const AI_SECTION = {
+  title: 'AI / ML — Focus',
+  items: [
+    {
+      heading: 'M.Tech (AI/ML) — BITS Pilani (WILP)',
+      body: 'Advanced subjects: Deep Learning, Computer Vision, NLP, Probabilistic Models, and Production ML workflows.',
+    },
+    {
+      heading: 'Vani — Assistive Personal Project',
+      body: 'Core project: real-time assistive gestures, patient calibration, notifications and caregiver dashboards for non-verbal users.',
+    },
+  ],
+};
 
 const Stars = ({ count }) => (
   <span className="qv-chip-stars">
@@ -121,6 +134,19 @@ const QuickView = () => (
           <h2 className="qv-skills-heading">Skills &amp; Expertise</h2>
           <p className="qv-skills-sub">★ = proficiency level</p>
         </div>
+        {/* AI / ML focused card */}
+        <div className="qv-ai-card">
+          <h3 className="qv-ai-title">{AI_SECTION.title}</h3>
+          <div className="qv-ai-items">
+            {AI_SECTION.items.map((it) => (
+              <div key={it.heading} className="qv-ai-item">
+                <strong>{it.heading}</strong>
+                <p className="qv-ai-body">{it.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {SKILLS.map((cat) => (
           <div key={cat.category} className="qv-category">
             <p className="qv-category-title">{cat.category}</p>

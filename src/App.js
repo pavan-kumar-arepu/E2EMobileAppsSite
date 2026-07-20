@@ -10,9 +10,9 @@ import MyQuoteScreen from "./components/Tabs/MyQuotes/MyQuoteScreen";
 import CertificationScreen from "./components/Tabs/Certifications/CertificationScreen";
 import VaniCore from "./components/Tabs/VaniCore/VaniCore";
 import PilotRegistration from "./components/Tabs/VaniCore/PilotRegistration";
+import AboutMe from "./components/Tabs/AboutMe/AboutMe";
 
 import "./App.css";
-import AboutMe from "./components/Tabs/AboutMe/AboutMe";
 
 function AppInner() {
   const location = useLocation();
@@ -21,7 +21,8 @@ function AppInner() {
     <div className="App">
       {!hideHeader && <Header />}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<AboutMe tabName="AboutMe" />} />
+          <Route path="/skills" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<AboutMe tabName="AboutMe" />} />
           <Route

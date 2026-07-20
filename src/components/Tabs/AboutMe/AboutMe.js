@@ -1,5 +1,6 @@
 import React from "react";
 import "./AboutMe.css";
+import pavan from "../../../assets/contact.png";
 
 const STATS = [
   { value: "16+",  label: "Years Experience" },
@@ -70,6 +71,9 @@ const AboutMe = () => {
 
       {/* Hero banner */}
       <div className="about-banner">
+        <div className="about-avatar-ring">
+          <img src={pavan} alt="Pavan Kumar Arepu" className="about-avatar" />
+        </div>
         <div className="about-banner-text">
           <span className="about-badge">About Me</span>
           <h2>Sr Manager UI/UX (Technical Manager)</h2>
@@ -82,6 +86,25 @@ const AboutMe = () => {
             delivering measurable customer outcomes.
           </p>
         </div>
+      </div>
+
+      {/* AI & Projects (moved to top) */}
+      <div className="about-card">
+        <h3><span className="about-card-icon">🤖</span> AI & Projects</h3>
+        <ul>
+          <li className="about-li-icon">
+            <span>🎓</span>
+            <span>
+              M.Tech (AI/ML) — BITS Pilani (WILP): specialized / deep-dive focus — ML on Edge (quantized models); also Deep Learning, Computer Vision, NLP, Probabilistic Models and Production ML workflows.
+            </span>
+          </li>
+          <li className="about-li-icon">
+            <span>✦</span>
+            <span>
+              Vani — Assistive Personal Project: real-time gesture detection, patient calibration and caregiver dashboards for non-verbal users.
+            </span>
+          </li>
+        </ul>
       </div>
 
       {/* Stats row */}
@@ -138,6 +161,25 @@ const AboutMe = () => {
               <span>{u.icon}</span><span>{u.text}</span>
             </li>
           ))}
+        </ul>
+      </div>
+
+      {/* AI & Projects */}
+      <div className="about-card">
+        <h3><span className="about-card-icon">🤖</span> AI & Projects</h3>
+        <ul>
+          <li className="about-li-icon">
+            <span>🎓</span>
+            <span>
+              M.Tech (AI/ML) — BITS Pilani (WILP): subjects include Deep Learning, Computer Vision, NLP, Probabilistic Models and Production ML workflows.
+            </span>
+          </li>
+          <li className="about-li-icon">
+            <span>✦</span>
+            <span>
+              Vani — Assistive Personal Project: real-time gesture detection, patient calibration and caregiver dashboards for non-verbal users.
+            </span>
+          </li>
         </ul>
       </div>
 

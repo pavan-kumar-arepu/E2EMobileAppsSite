@@ -11,10 +11,9 @@ const Header = () => {
 
   const tabs = [
     { name: "Home", link: "/" },
-    { name: "AboutMe", link: "/about" },
+    { name: "Skills", link: "/skills" },
     { name: "Contributions", link: "/contributions" },
     { name: "Certifications", link: "/linkedin" },
-    { name: "StoreApps", link: "/apps" },
     { name: "MyQuotes", link: "/quotes" },
     { name: "VaniCore", link: "/vanicore" },
     { name: "Contact", link: "/contact" },
