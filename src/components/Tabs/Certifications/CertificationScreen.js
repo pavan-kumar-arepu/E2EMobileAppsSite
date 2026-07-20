@@ -19,7 +19,9 @@ import aiBe10xPdf from "../../../assets/certifications/AI_Be10x_Certificate.pdf"
 import edgeAiPdf from "../../../assets/certifications/Edge AI_Course Certificate - Pavan Kumar Arepu.pdf";
 import googleEssentialsPdf from "../../../assets/certifications/Google Essentails Certification.pdf";
 import googleProfessionalPdf from "../../../assets/certifications/Google Professional Certification.pdf";
-import googleIcon from "../../../assets/certifications/googleIcon.png";
+import googleIcon from "../../../assets/GoogleIcon.png";
+import BitsPrizePdf from "../../../assets/certifications/BitsPrize1.pdf";
+import bitLogoFallback from "../../../assets/contact.png";
 
 import styled from "styled-components";
 import "./CertificationScreen.css";
@@ -59,6 +61,14 @@ const certificationCategories = [
         icon: googleIcon,
         pdf: googleProfessionalPdf,
         credentials: "Google Professional Certification",
+      },
+      {
+        id: 11,
+        name: "Vani Assistive Communication System",
+        icon: bitLogoFallback, // replace with BITLogo.png when available
+        emoji: "✦",
+        pdf: BitsPrizePdf,
+        credentials: "Voice of Unheard — The idea and implementation secured 1st prize in AIML category, BITS Technical Symposium 2026",
       },
     ],
   },
