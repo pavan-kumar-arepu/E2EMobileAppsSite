@@ -79,12 +79,27 @@ const AboutMe = () => {
           <span className="about-badge">About Me</span>
           <h2>Sr Manager UI/UX (Technical Manager)</h2>
           <p>
-            Sr Manager UI/UX (Technical Manager) with a proven track record of leading
-            high-performance engineering teams and owning the delivery of scalable mobile
-            and platform solutions. Currently driving <strong>Mobile Platform Engineering
-            &amp; MobileCoE</strong> at Verizon — experienced in architectural strategy,
-            developer productivity, CI/CD automation, and growing inclusive teams while
-            delivering measurable customer outcomes.
+            Senior Engineering Manager with 16+ years of experience leading global
+            engineering teams across platform engineering, enterprise architecture, and
+            enterprise-scale mobile solutions. Proven track record of building
+            high-performing teams, delivering scalable platforms, and driving
+            engineering excellence across Android, iOS, cloud, and DevOps ecosystems.
+          </p>
+          <p>
+            Passionate about accelerating software delivery through AI-driven
+            engineering practices, leveraging Generative AI, Large Language Models
+            (LLMs), intelligent automation, and AI-assisted development workflows to
+            improve developer productivity and product quality. Experienced in defining
+            technical strategy, modernizing engineering processes, and delivering
+            secure, scalable, and customer-centric solutions.
+          </p>
+          <p>
+            Skilled in collaborating with cross-functional stakeholders, mentoring
+            engineers, and aligning technology investments with business outcomes.
+            Currently expanding expertise in AI systems, cloud-native architectures,
+            RAG, AI agents, Model Context Protocol (MCP), vector databases, AI
+            observability, and MLOps to build the next generation of intelligent
+            software platforms.
           </p>
         </div>
       </div>
@@ -165,24 +180,7 @@ const AboutMe = () => {
         </ul>
       </div>
 
-      {/* AI & Projects */}
-      <div className="about-card">
-        <h3><span className="about-card-icon">🤖</span> AI & Projects</h3>
-        <ul>
-          <li className="about-li-icon">
-            <span>🎓</span>
-            <span>
-              M.Tech (AI/ML) — BITS Pilani (WILP): subjects include Deep Learning, Computer Vision, NLP, Probabilistic Models and Production ML workflows.
-            </span>
-          </li>
-          <li className="about-li-icon">
-            <span>✦</span>
-            <span>
-              Vani — Assistive Personal Project: real-time gesture detection, patient calibration and caregiver dashboards for non-verbal users.
-            </span>
-          </li>
-        </ul>
-      </div>
+      {/* duplicate AI & Projects removed (kept the top section) */}
 
       {/* Education */}
       <div className="about-card">
