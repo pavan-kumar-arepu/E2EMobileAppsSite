@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" aria-label="Google G">
+  <rect width="200" height="200" rx="20" fill="none" />
+  <g transform="translate(100,100) scale(0.9)">
+    <!-- Blue arc -->
+    <path d="M56 -8 A72 72 0 0 0 0 -72" fill="none" stroke="#4285F4" stroke-width="20" stroke-linecap="round"/>
+    <!-- Red arc -->
+    <path d="M0 -72 A72 72 0 0 0 -62 -30" fill="none" stroke="#EA4335" stroke-width="20" stroke-linecap="round"/>
+    <!-- Yellow arc -->
+    <path d="M-62 -30 A72 72 0 0 0 -20 62" fill="none" stroke="#FBBC05" stroke-width="20" stroke-linecap="round"/>
+    <!-- Green arc -->
+    <path d="M-20 62 A72 72 0 0 0 60 8" fill="none" stroke="#34A853" stroke-width="20" stroke-linecap="round"/>
+    <!-- Inner cut to form 'G' gap -->
+    <path d="M28 -4 L56 -4" stroke="#4285F4" stroke-width="18" stroke-linecap="round"/>
+  </g>
+</svg>
