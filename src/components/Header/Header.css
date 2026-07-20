@@ -20,7 +20,7 @@
 }
 .header-left h1 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text, #0b1220);
 }
@@ -38,6 +38,9 @@
   justify-content: center;
   position: relative;
 }
+
+.header-left { display:flex; align-items:center; gap:12px; }
+.header-left h1 { margin-right: 6px; }
 
 .nav {
   list-style: none;
@@ -79,7 +82,7 @@
 .nav li a,
 .nav li span {
   display: block;
-  padding: 8px 14px;
+  padding: 8px 12px;
   border-radius: 8px;
   font-size: .9rem;
   font-weight: 600;
@@ -94,11 +97,18 @@
 .nav li span:hover {
   color: var(--text, #0b1220);
   background: rgba(11,18,32,0.03);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(12,20,40,0.04);
 }
 .nav li.active a,
 .nav li.active span {
   color: var(--text, #0b1220);
   background: rgba(0,122,255,0.06);
+}
+
+/* reduce capsule height on small screens */
+@media (max-width: 600px) {
+  .nav .capsule { bottom: 4px; height: 2px; }
 }
 
 /* Hamburger / menu toggle button */
