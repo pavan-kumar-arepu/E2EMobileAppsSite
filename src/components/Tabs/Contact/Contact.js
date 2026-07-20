@@ -10,6 +10,12 @@ const CONTACT_ROWS = [
     value: "pavan-kumar-arepu",
   },
   {
+    icon: "📝",
+    label: "LinkedIn Articles",
+    href: "https://www.linkedin.com/in/pavan-kumar-arepu-software-architect-engineer/recent-activity/all/",
+    value: "Recent activity & articles",
+  },
+  {
     icon: "🐙",
     label: "GitHub",
     href: "https://github.com/pavan-kumar-arepu",

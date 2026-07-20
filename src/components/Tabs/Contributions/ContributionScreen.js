@@ -224,7 +224,10 @@ const Contributions = () => {
 
         {selectedTab === "Articles" && (
           <>
-            {/* <SectionTitle>LinkedIn Articles</SectionTitle> */}
+              {/* <SectionTitle>LinkedIn Articles</SectionTitle> */}
+              <div style={{ marginBottom: 12, textAlign: 'center' }}>
+                <a href="https://www.linkedin.com/in/pavan-kumar-arepu-software-architect-engineer/recent-activity/all/" target="_blank" rel="noreferrer">View all LinkedIn activity & articles</a>
+              </div>
             <ArticleSection>
               {articles.map((article, index) => (
                 <CardItem key={index} {...article} isArticle />
