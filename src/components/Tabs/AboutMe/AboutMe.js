@@ -117,7 +117,15 @@ const AboutMe = () => {
           <li className="about-li-icon">
             <span>✦</span>
             <span>
+              <span className="vc-tag vc-tag-pilot">Pilot</span>
               Vani — Assistive Personal Project: real-time gesture detection, patient calibration and caregiver dashboards for non-verbal users.
+            </span>
+          </li>
+          <li className="about-li-icon">
+            <span>🔬</span>
+            <span>
+              <span className="vc-tag vc-tag-progress">InProgrss</span>
+              FreightBridge — Edge AI for cold-chain monitoring: compact, low-power anomaly detection on trucks to minimise latency and operate within a 10W power budget despite intermittent connectivity.
             </span>
           </li>
         </ul>
