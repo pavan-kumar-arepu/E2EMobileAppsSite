@@ -265,6 +265,11 @@
   border: 1px solid rgba(251, 191, 36, .4);
   color: #fde68a;
 }
+.vc-tag-completed {
+  background: rgba(99, 102, 241, .12);
+  border: 1px solid rgba(99, 102, 241, .2);
+  color: rgba(99,102,241,1);
+}
 /* ── Hero Carousel ───────────────────────────────────────────────────────── */
 /* ── Hero Peek Carousel ──────────────────────────────────────────────────── */
 .vc-carousel {

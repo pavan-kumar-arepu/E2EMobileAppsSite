@@ -71,7 +71,7 @@
 /* Sliding active indicator */
 .nav .capsule {
   position: absolute;
-  bottom: 6px;
+  bottom: 2px; /* lower the underline to increase gap from text */
   height: 3px;
   background: linear-gradient(90deg, rgba(0,122,255,0.9), rgba(94,108,255,0.9));
   border-radius: 4px;
@@ -108,7 +108,7 @@
 
 /* reduce capsule height on small screens */
 @media (max-width: 600px) {
-  .nav .capsule { bottom: 4px; height: 2px; }
+  .nav .capsule { bottom: 2px; height: 2px; }
 }
 
 /* Hamburger / menu toggle button */

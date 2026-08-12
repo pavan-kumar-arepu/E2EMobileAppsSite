@@ -34,12 +34,6 @@ const CONTACT_ROWS = [
     value: "+91 8121 040 308",
   },
   {
-    icon: "✍️",
-    label: "Blog",
-    href: "https://iosapps.blogspot.com",
-    value: "iOS Apps Blog",
-  },
-  {
     icon: "📍",
     label: "Based In",
     href: null,
@@ -59,7 +53,7 @@ const Contact = () => (
         <div className="contact-banner-text">
           <h2>Pavan Kumar Arepu</h2>
           <p>Sr Manager UI/UX · Technical Manager · Verizon</p>
-          <span className="contact-availability">🟢 Open to global opportunities</span>
+          <span className="contact-availability">🟢 Open to contribute to global and humanitarian projects</span>
         </div>
       </div>
 

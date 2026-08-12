@@ -108,6 +108,13 @@
   margin-top: 2px;
 }
 
+/* Small muted description for repo/readme links */
+.about-repo-desc {
+  color: var(--muted, #6b7280);
+  font-size: .88rem;
+  margin-top: 6px;
+}
+
 /* Stat strip */
 .about-stats {
   display: grid;

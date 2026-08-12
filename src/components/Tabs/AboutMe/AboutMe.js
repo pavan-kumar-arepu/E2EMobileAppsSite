@@ -40,7 +40,7 @@ const EXPERIENCE = [
 
 const ACHIEVEMENTS = [
   { icon: "🏅", text: "Spotlight Award — For driving cross-org mobile platform unification and delivery excellence at Verizon." },
-  { icon: "🥇", text: "Vani Assistive Communication System — 'Voice of Unheard' — 1st Prize (AI/ML), BITS Technical Symposium 2026." },
+  { icon: "", text: "Vani Assistive Communication System — 'Voice of Unheard' — 1st Prize (AI/ML), BITS Technical Symposium 2026." },
   { icon: "🤝", text: "Experience Principle Award (Human) — For leadership, mentoring, and building an inclusive team culture." },
   { icon: "🏆", text: "Best Team Award — TCS Internal 2021 for a successful iOS project." },
   { icon: "🧠", text: "Context Master — TCS Internal 2020/2023 for process improvement." },
@@ -104,31 +104,98 @@ const AboutMe = () => {
         </div>
       </div>
 
-      {/* AI & Projects (moved to top) */}
+      {/* AI & Projects (top) — split into Personal and BITS M.Tech sections; Personal shown first per request */}
       <div className="about-card">
-        <h3><span className="about-card-icon">🤖</span> AI & Projects</h3>
-        <ul>
-          <li className="about-li-icon">
-            <span>🎓</span>
-            <span>
-              M.Tech (AI/ML) — BITS Pilani (WILP): specialized / deep-dive focus — ML on Edge (quantized models); also Deep Learning, Computer Vision, NLP, Probabilistic Models and Production ML workflows.
-            </span>
-          </li>
-          <li className="about-li-icon">
-            <span>✦</span>
-            <span>
-              <span className="vc-tag vc-tag-pilot">Pilot</span>
-              Vani — Assistive Personal Project: real-time gesture detection, patient calibration and caregiver dashboards for non-verbal users.
-            </span>
-          </li>
-          <li className="about-li-icon">
-            <span>🔬</span>
-            <span>
-              <span className="vc-tag vc-tag-progress">InProgrss</span>
-              FreightBridge — Edge AI for cold-chain monitoring: compact, low-power anomaly detection on trucks to minimise latency and operate within a 10W power budget despite intermittent connectivity.
-            </span>
-          </li>
-        </ul>
+        <h3><span className="about-card-icon"></span> AI & Projects</h3>
+
+        <div style={{ marginBottom: 12 }}>
+          <strong>Personal Projects</strong>
+          <p style={{ margin: '6px 0 8px' }}>
+            Motivated to build assistive and practical AI systems that improve accessibility and real-world workflows.
+          </p>
+          <ul>
+            <li className="about-li-icon">
+              <span>✦</span>
+              <span>
+                <span className="vc-tag vc-tag-pilot">Pilot</span>
+                Vani — Assistive Personal Project: real-time gesture detection, patient calibration and caregiver dashboards for non-verbal users. <a href="http://pavanapps.netlify.app/vanicore" target="_blank" rel="noreferrer">VaniCore Pilot Portal</a>
+              </span>
+            </li>
+            <li className="about-li-icon">
+              <span>✦</span>
+              <span>
+                <strong><a href="https://github.com/pavan-kumar-arepu/CV_ImageComparions" target="_blank" rel="noreferrer">Image Discrepancy Detector (POC)</a></strong>
+                <div className="about-repo-desc">SSIM-based pixel-level comparison POC using OpenCV and Colab/Jupyter notebooks, with demo video and execution steps.</div>
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <strong>BITS M.Tech AI/ML</strong>
+          <p style={{ margin: '6px 0 8px' }}>
+            M.Tech (AI/ML) — BITS Pilani (WILP): specialized / deep-dive focus — ML on Edge (quantized models); also Deep Learning, Computer Vision, NLP, Probabilistic Models and Production ML workflows.
+          </p>
+          <ul>
+            <li className="about-li-icon">
+              <span>🎓</span>
+              <span>
+                <span className="vc-tag vc-tag-completed">Completed</span>
+                <strong><a href="https://github.com/pavan-kumar-arepu/SpeechProcessing" target="_blank" rel="noreferrer">HMM-DNN Based Automatic Speech Recognition</a></strong>
+                <div className="about-repo-desc">Hybrid HMM-DNN ASR pipeline with notebooks demonstrating feature extraction, LSTM acoustic modeling, and Viterbi decoding.</div>
+              </span>
+            </li>
+            <li className="about-li-icon">
+              <span>🎓</span>
+              <span>
+                <span className="vc-tag vc-tag-completed">Completed</span>
+                <strong><a href="https://github.com/pavan-kumar-arepu/ConAI-NaturalLanguageGenerator" target="_blank" rel="noreferrer">NLG — Natural Language Generator</a></strong>
+                <div className="about-repo-desc">Sequence-to-text generation assignment: notebooks, dataset exports, and architecture diagrams.</div>
+              </span>
+            </li>
+            <li className="about-li-icon">
+              <span>🎓</span>
+              <span>
+                <span className="vc-tag vc-tag-completed">Completed</span>
+                <strong><a href="https://github.com/pavan-kumar-arepu/Parameter-Efficient-Fine-Tuning" target="_blank" rel="noreferrer">Parameter-Efficient Fine-Tuning</a></strong>
+                <div className="about-repo-desc">LoRA adapter pipeline for banking instruction data with scripts, diagrams, and example checkpoints.</div>
+              </span>
+            </li>
+            {/* CV_ImageComparions moved to Personal Projects per request */}
+            <li className="about-li-icon">
+              <span>🎓</span>
+              <span>
+                <span className="vc-tag vc-tag-completed">Completed</span>
+                <strong><a href="https://github.com/pavan-kumar-arepu/MLSO_Assignment2_Group35" target="_blank" rel="noreferrer">ML System Optimization — Assignment 2 (Group 35)</a></strong>
+                <div className="about-repo-desc">ML system optimization assignment notebooks and code artifacts (group submission).</div>
+              </span>
+            </li>
+            <li className="about-li-icon">
+              <span>🎓</span>
+              <span>
+                <span className="vc-tag vc-tag-completed">Completed</span>
+                <strong><a href="https://github.com/pavan-kumar-arepu/LLM-Domain-Adaptation-QLoRA" target="_blank" rel="noreferrer">LLM Domain Adaptation — QLoRA</a></strong>
+                <div className="about-repo-desc">Pipeline for adapting domain PDFs to a fine-tuned, quantized domain LLM for benchmarking and serving.</div>
+              </span>
+            </li>
+            <li className="about-li-icon">
+              <span>🎓</span>
+              <span>
+                <span className="vc-tag vc-tag-completed">Completed</span>
+                <strong>FreightBridge — Edge AI</strong>
+                <div className="about-repo-desc">Edge AI for cold-chain monitoring (project completed as part of BITS coursework).</div>
+              </span>
+            </li>
+            <li className="about-li-icon">
+              <span>🎓</span>
+              <span>
+                <span className="vc-tag vc-tag-completed">Completed</span>
+                <strong><a href="https://github.com/pavan-kumar-arepu/RAG" target="_blank" rel="noreferrer">LLM RAG Assignment — Project Overview</a></strong>
+                <div className="about-repo-desc">Retrieval-Augmented Generation pipeline for document-level QA: indexing, retrieval, reranking, and evaluation (branch: assignment-2b).</div>
+              </span>
+            </li>
+          </ul>
+        </div>
       </div>
 
       {/* Stats row */}

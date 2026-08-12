@@ -203,6 +203,9 @@
 .qv-awards ul { margin: 0; padding: 0; list-style: none; }
 .qv-awards li { font-size: .92rem; color: var(--muted); margin-bottom: 6px; }
 
+/* AI Projects block on Home */
+/* AI Projects removed from Skills quick view (moved to AboutMe/Home) */
+
 /* ── Mobile Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .qv-inner { grid-template-columns: 1fr; }
@@ -215,3 +218,15 @@
   .qv-avatar { width: 140px; height: 140px; }
   .qv-stats-row { grid-template-columns: 1fr 1fr; }
 }
+
+  /* AI Skills card */
+  .qv-ai-skills { background: var(--surface); border: 1px solid var(--border); padding: 12px; border-radius: 10px; }
+  .qv-ai-skills-heading { margin: 0 0 8px; font-weight: 800; }
+  .qv-ai-skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .qv-ai-skills-cat-title { font-weight: 700; margin-bottom: 6px; color: var(--text); }
+  .qv-ai-skills-cat ul { margin: 0; padding: 0; list-style: none; }
+  .qv-ai-skills-cat li { font-size: .88rem; color: var(--muted); margin-bottom: 6px; }
+
+  @media (max-width: 900px) {
+    .qv-ai-skills-grid { grid-template-columns: 1fr; }
+  }

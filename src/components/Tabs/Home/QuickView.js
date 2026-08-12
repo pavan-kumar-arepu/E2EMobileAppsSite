@@ -63,6 +63,49 @@ const AI_SECTION = {
   ],
 };
 
+// AI projects have been moved to the Home/About page; keep Skills focused on skill lists.
+
+const AI_SKILLS = [
+  {
+    title: 'Artificial Intelligence',
+    items: [
+      'Generative AI',
+      'Large Language Models (LLMs)',
+      'Multimodal AI',
+      'AI Agents',
+      'Agentic AI Systems',
+      'Edge AI',
+      'AI System Design',
+      'AI Platform Engineering',
+      'AI Solution Architecture',
+    ],
+  },
+  {
+    title: 'LLM & Generative AI',
+    items: [
+      'Prompt Engineering',
+      'Retrieval-Augmented Generation (RAG)',
+      'LLM Fine-Tuning',
+      'PEFT / LoRA / QLoRA',
+      'LLM Evaluation',
+      'Context Engineering',
+      'Embedding Models',
+      'Vector Search',
+      'Knowledge-Augmented AI',
+    ],
+  },
+  {
+    title: 'Computer Vision',
+    items: [
+      'Object Detection',
+      'Image Classification',
+      'Face & Gesture Recognition',
+      'Eye Tracking Systems',
+      'MediaPipe / ML Kit / OpenCV',
+    ],
+  },
+];
+
 const Stars = ({ count }) => (
   <span className="qv-chip-stars">
     {"★".repeat(count)}{"☆".repeat(5 - count)}
@@ -147,12 +190,31 @@ const QuickView = () => (
           </div>
         </div>
 
+        {/* AI Projects were moved to AboutMe (Home) per request. */}
+
         {/* Awards */}
         <div className="qv-awards">
           <h3 className="qv-awards-title">Awards & Achievements</h3>
           <ul>
-            <li>🥇 Vani Assistive Communication System — "Voice of Unheard" — 1st Prize (AI/ML), BITS Technical Symposium 2026</li>
+            <li>Vani Assistive Communication System — "Voice of Unheard" — 1st Prize (AI/ML), BITS Technical Symposium 2026</li>
           </ul>
+        </div>
+
+        {/* AI Skills — concise categorized listing */}
+        <div className="qv-ai-skills">
+          <h3 className="qv-ai-skills-heading">Artificial Intelligence</h3>
+          <div className="qv-ai-skills-grid">
+            {AI_SKILLS.map((cat) => (
+              <div key={cat.title} className="qv-ai-skills-cat">
+                <div className="qv-ai-skills-cat-title">{cat.title}</div>
+                <ul>
+                  {cat.items.map((it) => (
+                    <li key={it} className="qv-li-icon">▸ {it}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {SKILLS.map((cat) => (
