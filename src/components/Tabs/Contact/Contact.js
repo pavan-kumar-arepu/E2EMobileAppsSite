@@ -37,7 +37,7 @@ const CONTACT_ROWS = [
     icon: "📍",
     label: "Based In",
     href: null,
-    value: "Hyderabad, India · Open to global opportunities",
+    value: "Hyderabad, India · Open to contribute to global humanitarian projects",
   },
 ];
 
