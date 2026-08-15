@@ -120,6 +120,8 @@
   gap: 8px;
   transition: transform .12s ease, box-shadow .12s ease;
 }
+
+.qv-social-icon { width: 18px; height: 18px; object-fit: contain; display: inline-block; }
 .qv-btn:hover { transform: translateY(-2px); }
 .qv-btn-primary { background: linear-gradient(90deg, var(--primary), var(--accent)); color: #fff; box-shadow: 0 8px 18px rgba(94,108,255,0.12); }
 .qv-btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text); }

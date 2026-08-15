@@ -1,6 +1,8 @@
 import React from "react";
 import "./QuickView.css";
 import pavan from "../../../assets/contact.png";
+import githubLogo from "../../../assets/githublogo.png";
+import linkedinLogo from "../../../assets/link-inLogo.png";
 
 const SKILLS = [
   {
@@ -32,9 +34,16 @@ const SKILLS = [
   {
     category: "Cloud & DevOps",
     items: [
-      { name: "AWS (SAA-C03 Certified)", stars: 4 },
-      { name: "Azure / Google Cloud", stars: 3 },
-      { name: "CI/CD & DevOps", stars: 4 },
+      { name: "Firebase", stars: 4 },
+      { name: "Xcode Cloud", stars: 3 },
+      { name: "Bitrise", stars: 4 },
+      { name: "Jenkins", stars: 4 },
+      { name: "GitHub Actions", stars: 4 },
+      { name: "AWS", stars: 4 },
+      { name: "Microsoft Azure", stars: 3 },
+      { name: "Google Cloud Platform (GCP)", stars: 3 },
+      { name: "Docker", stars: 4 },
+      { name: "Kubernetes", stars: 3 },
     ],
   },
   {
@@ -48,6 +57,16 @@ const SKILLS = [
     ],
   },
 ];
+
+// Platform & SDLC skills
+SKILLS.push({
+  category: "Platform & SDLC",
+  items: [
+    { name: "Mobile Platform Engineering", stars: 5 },
+    { name: "Software Development Lifecycle", stars: 5 },
+    { name: "System Design (HLD & LLD)", stars: 5 },
+  ],
+});
 
 const AI_SECTION = {
   title: 'AI / ML — Focus',
@@ -68,6 +87,7 @@ const AI_SECTION = {
 const AI_SKILLS = [
   {
     title: 'Artificial Intelligence',
+    stars: 4,
     items: [
       'Generative AI',
       'Large Language Models (LLMs)',
@@ -82,6 +102,7 @@ const AI_SKILLS = [
   },
   {
     title: 'LLM & Generative AI',
+    stars: 4,
     items: [
       'Prompt Engineering',
       'Retrieval-Augmented Generation (RAG)',
@@ -96,12 +117,37 @@ const AI_SKILLS = [
   },
   {
     title: 'Computer Vision',
+    stars: 4,
     items: [
       'Object Detection',
       'Image Classification',
       'Face & Gesture Recognition',
       'Eye Tracking Systems',
       'MediaPipe / ML Kit / OpenCV',
+    ],
+  },
+  {
+    title: 'AI — Data & Decisioning',
+    stars: 4,
+    items: [
+      'Predictive Analytics',
+      'Forecasting',
+      'Data Modeling',
+      'Data Quality',
+      'Data Governance',
+      'Decision Intelligence',
+    ],
+  },
+  {
+    title: 'AI Product Strategy',
+    stars: 5,
+    items: [
+      'AI Roadmaps',
+      'AI Adoption & Enablement',
+      'Product Strategy',
+      'Prioritization',
+      'Business Outcomes',
+      'AI Governance',
     ],
   },
 ];
@@ -158,7 +204,8 @@ const QuickView = () => (
             rel="noreferrer"
             className="qv-btn qv-btn-primary"
           >
-            💼 LinkedIn
+            <img src={linkedinLogo} alt="LinkedIn" className="qv-social-icon" />
+            LinkedIn
           </a>
           <a
             href="https://github.com/pavan-kumar-arepu"
@@ -166,7 +213,8 @@ const QuickView = () => (
             rel="noreferrer"
             className="qv-btn qv-btn-ghost"
           >
-            🐙 GitHub
+            <img src={githubLogo} alt="GitHub" className="qv-social-icon" />
+            GitHub
           </a>
         </div>
       </aside>
@@ -206,7 +254,7 @@ const QuickView = () => (
           <div className="qv-ai-skills-grid">
             {AI_SKILLS.map((cat) => (
               <div key={cat.title} className="qv-ai-skills-cat">
-                <div className="qv-ai-skills-cat-title">{cat.title}</div>
+                <div className="qv-ai-skills-cat-title">{cat.title} {cat.stars ? <Stars count={cat.stars} /> : null}</div>
                 <ul>
                   {cat.items.map((it) => (
                     <li key={it} className="qv-li-icon">▸ {it}</li>
